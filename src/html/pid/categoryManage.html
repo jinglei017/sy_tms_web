@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>品类管理-OMS品类管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <!-- header start-->
+        <div class="adsLeft">
+
+        </div>
+        <!-- header end-->
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header">
+
+            </div>
+            <div class="adsRight">
+                <!-- 顶部操作、搜索条件、列表   start -->
+                <div class="activityDshBoard template" id="activityDshBoard">
+                    <div class="adsRightCon">
+                        <div class="adsRightConMain">
+                            <ul class="textBoxTitle">
+                                <!--<li>
+                                    <input type="text" v-model="queryParam.pdCatId" placeholder="品类id" />
+                                </li>-->
+                                <li>
+                                    <input type="text" v-model="queryParam.catCode" placeholder="品类代码" />
+                                </li>
+                                <li>
+                                    <input type="text" v-model="queryParam.catLabel" placeholder="品类标签" />
+                                </li>
+								<li style="width: 80px;">
+									<input type="text" v-model="queryPageSize" placeholder="12条/页" />
+								</li>
+                                <li class="searchBtn" >
+                                    <span class="butOperatePermission" buttoncode="QUERY" v-on:click="getSearchVal()">查询</span>
+                                </li>
+                            </ul>
+                            <div class="reportMessages">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <!--<th>
+                                            <div class="selectAll select yes">
+                                                <input type="hidden" />
+                                            </div>
+                                        </th>-->
+                                        <th>序号</th>
+                                        <!--<th>品类id</th>-->
+                                        <th>品类代码</th>
+                                        <th>品类标签</th>
+                                        <th>品类描述</th>
+                                        <!--<th>父级id</th>-->
+                                        <th>父级代码</th>
+                                        <th>父级标签</th>
+                                        <th>父级描述</th>
+                                        <th>是否根类目</th>
+                                        <th>是否末级类目</th>
+                                        <th>操作</th>
+                                        <th>更新时间</th>
+                                        <th>创建时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(tableOrderItem,index) in tableOrderList" orderid="'+orderListData[i].omOrderId+'" class="see">
+                                        <!--<td>
+                                            <div class="select yes">
+                                                <input type="hidden" />
+                                            </div>
+                                        </td>-->
+                                        <td v-if="currentPage == 1">
+                                            <p>{{index+1}}</p>
+                                        </td>
+                                        <td v-if="currentPage != 1">
+                                            <p>{{(index+1)+((currentPage-1)*multipleNum)}}</p>
+                                        </td>
+                                        <!--<td>
+                                            <p>{{tableOrderItem.pdCatId}}</p>
+                                        </td>-->
+                                        <td>
+                                            <p>{{tableOrderItem.catCode}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{tableOrderItem.catLabel}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{tableOrderItem.catDesc}}</p>
+                                        </td>
+                                        <!--<td>
+                                            <p>{{tableOrderItem.parentCatId}}</p>
+                                        </td>-->
+                                        <td>
+                                            <p>{{tableOrderItem.parentCatCode}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{tableOrderItem.parentCatLabel}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{tableOrderItem.parentCatDesc}}</p>
+                                        </td>
+                                        <td>
+                                            <p v-if="tableOrderItem.isRootCat == '1'">是</p>
+                                            <p v-if="tableOrderItem.isRootCat == '0'">否</p>
+                                        </td>
+                                        <td>
+                                            <p v-if="tableOrderItem.isLeafCat == '1'">是</p>
+                                            <p v-if="tableOrderItem.isLeafCat == '0'">否</p>
+                                        </td>
+                                        <td>
+                                            <span class="btn btn-details visible butOperatePermission" buttonCode="DETAIL" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('品类详情',tableOrderItem)">详情</span>
+                                            <span class="btn btn-edit visible butOperatePermission" buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeOrderDetails('品类信息修改',tableOrderItem)">修改</span>
+                                            <span class="btn btn-logistics visible butOperatePermission" buttonCode="DELETE" btn="logisticsInfoBtn" v-on:click="deleteOrderDetails(tableOrderItem)">删除</span>
+                                        </td>
+                                        <td>{{tableOrderItem.updateTime | timestampToTime}}</td>
+                                        <td><p>{{tableOrderItem.createTime | timestampToTime}}</p></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageList.length}}页/{{totalList.length}}条</p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="pageList.length != 0 && currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 顶部操作、搜索条件、列表   end -->
+
+                <!--  新增、详情、修改   start -->
+                <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                    <div class="adsRightCon">
+                        <div class="adsRightConList">
+                            <div class="adsRightConMatter">
+
+                                <div class="deliveryPointInf contactInf">
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle">品类基本信息</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>是否根类目</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="itemSingle.isRootCat" v-on:change="changeIsRootCat(itemSingle.isRootCat)" name="">
+                                                        <option value="3">请选择</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li class="chooseLi" v-if="showSelectParentCat == '1' && clickBtnType != 'detail'" v-on:click="selectCatModel()">
+                                                <span class="packageGoodsBtn">选择父级品类</span>
+                                            </li>
+
+                                            <li v-if="showSelectParentCat == '0' && clickBtnType != 'add'">
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>品类id</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable || clickBtnType == 'edit'" type="text" v-model="itemSingle.pdCatId" placeholder="品类id" />
+                                                </p>
+                                                <span class="chooseIsDefault" style="width: 100px;" v-if="clickBtnType == 'edit'">不可修改</span>
+                                            </li>
+                                            <li v-if="showSelectParentCat == '0'">
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>品类代码</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable || clickBtnType == 'edit'" type="text" v-model="itemSingle.catCode" placeholder="品类代码" />
+                                                </p>
+                                                <span class="chooseIsDefault" style="width: 100px;" v-if="clickBtnType == 'edit'">不可修改</span>
+                                            </li>
+                                            <li v-if="showSelectParentCat == '0'">
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>品类标签</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="itemSingle.catLabel" placeholder="品类标签" />
+                                                </p>
+                                            </li>
+                                            <li v-if="showSelectParentCat == '0'">
+                                                <span class="txt">品类描述</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="itemSingle.catDesc" placeholder="品类描述" />
+                                                </p>
+                                            </li>
+                                            <li v-if="showSelectParentCat == '0'">
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>是否末级类目</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="itemSingle.isLeafCat" name="">
+                                                        <option value="">请选择</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="adsRightConItem" v-if="clickBtnType == 'detail'">
+                                        <p class="adsRightConTitle">品类父级信息</p>
+                                        <div class="reportMessages" style="padding-top: 25px;">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <!--<th>品类id</th>-->
+                                                    <th>品类代码</th>
+                                                    <th>品类标签</th>
+                                                    <th>品类描述</th>
+                                                    <th>父级id</th>
+                                                    <th>根类目</th>
+                                                    <th>末级类目</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="rootCats in rootCatsList">
+                                                    <!--<td>
+                                                        <p>{{rootCats.pdCatId}}</p>
+                                                    </td>-->
+                                                    <td>
+                                                        <p>{{rootCats.catCode}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{rootCats.catLabel}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{rootCats.catDesc}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{rootCats.parentCatId}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p v-if="rootCats.isRootCat == '1'">是</p>
+                                                        <p v-if="rootCats.isRootCat == '0'">否</p>
+                                                    </td>
+                                                    <td>
+                                                        <p v-if="rootCats.isLeafCat == '1'">是</p>
+                                                        <p v-if="rootCats.isLeafCat == '0'">否</p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="adsRightConItem" v-if="clickBtnType == 'detail'">
+                                        <p class="adsRightConTitle">品类同级信息</p>
+                                        <div class="reportMessages" style="padding-top: 25px;">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <!--<th>品类id</th>-->
+                                                    <th>品类代码</th>
+                                                    <th>品类标签</th>
+                                                    <th>品类描述</th>
+                                                    <th>父级id</th>
+                                                    <th>根类目</th>
+                                                    <th>末级类目</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="equallyCats in equallyCatsList">
+                                                    <!--<td>
+                                                        <p>{{equallyCats.pdCatId}}</p>
+                                                    </td>-->
+                                                    <td>
+                                                        <p>{{equallyCats.catCode}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{equallyCats.catLabel}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{equallyCats.catDesc}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{equallyCats.parentCatId}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p v-if="equallyCats.isRootCat == '1'">是</p>
+                                                        <p v-if="equallyCats.isRootCat == '0'">否</p>
+                                                    </td>
+                                                    <td>
+                                                        <p v-if="equallyCats.isLeafCat == '1'">是</p>
+                                                        <p v-if="equallyCats.isLeafCat == '0'">否</p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="adsRightConItem" v-if="clickBtnType == 'detail'">
+                                        <p class="adsRightConTitle">品类下级信息</p>
+                                        <div class="reportMessages" style="padding-top: 25px;">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <!--<th>品类id</th>-->
+                                                    <th>品类代码</th>
+                                                    <th>品类标签</th>
+                                                    <th>品类描述</th>
+                                                    <th>父级id</th>
+                                                    <th>根类目</th>
+                                                    <th>末级类目</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr v-for="leafCats in leafCatsList">
+                                                    <!--<td>
+                                                        <p>{{leafCats.pdCatId}}</p>
+                                                    </td>-->
+                                                    <td>
+                                                        <p>{{leafCats.catCode}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{leafCats.catLabel}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{leafCats.catDesc}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{leafCats.parentCatId}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p v-if="leafCats.isRootCat == '1'">是</p>
+                                                        <p v-if="leafCats.isRootCat == '0'">否</p>
+                                                    </td>
+                                                    <td>
+                                                        <p v-if="leafCats.isLeafCat == '1'">是</p>
+                                                        <p v-if="leafCats.isLeafCat == '0'">否</p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="addNewOrderBot addNewContactBot">
+                                    <div class="searchBtn" v-if="clickBtnType == 'add' && showSelectParentCat == '0'">
+                                        <span v-on:click="saveNewOrderInfo()">保存</span>
+                                    </div>
+                                    <div class="searchBtn" v-if="clickBtnType == 'edit' && showSelectParentCat == '0'">
+                                        <span v-on:click="editOrderInfo()">保存</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  新增、详情、修改  end-->
+            </div>
+        </div>
+        <!-- adsContent end-->
+    </div>
+    <div class="maskLayer" id="someSelectModel">
+        <div class="popup" id="popup">
+            <div class="popupCon">
+                <h3 class="popupTitle">
+                    <span>品类级别</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="popupDpListDiv">
+                        <li class="smallLis1">
+                            <input type="checkbox" class="checkInp1" v-bind:value="queryParamPdCat.isRootCat" v-on:change="changeQueryIsRootCat($event)"/>
+                        </li>
+                        <li class="smallLis2">
+                            <span>根类目</span>
+                        </li>
+                        <li class="smallLis1">
+                            <input type="checkbox" class="checkInp2" v-bind:value="queryParamPdCat.isLeafCat" v-on:change="changeQueryIsLeafCat($event)"/>
+                        </li>
+                        <li class="smallLis2">
+                            <span>末级类目</span>
+                        </li>
+                        <!--<li>
+                            <input type="text" v-model="queryParamPdCat.pdCatId" placeholder="品类id" />
+                        </li>-->
+                        <!--<li>
+                            <input type="text" v-model="queryParamPdCat.catCode" placeholder="品类代码" />
+                        </li>-->
+                        <li>
+                            <input type="text" v-model="queryParamPdCat.catLabel" placeholder="品类标签" />
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParamPdCat.parentCatId" placeholder="父级品类id" />
+                        </li>
+                        <li class="searchBtn1" v-on:click="getSearchPdCatVal()">
+                            <span>查询</span>
+                        </li>
+                    </ul>
+                    <ul class="popupDpListUl">
+                        <li v-show="selectCatModelShowIndex == '0' || selectCatModelShowIndex == '1' || selectCatModelShowIndex == '2' || selectCatModelShowIndex == '3' || selectCatModelShowIndex == '4'">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <!--<th>id</th>-->
+                                    <!--<th>代码</th>-->
+                                    <th>标签</th>
+                                    <!--<th>父级id</th>-->
+                                    <th>根类目</th>
+                                    <th>末级类目</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item,index) in pdCatLists1" v-bind:class="{active:index == activeIndex1}" v-on:click="selectOneCatFun(item,index,'1')">
+                                    <!--<td>
+                                        <p>{{item.pdCatId}}</p>
+                                    </td>-->
+                                    <!--<td>
+                                        <p>{{item.catCode}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p>{{item.catLabel}}</p>
+                                    </td>
+                                    <!--<td>
+                                        <p>{{item.parentCatId}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p v-if="item.isRootCat == '1'">是</p>
+                                        <p v-if="item.isRootCat == '0'">否</p>
+                                    </td>
+                                    <td>
+                                        <p v-if="item.isLeafCat == '1'">是</p>
+                                        <p v-if="item.isLeafCat == '0'">否</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li v-show="selectCatModelShowIndex == '1' || selectCatModelShowIndex == '2' || selectCatModelShowIndex == '3' || selectCatModelShowIndex == '4'">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <!--<th>id</th>-->
+                                    <!--<th>代码</th>-->
+                                    <th>标签</th>
+                                    <!--<th>父级id</th>-->
+                                    <th>根类目</th>
+                                    <th>末级类目</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item,index) in pdCatLists2" v-bind:class="{active:index == activeIndex2}" v-on:click="selectOneCatFun(item,index,'2')">
+                                    <!--<td>
+                                        <p>{{item.pdCatId}}</p>
+                                    </td>-->
+                                    <!--<td>
+                                        <p>{{item.catCode}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p>{{item.catLabel}}</p>
+                                    </td>
+                                    <!--<td>
+                                        <p>{{item.parentCatId}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p v-if="item.isRootCat == '1'">是</p>
+                                        <p v-if="item.isRootCat == '0'">否</p>
+                                    </td>
+                                    <td>
+                                        <p v-if="item.isLeafCat == '1'">是</p>
+                                        <p v-if="item.isLeafCat == '0'">否</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li v-show="selectCatModelShowIndex == '2' || selectCatModelShowIndex == '3' || selectCatModelShowIndex == '4'">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <!--<th>id</th>-->
+                                    <!--<th>代码</th>-->
+                                    <th>标签</th>
+                                    <!--<th>父级id</th>-->
+                                    <th>根类目</th>
+                                    <th>末级类目</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item,index) in pdCatLists3" v-bind:class="{active:index == activeIndex3}" v-on:click="selectOneCatFun(item,index,'3')">
+                                    <!-- <td>
+                                         <p>{{item.pdCatId}}</p>
+                                     </td>-->
+                                    <!--<td>
+                                        <p>{{item.catCode}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p>{{item.catLabel}}</p>
+                                    </td>
+                                    <!--<td>
+                                        <p>{{item.parentCatId}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p v-if="item.isRootCat == '1'">是</p>
+                                        <p v-if="item.isRootCat == '0'">否</p>
+                                    </td>
+                                    <td>
+                                        <p v-if="item.isLeafCat == '1'">是</p>
+                                        <p v-if="item.isLeafCat == '0'">否</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li v-show="selectCatModelShowIndex == '3' || selectCatModelShowIndex == '4'">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <!--<th>id</th>-->
+                                    <!--<th>代码</th>-->
+                                    <th>标签</th>
+                                    <!--<th>父级id</th>-->
+                                    <th>根类目</th>
+                                    <th>末级类目</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item,index) in pdCatLists4" v-bind:class="{active:index == activeIndex4}" v-on:click="selectOneCatFun(item,index,'4')">
+                                    <!--<td>
+                                        <p>{{item.pdCatId}}</p>
+                                    </td>-->
+                                    <!--<td>
+                                        <p>{{item.catCode}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p>{{item.catLabel}}</p>
+                                    </td>
+                                    <!--<td>
+                                        <p>{{item.parentCatId}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p v-if="item.isRootCat == '1'">是</p>
+                                        <p v-if="item.isRootCat == '0'">否</p>
+                                    </td>
+                                    <td>
+                                        <p v-if="item.isLeafCat == '1'">是</p>
+                                        <p v-if="item.isLeafCat == '0'">否</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li v-show="selectCatModelShowIndex == '4'">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <!--<th>id</th>-->
+                                    <!--<th>代码</th>-->
+                                    <th>标签</th>
+                                    <!--<th>父级id</th>-->
+                                    <th>根类目</th>
+                                    <th>末级类目</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(item,index) in pdCatLists5" v-bind:class="{active:index == activeIndex5}" v-on:click="selectOneCatFun(item,index,'5')">
+                                    <!--<td>
+                                        <p>{{item.pdCatId}}</p>
+                                    </td>-->
+                                    <!--<td>
+                                        <p>{{item.catCode}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p>{{item.catLabel}}</p>
+                                    </td>
+                                    <!--<td>
+                                        <p>{{item.parentCatId}}</p>
+                                    </td>-->
+                                    <td>
+                                        <p v-if="item.isRootCat == '1'">是</p>
+                                        <p v-if="item.isRootCat == '0'">否</p>
+                                    </td>
+                                    <td>
+                                        <p v-if="item.isLeafCat == '1'">是</p>
+                                        <p v-if="item.isLeafCat == '0'">否</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+                <div class="searchBtn">
+                    <span v-on:click="showCatItemSingleFun()">品类信息</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="maskLayer" id="someSelectModel2">
+        <div class="popup">
+            <div class="popupCon">
+                <h3 class="popupTitle">
+                    <span>品类基本信息</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer2()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="itemSingleLi">
+                        <li v-if="clickBtnType == 'edit'">
+                            <span class="txt"><span class="color_r">*&nbsp;</span>品类id<span v-if="clickBtnType == 'edit'">&nbsp;（不可修改）</span></span>
+                            <input type="text" v-bind:disabled="clickBtnType == 'edit'" v-model="itemSingle2.pdCatId" placeholder="品类id" />
+                        </li>
+                        <li>
+                            <span class="txt"><span class="color_r">*&nbsp;</span>品类代码<span v-if="clickBtnType == 'edit'">&nbsp;（不可修改）</span></span>
+                            <input type="text" v-bind:disabled="clickBtnType == 'edit'" v-model="itemSingle2.catCode" placeholder="品类代码" />
+                        </li>
+                        <li>
+                            <span class="txt"><span class="color_r">*&nbsp;</span>品类标签</span>
+                            <input type="text" v-model="itemSingle2.catLabel" placeholder="品类标签" />
+                        </li>
+                        <li>
+                            <span class="txt"><span class="color_w">*&nbsp;</span>品类描述</span>
+                            <input type="text" v-model="itemSingle2.catDesc" placeholder="品类描述" />
+                        </li>
+                        <li>
+                            <span class="txt"><span class="color_r">*&nbsp;</span>是否末级类目</span>
+                            <select v-model="itemSingle2.isLeafCat" name="">
+                                <option value="">请选择</option>
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+                <div class="searchBtn" v-if="clickBtnType == 'add'">
+                    <span v-on:click="saveNewOrderInfo()">保存</span>
+                </div>
+                <div class="searchBtn" v-if="clickBtnType == 'edit'">
+                    <span v-on:click="editOrderInfo()">保存</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/pid/categoryManage.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

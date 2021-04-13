@@ -1,0 +1,187 @@
+.overall{
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+button{
+    outline: none;
+}
+.allMap{
+    height: 100%;
+    width: 100%;
+}
+#container{
+    height: 100%;
+    width: 100%;
+}
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.mlItem{
+    background: rgba(27,54,109,0.5);
+}
+.mlItem .mliTitle {
+    display: block;
+    width: 100%;
+    background: #1b366d;
+    height: 4.2vh;
+    line-height: 4.2vh;
+    box-sizing: border-box;
+    padding-left: 0.12rem;
+    padding-right: 0.12rem;
+}
+.mlItem .mliTitle .txt {
+    letter-spacing: 0.01rem;
+    font-size: 0.18rem;
+    float: left;
+}
+.mlItem .mliTitle .num {
+    float: right;
+    font-size: 0.14rem;
+}
+.mlItem .mliTitle .num b {
+    font-size: 0.2rem;
+}
+
+
+/*mLeft*/
+.mLeft{
+    position: fixed;
+    bottom: 55px;
+    left: 20px;
+    height: 85%;
+    width: 24%;
+    color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+.mLeft .mlItem{
+    height: 100%;
+}
+.todayOrderCon{
+    height: calc(100% - 41px);
+    width: 100%;
+    overflow-y: hidden;
+}
+.todayOrderCon .todayOrderList{
+    height: 100%;
+    width: 100%;
+}
+.todayOrderCon .title{
+    width: 100%;
+    padding: 5px 15px 0 15px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+.todayOrderCon .orderList{
+    height: calc(100% - 48px);
+    overflow-y: auto;
+}
+.todayOrderCon .orderList ul{
+    width: 100%;
+    padding: 7px 15px;
+    box-sizing: border-box;
+}
+.todayOrderCon .orderList::-webkit-scrollbar {width: 5px;height: 1px;}
+.todayOrderCon .orderList::-webkit-scrollbar-thumb {border-radius: 10px;-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);background: #1b366d;}
+.todayOrderCon .orderList::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);border-radius: 10px;background: #aaa;}
+.todayOrderCon ul li{
+    line-height: 24px;
+    font-size: 15px;
+}
+.todayOrderCon ul li .inp{
+    color: #ddd;
+    font-size: 14px;
+}
+.todayOrderCon ul{
+    display: flex;
+}
+.todayOrderCon ul li:nth-child(1){
+    width: 79%;
+}
+.todayOrderCon ul li:nth-child(2){
+    width: 20%;
+}
+.todayOrderCon ul li{
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/*mRight*/
+.mRight{
+    position: fixed;
+    bottom: 55px;
+    right: 20px;
+    height: 85%;
+    width: 24%;
+    color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.mRight .mlItem:nth-child(1){
+    height: 30%;
+}
+.mRight .mlItem:nth-child(2){
+    height: 28%;
+}
+.mRight .mlItem:nth-child(3){
+    height: 38%;
+}
+.mRight .echartsDiv{
+    width: 100%;
+    height: 100%;
+}
+.mRight .echartsDiv_1{
+    height: calc(100% - 41px);
+}
+
+/*订单详情*/
+.maskLayer{width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.5);z-index: 1002;display: none;}
+.maskLayer .popup1{width: 60%;height: 80%;position: absolute;left: 20%;top: 7%;background: #fff;border-radius: 0.05rem;z-index: 1003;}
+.maskLayer .popup1 .popupTitle{width:100%;height:0.33rem;font-size:16px;line-height:0.33rem;text-align: center;padding: 5px 0;border-bottom: 0.01rem solid #e5e5e5;color: #333;}
+.maskLayer .popup1 .popupTitle a{cursor: pointer;display: block;position: absolute;top: 10px;right: 20px;width: 0.13rem;height: 0.13rem;background: url('../../../img/closeBtn2.png') no-repeat center center;background-size: 0.13rem 0.13rem;}
+.maskLayer .popup1 .popupCon1{width: 100%;margin: 0 auto;height:calc(80vh - 0.5rem);box-sizing: border-box;padding: 15px 20px;}
+.popupCon1 .orderDetailHeader ul{
+    display: flex;
+    font-size: 14px;
+    line-height: 24px;
+    color: #333;
+}
+.popupCon1 .orderDetailHeader ul li{
+    width: 25%;
+}
+.popupCon1 .orderDetailHeader ul li span{
+    font-size: 13px;
+    color: #195490;
+}
+.popupCon1 .orderDetailCont{
+    margin-top: 20px;
+    height: calc(100% - 150px);
+    overflow-y: auto;
+}
+.popupCon1 .orderDetailCont table{
+    width: 100%;
+    border: none;
+    border-top: 1px solid #bbb;
+}
+.popupCon1 .orderDetailCont table tr{
+    font-size: 13px;
+    color: #000;
+    line-height: 36px;
+    font-weight: 500;
+    border-bottom: 1px solid #ccc;
+}
+.orderDetailCont::-webkit-scrollbar {width: 3px;height: 1px;}
+.orderDetailCont::-webkit-scrollbar-thumb {border-radius: 10px;-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);background: #6aa2c9;}
+.orderDetailCont::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);border-radius: 10px;background: #eee;}

@@ -1,0 +1,354 @@
+.overall{
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	background: #040823;
+}
+/*.header{
+	padding-bottom: 2vh;
+	background: url(../../../img/newBoard/h_bg.png) no-repeat;
+	background-size: 100% 8vh;
+	position: relative;
+}
+.header a{
+	height: 8vh;
+	display: block;
+	position: absolute;
+	left: 2%;
+	z-index: 12;
+}
+.header a .img{
+	position: absolute;
+    top: 4vh;
+    left: 0.2rem;
+    width: 0.2rem;
+    height: 0.2rem;
+    transform: rotate(-45deg);
+    border: solid 0.03rem #558ed5;
+    border-bottom: none;
+    border-right: none;
+}
+.header a .txt{
+	line-height: 10vh;
+	padding-left: 0.5rem;
+	color: #558ed5;
+	display: block;
+	font-size: 0.24rem;
+}
+.header .hTxt{
+	height: 8.2vh;
+	line-height: 7.8vh;
+	font-size: 0.3rem;
+	padding-left: 0.07rem;
+	letter-spacing: 0.07rem;
+	color: #fff;
+	text-align: center;
+	position: relative;
+	font-family: "黑体";
+	font-weight: bold;
+	z-index: 9;
+}*/
+
+.main .mLeft{
+	width: 21%;
+	padding-left: 1%;
+	height: 90vh;
+	float: left;
+	color: #fff;
+	font-size: 0.16rem;
+	box-sizing: border-box;
+}
+.main .mLeft .mlItem{
+	margin-bottom: 1.8vh;
+	background: rgba(27,54,109,0.5);
+}
+.mLeft .mlItem .mliTitle{
+	width: 100%;
+	background: #1b366d;
+	height: 4.2vh;
+	line-height: 4.2vh;
+	box-sizing: border-box;
+	padding-left: 0.12rem;
+	padding-right: 0.12rem;
+}
+.mLeft .mlItem .mliTitle .txt{
+	letter-spacing: 0.01rem;
+	font-size: 0.18rem;
+	float: left;
+}
+.mLeft .mlItem .mliTitle .num{
+	float: right;
+	font-size: 0.14rem;
+}
+.mLeft .mlItem .mliTitle .num b{
+	font-size: 0.2rem;
+}
+
+.mLeft .distributionCon{
+	padding-top: 1.2vh;
+	height: 21.2vh;
+}
+.mLeft .distributionCon ul{
+	padding-bottom: 1.2vh;
+}
+.mLeft .distributionCon ul li{
+	overflow: hidden;
+	font-size: 0.16rem;
+	padding-left: 0.16rem;
+	padding-right: 0.12rem;
+	line-height: 5vh;
+}
+.mLeft .distributionCon ul li .left{
+	width: 23%;
+	float: left;
+}
+.mLeft .distributionCon ul li .line{
+	width: 60%;
+	height: 2.6vh;
+	margin-top: 1.2vh;
+	float: left;
+}
+.mLeft .distributionCon ul li .line i{
+	height: 2.6vh;
+	line-height: 2.6vh;
+	font-style: normal;
+	color: #fff;
+	text-align: center;
+	border-radius: 1.6vh;
+	overflow: hidden;
+	display: block;
+	text-shadow: rgba(0,0,0,0.3);
+}
+.mLeft .distributionCon ul li:nth-child(1) .line i{
+	background: #558ed5;
+}
+.mLeft .distributionCon ul li:nth-child(2) .line i{
+	background: #00b050;
+}
+.mLeft .distributionCon ul li:nth-child(3) .line i{
+	background: #ffbb39;
+}
+.mLeft .distributionCon ul li:nth-child(4) .line i{
+	background: #ed7d31;
+}
+.mLeft .distributionCon ul li .num{
+	float: right;
+	color: #fff;
+	font-size: 0.16rem;
+}
+
+.mLeft .arealDistributeCon{
+	padding-top: 1.2vh;
+	height: 20vh;
+}
+.mLeft .arealDistributeCon .arealDistributeCharts{
+	height: 20vh;
+}
+
+.mLeft .orderStatisticsCon{
+	padding-top: 1.2vh;
+	height: 27.2vh;
+}
+.mLeft .orderStatisticsCon .orderStatisticsChatrs{
+	height: 27.2vh;
+}
+
+
+.main .mCon{
+	width: 60%;
+	float: left;
+	padding-left: 1%;
+	padding-right: 1%;
+	box-sizing: border-box;
+	color: #fff;
+}
+.main .mCon .platformStatsCon{
+	width: 100%;
+	box-sizing: border-box;
+	height: 88vh;
+	background: rgba(27,54,109,0.5);
+	margin-bottom: 1.8vh;
+	position: relative;
+}
+.main .mCon .platformStatsCon .platformStatsMap{
+	width: 100%;
+	height: 88vh;
+}
+.main .mCon .platformStatsCon .mcTitle{
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding-bottom: 0.5rem;
+	background: rgba(0,0,0,0.3);
+}
+.monthStatistics {
+	display: table;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-top: 8vh;
+}
+.monthStatistics li{
+	padding-left: 0.22rem;
+	padding-right: 0.22rem;
+	float: left;
+	font-size: 0.22rem;
+	text-align: center;
+	line-height: 9vh;
+	letter-spacing: 0.02rem;
+}
+.monthStatistics li:first-child{
+	text-align: center;
+}
+.monthStatistics li:last-child{
+	width: auto;
+	display: table;
+	float: right;
+}
+.monthStatistics li .txt{
+	float: left;
+}
+.monthStatistics li .num{
+	float: left;
+}
+.monthStatistics li .num span{
+	display: block;
+	float: left;
+	width: 0.4rem;
+	font-size: 0.4rem;
+	margin-right: 0.03rem;
+	height: 6.2vh;
+	line-height: 6.2vh;
+	text-align: center;
+	background: #1b366d;
+	border-radius: 0.03rem;
+}
+
+.todayStatistics{
+	width: 66%;
+	margin: 0 auto;
+	font-size: 0.26rem;
+	text-align: center;
+	line-height: 6.6vh;
+	letter-spacing: 0.01rem;
+	padding-top: 5vh;
+}
+.todayStatistics li{
+	width: 50%;
+	float: left;
+	font-size: 0.22rem;
+	text-align: center;
+	line-height: 9vh;
+	letter-spacing: 0.02rem;
+}
+.todayStatistics li:first-child{
+	text-align: center;
+}
+.todayStatistics li:last-child{
+	width: auto;
+	display: table;
+	float: right;
+}
+.todayStatistics .txt{
+	float: left;
+}
+.todayStatistics .num{
+	float: left;
+}
+.todayStatistics .num span{
+	display: block;
+	float: left;
+	font-size: 0.5rem;
+	margin-left: 0.3rem;
+	margin-right: 0.2rem;
+	height: 6.2vh;
+	line-height: 6.2vh;
+	text-align: center;
+	border-radius: 0.03rem;
+	color: #f4ff52;
+	font-weight: bold;
+}
+.todayStatistics .num em{
+	font-style: normal;
+	float: left;
+}
+
+.main .mRight{
+	width: 18%;
+	float: left;
+	color: #fff;
+}
+.main .mRight .mrItem{
+	margin-bottom: 1.8vh;
+	background: rgba(27,54,109,0.5);
+}
+.mRight .mrItem .mriTitle{
+	width: 100%;
+	background: #1b366d;
+	height: 4.2vh;
+	line-height: 4.2vh;
+	box-sizing: border-box;
+	padding-left: 0.12rem;
+	padding-right: 0.12rem;
+}
+.mRight .mrItem .mriTitle .txt{
+	letter-spacing: 0.01rem;
+	font-size: 0.18rem;
+	float: left;
+}
+.mRight .mrItem .mriTitle .num{
+	float: right;
+	font-size: 0.13rem;
+}
+.mRight .mrItem .mriTitle .num b{
+	font-size: 0.2rem;
+}
+.mRight .mrItem .regionalOrderCon{
+	height: 43.5vh;
+}
+
+.mRight .orderNumber .orderNumberCon{
+	width: 100%;
+	height: 33vh;
+	padding-bottom: 1.2vh;
+	overflow: hidden;
+}
+.mRight .orderNumber .orderNumberCharts{
+	width: 100%;
+	height: 33vh;
+	overflow: hidden;
+}
+
+
+
+.mRight .regionalOrderCharts{
+	width: 100%;
+	height: 43.5vh;
+	padding-bottom: 0vh;
+	overflow: hidden;
+	position: relative;
+}
+.mRight .regionalOrderCharts .list{
+	width: 100%;
+	padding-left: 0.23rem;
+	padding-right: 0.23rem;
+	box-sizing: border-box;
+	padding-top: 1.2vh;
+	position: absolute;
+}
+.regionalOrderCharts .list ul{
+	overflow: hidden;
+}
+.regionalOrderCharts .list ul li{
+	float: left;
+	height: 3.6vh;
+	line-height: 3.6vh;
+	font-size: 0.16rem;
+}
+.regionalOrderCharts .list ul li:nth-child(1){
+	width: 70%;
+}
+.regionalOrderCharts .list ul li:nth-child(2){
+	width: 30%;
+	text-align: right;
+}

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>片区运单-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <link href="../../dateRangePicker/font-awesome.4.6.0.css" rel="stylesheet">
+    <link href="../../dateRangePicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../layui/css/layui.css?v=" + pageVerson + "'/>");
+        document.write("<s" + "cript type='text/javascript' src='../../layui/layui.js?v=" + pageVerson + "'></s" + "cript>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+    </script>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/plugIn/schedule.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+    <style>
+        .amap-toolbar {
+            display: none;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .reportMessagesMap .cutMapCard > img{
+            top: 26px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <div class="adsLeft"></div>
+
+        <!-- adsContent-->
+        <div class="adsContent">
+            <div class="header"></div>
+
+            <div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span><a :href="linkHrefs[0]">片区排单</a></span></li>
+                        <li><span class="active"><a href="javascript:;">片区管理</a></span></li>
+                    </ul>
+                    <ul class="pageHeaderR"></ul>
+                    <ul class="pageHeaderBack">
+                        <li class="visible">
+                            <img src="../../img/back_2.png" alt="返回上一步">
+                            <span>返回上一步</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="adsRightPackage">
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <div class="reportMessagesMap reportMessagesMapWhole">
+                                    <div id="container"></div>
+
+                                    <div class="hint">
+                                        <ul class="textBoxTitle">
+                                            <li>
+                                                <label>发货时间</label>
+                                                <input type="text" style="width: 208px;" readonly id="timeRange"
+                                                       v-model="timeHorizon" placeholder="发货时间范围"/>
+                                                <img src="../../img/search.png" @click="getSearchOrderList()"
+                                                     title="查询">
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="btnBox">
+                                        <ul class="btnBoxGroup textBoxTitle" v-if="patternArea == 1">
+                                            <li class="searchBtn">
+                                                <span v-on:click="addTaskArea()">绘制片区</span>
+                                                <div class="taskInfo" v-if="boxToChoose">
+                                                    <h5><img src="../../img/closeBtn2.png" v-on:click="addTaskArea()">
+                                                    </h5>
+                                                    <div class="taskCont">
+                                                        <p v-on:click="addTaskArea1('1')">自定义绘制片区</p>
+                                                        <p v-on:click="addTaskArea1('2')">添加行政片区</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="searchBtn">
+                                                <span class="whiteBtn" v-on:click="clearAllTaskArea()">清空片区</span>
+                                            </li>
+                                        </ul>
+
+                                        <ul class="btnBoxGroup textBoxTitle" v-if="patternArea == 2">
+                                            <li class="searchBtn">
+                                                <span v-on:click="saveDrawPolygon()">保存片区</span>
+                                                <span v-on:click="adjustDrawPolygon()">调整片区</span>
+                                                <span class="whiteBtn" v-on:click="cancelDrawPolygon()">取消</span>
+                                            </li>
+                                        </ul>
+
+                                        <ul class="btnBoxGroup textBoxTitle" v-if="patternArea == 3">
+                                            <li class="searchBtn">
+                                                <span v-on:click="handWaybillInfoItem()">查看运单</span>
+                                                <span v-on:click="drawPolygonAgain()">重新绘制</span>
+                                                <span v-on:click="adjustPolygonAgain()">调整片区</span>
+                                                <span class="whiteBtn" v-on:click="deletePolygon()">删除片区</span>
+                                            </li>
+                                        </ul>
+
+                                        <ul class="btnBoxGroup textBoxTitle" v-if="patternArea == 4">
+                                            <li class="searchBtn">
+                                                <span v-on:click="autoWaybillInfoItem()">查看运单</span>
+                                                <span v-on:click="adjustSelectDistrictPolygon()">调整片区</span>
+                                                <span class="whiteBtn" v-on:click="deleteDistrictPolygon()">删除片区</span>
+                                            </li>
+                                        </ul>
+
+                                        <ul class="btnBoxGroup textBoxTitle" v-if="patternArea == 5">
+                                            <li class="searchBtn">
+                                                <span v-on:click="saveAdjustPolygonAgain()">保存片区</span>
+                                                <span class="whiteBtn" v-on:click="cancelAdjustPolygonAgain()">取消</span>
+                                            </li>
+                                        </ul>
+
+                                        <ul class="btnBoxGroup textBoxTitle" v-if="patternArea == 6">
+                                            <li class="searchBtn">
+                                                <span v-on:click="saveDrawPolygonAgain()">保存片区</span>
+                                                <span v-on:click="adjustDrawPolygonAgain()">调整片区</span>
+                                                <span class="whiteBtn" v-on:click="cancelDrawPolygonAgain()">取消</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="mapRightBox">
+                                        <div class="mapRightBoxIn">
+                                            <h5 class="boxInTitle">片区列表</h5>
+                                            <ul class="boxInConcent">
+                                                <li class="long" v-for="(waybillInfo,index) in waybillInfoList"
+                                                    @click="setAreaInfoClick(waybillInfo,index)">
+                                                    <div class="name">
+                                                        <span>{{waybillInfo.customerRefNo}}</span>
+                                                        <span @click.stop="designateInfo(waybillInfo,index)">指派司机</span>
+                                                    </div>
+                                                    <div class="driverInfo" v-if="waybillInfo.carDrvContactName">
+                                                        <span>{{waybillInfo.carDrvContactName}}</span>
+                                                        <span>{{waybillInfo.carDrvContactTel}}</span>
+                                                        <span>{{waybillInfo.carDrvEqpNo}}</span>
+                                                    </div>
+                                                    <div class="message" v-if="!waybillInfo.carDrvContactName">
+                                                        <span>未指派司机</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!--切换行政区、大件筛选、重叠点显示-->
+                                    <div class="cutMapCard" v-bind:class="{'active': showCutMapCard == true }">
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">片区模板</span>
+                                                <p class="inp">
+                                                    <select v-model="tsoOrderId">
+                                                        <option v-for="temItem in areaTemplateList" v-bind:value="temItem.omOrderId">{{temItem.str1}}</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li class="searchBtn">
+                                                <span class="whiteBtn" @click="changeWaybillInfoList()">切换模板</span>
+                                                <span class="whiteBtn" @click="addAreaTemplate()">新增模板</span>
+                                            </li>
+                                        </ul>
+                                        <ul class="adsRightConInp">
+                                            <li class="addressLi">
+                                                <span class="txt">切换城市</span>
+                                                <p class="inp">
+                                                    <select v-model="shipperPartyLocation.provinceCode"
+                                                            @change="selectLocLevelFun('provinceCode',shipperPartyLocation,shipperPartyLocation.provinceCode)">
+                                                        <option value="">省份</option>
+                                                        <option v-for="addressItem in getAllProviceList(shipperPartyLocation.countryCode)"
+                                                                v-bind:value="addressItem.adcode">
+                                                            {{addressItem.chineseName}}
+                                                        </option>
+                                                    </select>
+                                                    <select v-model="shipperPartyLocation.cityCode"
+                                                            @change="selectLocLevelFun('cityCode',shipperPartyLocation,shipperPartyLocation.cityCode)">
+                                                        <option value="">城市</option>
+                                                        <option v-for="addressItem in getAllCityList(shipperPartyLocation.provinceCode)"
+                                                                v-bind:value="addressItem.adcode">
+                                                            {{addressItem.chineseName}}
+                                                        </option>
+                                                    </select>
+                                                    <select v-model="shipperPartyLocation.districtCode"
+                                                            @change="selectLocLevelFun('districtCode',shipperPartyLocation,shipperPartyLocation.districtCode)">
+                                                        <option value="">区/县</option>
+                                                        <option v-for="addressItem in getAllDistrictList(shipperPartyLocation.cityCode)"
+                                                                v-bind:value="addressItem.adcode">
+                                                            {{addressItem.chineseName}}
+                                                        </option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li class="searchBtn">
+                                                <span class="whiteBtn" @click="cutCurrentDistrict()">去指定城市</span>
+                                            </li>
+                                        </ul>
+                                        <img src="../../img/windowicon/jtRight.png" v-if="!showCutMapCard" @click="moveCutMapCard()" alt="">
+                                        <img src="../../img/windowicon/jtLeft.png" class="left" v-if="showCutMapCard" @click="moveCutMapCard()" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="maskLayer maskLayer1">
+        <div class="popup" style="width:430px;">
+            <div class="popupCon">
+                <h3 class="popupTitle">
+                    <span>新增片区</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer('1')"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl formListArea">
+                        <li>
+                            <label>片区名称：</label>
+                            <p>
+                                <input type="text" placeholder="请输入片区名称" v-model="autoPartyLocation.customAreaName">
+                            </p>
+                        </li>
+                        <li>
+                            <label>片区编号：</label>
+                            <p>
+                                <input type="text" placeholder="请输入片区编号" v-model="autoPartyLocation.customAreaNo">
+                            </p>
+                        </li>
+                        <li>
+                            <label>省 / 市：</label>
+                            <p>
+                                <select v-model="autoPartyLocation.provinceCode"
+                                        v-on:change="selectLocLevelFun('provinceCode',autoPartyLocation,autoPartyLocation.provinceCode)">
+                                    <option value="">省份/自治区</option>
+                                    <option v-for="addressItem in getAllProviceList(autoPartyLocation.countryCode)"
+                                            v-bind:value="addressItem.adcode">{{addressItem.chineseName}}
+                                    </option>
+                                </select>
+                                <select v-model="autoPartyLocation.cityCode"
+                                        v-on:change="selectLocLevelFun('cityCode',autoPartyLocation,autoPartyLocation.cityCode)">
+                                    <option value="">城市/地区</option>
+                                    <option v-for="addressItem in getAllCityList(autoPartyLocation.provinceCode)"
+                                            v-bind:value="addressItem.adcode">{{addressItem.chineseName}}
+                                    </option>
+                                </select>
+                            </p>
+                        </li>
+                        <li>
+                            <label>行政区域：</label>
+                            <div class="selectGroup">
+                                <p class="optionGItem" v-for="(areaDistrictItem,index) in areaDistrictList">
+                                    <span>{{areaDistrictItem.chineseName}}</span>
+                                    <img src="../../img/windowicon/yzFalse.png" v-on:click="deleteToDistrict(index)">
+                                </p>
+                                <span v-on:click="addToDistrict()">添加</span>
+                                <!--选择行政区域-->
+                                <div class="toolBodyDiv">
+                                    <div class="cliseTitle">
+                                        <img src="../../img/windowicon/yzFalse.png" v-on:click="addToDistrict()">
+                                    </div>
+                                    <div>
+                                        <select class="districtCodeTool" v-model="autoPartyLocation.districtCode"
+                                                v-on:change="selectLocLevelFun('districtCode',autoPartyLocation,autoPartyLocation.districtCode)">
+                                            <option value="">区/县</option>
+                                            <option v-for="addressItem in getAllDistrictList(autoPartyLocation.cityCode)"
+                                                    v-bind:value="addressItem.adcode">{{addressItem.chineseName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="adsRightConItem noBackground">
+                        <div class="searchBtn">
+                            <span v-on:click="administrativeArea()">确定</span>
+                            <span class="whiteBtn" v-on:click="closeMaskLayer('1')">取消</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="maskLayer maskLayer2">
+        <div class="popup" style="width:430px;">
+            <div class="popupCon">
+                <h3 class="popupTitle">
+                    <span>新增片区</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer('2')"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl formListArea">
+                        <li>
+                            <label>片区名称：</label>
+                            <p>
+                                <input type="text" placeholder="请输入片区名称" v-model="handPartyLocation.customAreaName">
+                            </p>
+                        </li>
+                        <li>
+                            <label>片区编号：</label>
+                            <p>
+                                <input type="text" placeholder="请输入片区编号" v-model="handPartyLocation.customAreaNo">
+                            </p>
+                        </li>
+                        <li>
+                            <label>省 / 市：</label>
+                            <p>
+                                <select v-model="handPartyLocation.provinceCode"
+                                        v-on:change="selectLocLevelFun1('provinceCode',handPartyLocation,handPartyLocation.provinceCode)">
+                                    <option value="">省份/自治区</option>
+                                    <option v-for="addressItem in getAllProviceList(handPartyLocation.countryCode)"
+                                            v-bind:value="addressItem.adcode">{{addressItem.chineseName}}
+                                    </option>
+                                </select>
+                                <select v-model="handPartyLocation.cityCode"
+                                        v-on:change="selectLocLevelFun1('cityCode',handPartyLocation,handPartyLocation.cityCode)">
+                                    <option value="">城市/地区</option>
+                                    <option v-for="addressItem in getAllCityList(handPartyLocation.provinceCode)"
+                                            v-bind:value="addressItem.adcode">{{addressItem.chineseName}}
+                                    </option>
+                                </select>
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="adsRightConItem noBackground">
+                        <div class="searchBtn">
+                            <span v-on:click="adminManualArea()">确定</span>
+                            <span class="whiteBtn" v-on:click="closeMaskLayer('2')">取消</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="maskLayer maskLayer3">
+        <div class="popup">
+            <div class="popupCon">
+                <h3 class="popupTitle">
+                    <span>运单列表</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer('3')"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList" style="padding: 0;">
+                    <div class="table_Scroll">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>单号</th>
+                                <th>发货地址</th>
+                                <th>收货地址</th>
+                                <th>商品数量(件)</th>
+                                <th>商品重量(kg)</th>
+                                <th>商品体积(m³)</th>
+                                <th>送货时间</th>
+                                <th>完成状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(taskOrderInfo,index) in taskOrderInfoList">
+                                <td><p>{{index + 1}}</p></td>
+                                <td><p>{{taskOrderInfo.trackingNo}}</p></td>
+                                <td><p>{{taskOrderInfo.sfrAddress}}</p></td>
+                                <td><p>{{taskOrderInfo.stoAddress}}</p></td>
+                                <td><p>{{taskOrderInfo.totalQty}}</p></td>
+                                <td><p>{{taskOrderInfo.totalWeight}}</p></td>
+                                <td><p>{{taskOrderInfo.totalVolume}}</p></td>
+                                <td><p>{{taskOrderInfo.completeTime | timestampToTime2}}</p></td>
+                                <td><p>{{taskOrderInfo.completeStatus | completeStatusChange}}</p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="maskLayer maskLayer4">
+        <div class="popup">
+            <div class="popupCon">
+                <h3 class="popupTitle">
+                    <span>指派司机</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer('4')"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="shareCarInfosDiv">
+                    <div class="carInfosCont">
+                        <h5>承运商信息</h5>
+                        <ul class="adsRightConInp">
+                            <li class="coupletSelect">
+                                <span class="txt">承运商</span>
+                                <select v-model="OrderCarrier.cdPartyId" id="carNameee"
+                                        v-on:change="changeCarrierInfo(OrderCarrier.cdPartyId)">
+                                    <option value="">承运商</option>
+                                    <option v-for="partyItem in resPartyList" v-bind:value="partyItem.cdPartyId">
+                                        {{partyItem.partyName}}
+                                    </option>
+                                </select>
+                            </li>
+                            <li class="searchBtn">
+                                <span class="whiteBtn" v-if="!shortShowType"
+                                      v-on:click="isShowItemDetails()">详情</span>
+                                <span class="whiteBtn" v-if="shortShowType"
+                                      v-on:click="isShowItemDetails()">收起</span>
+                            </li>
+                        </ul>
+                        <ul v-if="shortShowType" class="adsRightConInp">
+                            <li>
+                                <span class="txt">联系人</span>
+                                <input type="text" v-model="OrderCarrier.contactName" placeholder="联系人"/>
+                            </li>
+                            <li>
+                                <span class="txt">电话</span>
+                                <input type="text" v-model="OrderCarrier.contactTel" placeholder="电话"/>
+                            </li>
+                            <li>
+                                <span class="txt">地址</span>
+                                <input type="text" v-model="OrderCarrier.contactAddress" placeholder="地址"/>
+                            </li>
+                            <li>
+                                <span class="txt">编码</span>
+                                <input type="text" v-model="OrderCarrierParty.partyCode" placeholder="编码"/>
+                            </li>
+                            <br>
+                            <li>
+                                <span class="txt">买家</span>
+                                <p class="inp">
+                                    <input type="checkbox" v-model="OrderCarrierParty.isBuyer" name="isBuyer"/>
+                                </p>
+                            </li>
+                            <li>
+                                <span class="txt">卖家</span>
+                                <p class="inp">
+                                    <input type="checkbox" v-model="OrderCarrierParty.isVendor" name="isVendor"/>
+                                </p>
+                            </li>
+                            <li>
+                                <span class="txt">卡车公司</span>
+                                <p class="inp">
+                                    <input type="checkbox" v-model="OrderCarrierParty.isTruck" name="isTruck"/>
+                                </p>
+                            </li>
+                            <li>
+                                <span class="txt">仓库</span>
+                                <p class="inp">
+                                    <input type="checkbox" v-model="OrderCarrierParty.isWarehouse" name="isWarehouse"/>
+                                </p>
+                            </li>
+                            <li>
+                                <span class="txt">第三方物流</span>
+                                <p class="inp">
+                                    <input type="checkbox" v-model="OrderCarrierParty.is3pl" name="is3pl"/>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="carInfosCont">
+                        <h5>司机信息</h5>
+                        <ul class="adsRightConInp">
+                            <li class="coupletSelect">
+                                <span class="txt">姓名</span>
+                                <input type="text" placeholder="姓名" v-model="carrierDriver.contactName"
+                                       @keyup="getDriverList(carrierDriver.contactName)">
+                                <dl class="fateCon" v-if="driverList.length">
+                                    <dd v-for="driverItem in driverList" @click="chooseDriver(driverItem)">
+                                        {{driverItem.contactName}}
+                                    </dd>
+                                </dl>
+                            </li>
+                            <li>
+                                <span class="txt">电话</span>
+                                <input type="text" placeholder="电话" v-model="carrierDriver.contactTel">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="carInfosCont marginBot20">
+                        <h5>车辆信息</h5>
+                        <ul class="adsRightConInp adsRightConInp66">
+                            <li>
+                                <span class="txt">车牌号</span>
+                                <input type="text" v-model="carrierEqp.eqpNo" placeholder="车牌号">
+                            </li>
+                            <li>
+                                <span class="txt">设备名称</span>
+                                <input type="text" v-model="carrierEqp.eqpName" placeholder="设备名称">
+                            </li>
+                            <li>
+                                <span class="txt">设备品牌</span>
+                                <input type="text" v-model="carrierEqp.eqpBrand" placeholder="设备品牌">
+                            </li>
+                            <li>
+                                <span class="txt">设备类型</span>
+                                <select v-model="carrierEqp.eqpType">
+                                    <option value="">设备类型</option>
+                                    <option v-for="eqpTypeItem in selectListData.eqpTypeList"
+                                            v-bind:value="eqpTypeItem.code">{{eqpTypeItem.text}}
+                                    </option>
+                                </select>
+                            </li>
+                            <li>
+                                <span class="txt">设备性质</span>
+                                <select v-model="carrierEqp.eqpNature">
+                                    <option value="">设备性质</option>
+                                    <option v-for="eqpNatureItem in selectListData.eqpNatureList"
+                                            v-bind:value="eqpNatureItem.code">{{eqpNatureItem.text}}
+                                    </option>
+                                </select>
+                            </li>
+                            <li>
+                                <span class="txt">设备型号</span>
+                                <input type="text" v-model="carrierEqp.eqpSpec" placeholder="设备型号">
+                            </li>
+                            <li>
+                                <span class="txt">长度</span>
+                                <input type="text" v-model="carrierEqp.eqpLength" placeholder="长度">
+                            </li>
+                            <li>
+                                <span class="txt">宽度</span>
+                                <input type="text" v-model="carrierEqp.eqpWidth" placeholder="宽度">
+                            </li>
+                            <li>
+                                <span class="txt">高度</span>
+                                <input type="text" v-model="carrierEqp.eqpHeight" placeholder="高度">
+                            </li>
+                            <li>
+                                <span class="txt">车载量</span>
+                                <input type="text" v-model="carrierEqp.eqpStr1" placeholder="车载量">
+                            </li>
+                            <li>
+                                <span class="txt">客户量</span>
+                                <input type="text" v-model="carrierEqp.eqpStr2" placeholder="客户量">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="searchBtn" style="text-align: center;">
+                        <span class="butOperateShow" @click="saveAssignedDriver()">确认指派</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="maskLayer maskLayer5">
+        <div class="popup" style="width:430px;">
+            <div class="popupCon">
+                <h3 class="popupTitle">
+                    <span>片区模板</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer('5')"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl formListArea">
+                        <li>
+                            <label>片区模板：</label>
+                            <p>
+                                <input type="text" placeholder="请输入片区模板" v-model="newAreaType.str1">
+                            </p>
+                        </li>
+                        <li>
+                            <label>模板编号：</label>
+                            <p>
+                                <input type="text" placeholder="请输入模板编号" v-model="newAreaType.customerOriginalNo">
+                            </p>
+                        </li>
+                        <li>
+                            <label>设为默认：</label>
+                            <p style="line-height: 32px;">
+                                <input type="checkbox" v-model="newAreaType.int1">
+                            </p>
+                        </li>
+                    </ul>
+                    <div class="adsRightConItem noBackground">
+                        <div class="searchBtn">
+                            <span v-on:click="sureAddAreaTemplate()">确定</span>
+                            <span class="whiteBtn" v-on:click="closeMaskLayer('5')">取消</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/Sortable.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/moment.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/daterangepicker.js"></script>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.9&key=" + AmapQdKey + "&plugin=AMap.MouseTool,AMap.DistrictSearch,AMap.PolyEditor'></s" + "cript>");
+</script>
+<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/tms/transOrderMap.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+</body>
+</html>

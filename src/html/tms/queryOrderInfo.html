@@ -1,0 +1,2576 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>配送订单-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <link href="../../dateRangePicker/font-awesome.4.6.0.css" rel="stylesheet">
+    <link href="../../dateRangePicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+    </script>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/plugIn/schedule.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+    <style>
+        li .txt .mustFill {
+            font-size: 16px;
+            color: #ff0000;
+        }
+
+        .adsContent .adsRight .adsRightCon .adsRightConInp .fateCon {
+            top: 31px;
+            left: 61px;
+            width: 162px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <!-- header start-->
+        <div class="adsLeft">
+
+        </div>
+        <!-- header end-->
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header">
+
+            </div>
+            <div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">配送订单</a></span></li>
+                        <li><span><a :href="linkHrefs[1]">{{linkNames[1]}}</a></span></li>
+                    </ul>
+                    <ul class="pageHeaderR">
+                        <li class="searchBtn" v-if="checkedNum == 0">
+                            <span class="visible butOperateShow" buttonCode="ADD_CARRIER"
+                                  v-on:click="addOrderCarrierFun()">指派承运商</span>
+                        </li>
+                        <li class="searchBtn" v-if="checkedNum != 0">
+                            <span class="visible butOperateShow" buttonCode="ADD_CARRIER" btn="addOrderCarrierBtn"
+                                  v-on:click="addOrderCarrierFun()">指派承运商</span>
+                        </li>
+                        <li class="searchBtn">
+                            <span class="visible butOperatePermission" buttonCode="BATCH_CANCEL"
+                                  v-on:click="orderCancel()">订单取消</span>
+                        </li>
+                        <li class="searchBtn">
+                            <span class="visible butOperatePermission" buttonCode="EXPORT_TO"
+                                  v-on:click="exportShippingOrder()">导出配送订单</span>
+                        </li>
+                        <li class="searchBtn">
+                            <span class="visible butOperatePermission" buttonCode="EXPORT_TO"
+                                  v-on:click="exportShippingOrderReport()">导出配送订单报表</span>
+                        </li>
+                        <li class="searchBtn">
+                            <span class="visible butOperatePermission" buttonCode="EXPORT_TO"
+                                  v-on:click="exportShippingOrderReport()">导出配送订单详情报表</span>
+                        </li>
+                        <li class="searchBtn">
+                            <span class="txtBox butOperatePermission" buttonCode="UPLOAD"
+                                  v-on:click="chooseTheFileType()">上传文件</span>
+                            <input type="file" name="excelFile" style="display: none;" v-on:change="chooseTheFile()"
+                                   id="excelFile"/>
+                            <div class="suspend">
+                                <b>*请先下载<a href="/download/oms-ImportOrderInfoExcel v1.0.xlsx">excel模板</a>，按照模板填写。</b>
+                            </div>
+                            <div class="triangle"></div>
+                        </li>
+                    </ul>
+                    <ul class="pageHeaderBack">
+                        <li class="visible">
+                            <img src="../../img/back_2.png" alt="返回上一步">
+                            <span>返回上一步</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="adsRightPackage">
+                    <!-- 订单管理   -->
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <ul class="textBoxTitle">
+                                    <li>
+                                        <label>创建时间：</label>
+                                        <input type="text" readonly class="timePlugIn" id="timeRange"
+                                               v-model="timeHorizon" placeholder="创建时间范围"/>
+                                    </li>
+                                    <li>
+                                        <label>原单号：</label>
+                                        <input type="text" v-model="queryParam.customerOriginalNo"
+                                               placeholder="请输入原单号"/>
+                                    </li>
+                                    <li>
+                                        <label>单号：</label>
+                                        <input type="text" v-model="queryParam.str1" placeholder="请输入单号"/>
+                                    </li>
+                                    <li class="searchBtn">
+                                        <span class="butOperatePermission" buttonCode="QUERY"
+                                              v-on:click="getSearchVal()">查询</span>
+                                    </li>
+                                    <li class="searchBtn">
+                                        <span class="whiteBtn collSwitch"><i></i>筛选</span>
+                                        <div class="collUnfold">
+                                            <div>
+                                                <p><img class="closeCollUnfold" src="../../img/closeBtn2.png" alt="">
+                                                </p>
+                                                <ul>
+                                                    <li>
+                                                        <label>订单性质：</label>
+                                                        <select v-model="queryParam.orderNature">
+                                                            <option value="">全部</option>
+                                                            <option v-for="item in selectListData.orderNatureList"
+                                                                    v-bind:value="item.code">{{item.text}}
+                                                            </option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <label>订单来源：</label>
+                                                        <select v-model="queryParam.origin">
+                                                            <option value="">全部</option>
+                                                            <option v-for="item in selectListData.orderOrigin"
+                                                                    v-bind:value="item.code">{{item.text}}
+                                                            </option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <label>委托商：</label>
+                                                        <input type="text" v-model="queryParam.sfrPartyName"
+                                                               placeholder="请输入委托商"/>
+                                                    </li>
+                                                    <li>
+                                                        <label>收货商：</label>
+                                                        <input type="text" v-model="queryParam.stoPartyName"
+                                                               placeholder="请输入收货商"/>
+                                                    </li>
+                                                    <li>
+                                                        <label>完成状态：</label>
+                                                        <select v-model="queryParam.completeStatus" name="" id="">
+                                                            <option value="">请选择完成状态</option>
+                                                            <option v-for="completeStatusItem in selectListData.completeStatusList"
+                                                                    v-bind:value="completeStatusItem.code">
+                                                                {{completeStatusItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <label>异常状态：</label>
+                                                        <select v-model="queryParam.exceptionStatus" name="" id="">
+                                                            <option value="">请选择异常状态</option>
+                                                            <option v-for="exceptionStatusItem in selectListData.exceptionStatusList"
+                                                                    v-bind:value="exceptionStatusItem.code">
+                                                                {{exceptionStatusItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <label>动态代码：</label>
+                                                        <select v-model="queryParam.actCode" name="" id="">
+                                                            <option value="">请选择动态代码</option>
+                                                            <option v-for="actItem in selectListData.actLists"
+                                                                    v-bind:value="actItem.actCode">{{actItem.actName}}
+                                                            </option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <label>激活状态：</label>
+                                                        <select v-model="queryParam.activeStatus" name="" id="">
+                                                            <option value="">请选择激活状态</option>
+                                                            <option v-for="activeStatusItem in selectListData.activeStatusList"
+                                                                    v-bind:value="activeStatusItem.code">
+                                                                {{activeStatusItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </li>
+
+                                                    <!--<li>
+                                                        <select v-model="queryParam.subtasksStatus" name="" id="">
+                                                            <option value="">请选择是否已生成派送任务</option>
+                                                            <option value="1">已生成</option>
+                                                            <option value="0">未生成</option>
+                                                        </select>
+                                                    </li>-->
+                                                </ul>
+                                                <div class="searchBtn collSearch">
+                                                    <span class="whiteBtn" v-on:click="clearSearchInfo()">重置</span>
+                                                    <span v-on:click="getSearchVal()">确认</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div id="schedule-box" class="boxshaw" style="display: none;"></div>
+                                <div class="reportMessages">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <input class="checkInp" type="checkbox"
+                                                       v-on:change="textboxAllSelectionFun($event)"/>
+                                            </th>
+                                            <th>序号</th>
+                                            <th>原单号</th>
+                                            <th>操作</th>
+                                            <th>订单性质</th>
+                                            <th>订单来源</th>
+                                            <th>单号</th>
+                                            <th>当前动作</th>
+                                            <th>拆/合</th>
+                                            <th>派送任务</th>
+                                            <th>发货商</th>
+                                            <th>收货商</th>
+                                            <th>总件数</th>
+                                            <th>完成状态</th>
+                                            <th>异常状态</th>
+                                            <th>创建时间</th>
+                                            <th>要求完成时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(tableOrderItem,index) in tableOrderList" class="see">
+                                            <td>
+                                                <input class="checkInp" type="checkbox"
+                                                       v-bind:value="tableOrderItem.omOrderId"
+                                                       v-on:change="textboxSelectionFun($event,tableOrderItem)"/>
+                                            </td>
+                                            <td v-if="currentPage == 1">
+												<p>{{index+1}}</p>
+											</td>
+											<td v-if="currentPage == 2">
+												<!-- 转换成数字  否则是字符串相加序号这一列顺序就不对 -->
+												<p>{{Number(queryPageSize)+index+1}}</p>
+											</td>
+											<td v-if="currentPage > 2">
+												<!-- 每页显示的个数+当前点击的分页-每页显示的个数+index+1 -->
+												<p>{{queryPageSize*currentPage-queryPageSize+index+1}}</p>
+											</td>
+                                            <td>
+                                                <p>{{tableOrderItem.customerOriginalNo}}</p>
+                                            </td>
+                                            <td>
+                                                <div class="foldBotton">
+                                                    <span class="handleIcon"></span>
+                                                    <p>
+                                                        <span class="btn btn-details visible butOperatePermission orderDetailBtn"
+                                                              buttonCode="DETAIL" btn="newActivityDshBoardBtn"
+                                                              v-on:click="getOrderDetails('订单详情',tableOrderItem,'0')">详情</span>
+                                                        <!--<span v-if="tableOrderItem.orderInd != 'normal'" disabled="" class="btn btn-split-y">拆单</span>-->
+                                                        <!--<span v-if="tableOrderItem.orderInd == 'normal'" class="btn btn-abnormal see" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('拆单',tableOrderItem,'1')">拆单</span>-->
+                                                        <span class="btn btn-logistics visible butOperatePermission orderLogisticsBtn"
+                                                              buttonCode="ACT_DETAIL" btn="logisticsInfoBtn"
+                                                              v-on:click="getLogisticsInfo(tableOrderItem)">物流</span>
+                                                        <span class="btn btn-abnormal visible butOperatePermission orderDetailBtn"
+                                                              buttonCode="SPLIT_DETAIL" btn="separateOrdersBtn"
+                                                              v-on:click="getOrderDetails('分单',tableOrderItem,'2')">分单</span>
+                                                        <!--<span class="btn btn-receipt receipt" btn="currentOrderReceiptBtn" v-on:click="getOrderReceipt(tableOrderItem)">回单</span>-->
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p v-if="tableOrderItem.orderNature == null">普货</p>
+                                                <p v-if="tableOrderItem.orderNature != null">
+                                                    <span v-for="orderNatureItem in selectListData.orderNatureList"
+                                                          v-if="tableOrderItem.orderNature == orderNatureItem.code">{{orderNatureItem.text}}</span>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p v-if="tableOrderItem.origin == null">--</p>
+                                                <p v-if="tableOrderItem.origin != null">
+                                                    <span v-for="item in selectListData.orderOrigin"
+                                                          v-if="tableOrderItem.origin == item.code">{{item.text}}</span>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.str1 }}</p>
+                                            </td>
+                                            <td>
+                                                <p v-for="actItem in selectListData.actLists"
+                                                   v-if="tableOrderItem.actCode == actItem.actCode">
+                                                    {{actItem.actName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.orderInd}}</p>
+                                            </td>
+                                            <td>
+                                                <p v-if="tableOrderItem.subtasksStatus == null"></p>
+                                                <p v-if="tableOrderItem.subtasksStatus == 0">未生成</p>
+                                                <p v-if="tableOrderItem.subtasksStatus == 1">已生成</p>
+                                            </td>
+
+                                            <td>
+                                                <p>{{tableOrderItem.sfrPartyName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.stoPartyName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.totalQty}}</p>
+                                            </td>
+                                            <td>
+                                                <p v-for="completeStatusItem in selectListData.completeStatusList"
+                                                   v-if="completeStatusItem.code == tableOrderItem.completeStatus">
+                                                    {{completeStatusItem.text}}</p>
+                                            </td>
+
+                                            <td>
+                                                <p v-for="exceptionStatusItem in selectListData.exceptionStatusList"
+                                                   v-if="exceptionStatusItem.code == tableOrderItem.exceptionStatus">
+                                                    {{exceptionStatusItem.text}}</p>
+                                            </td>
+                                            <td><p>{{tableOrderItem.createTime | timestampToTime}}</p></td>
+                                            <td><p>{{tableOrderItem.completeTime | timestampToTime}}</p></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="adsRightFooter">
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageList.length}}页 /{{totalPagesNum}}条
+                                        <select v-model="queryPageSize">
+                                            <option value="20">20条/页</option>
+                                            <option value="30">30条/页</option>
+                                            <option value="40">40条/页</option>
+                                            <option value="50">50条/页</option>
+                                            <option value="80">80条/页</option>
+                                            <option value="100">100条/页</option>
+                                        </select>
+                                    </p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a
+                                                href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageList"
+                                                    v-on:click="changePage(pageItem,'current')"><a
+                                                        v-bind:class="{'active': pageItem == currentPage }"
+                                                        href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="currentPage != pageList.length"
+                                              v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理   、-->
+
+                    <!-- 订单管理-新增   -->
+                    <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <!--订单基本信息-->
+                                    <div class="adsRightConItem" v-if="abnormalPage == 1">
+                                        <p class="adsRightConTitle">子订单数</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <p class="inp">
+                                                    <input type="text" placeholder="请输入子订单数" v-model="splitCount"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p class="inp">
+                                                    <select v-model="splitType" name="" id="" value="1">
+                                                        <option value="master">总单拆单</option>
+                                                        <option value="house">明细拆单</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li class="searchBtn">
+                                                <span v-on:click="createOrderSplit()">确定</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="adsRightConItem" v-if="isShowSplitList == 1">
+                                        <div class="totalSingleList" v-if="showTotalSingleList">
+                                            <p class="adsRightConTitle">子订单列表</p>
+                                            <div v-for="orderSplitItem in orderSplitList">
+                                                <ul class="adsRightConInp"
+                                                    v-for="orderItemInfo in orderSplitItem.orderItemList">
+                                                    <li>
+                                                        <span class="txt">子订单id</span>
+                                                        <p class="inp">
+                                                            {{orderSplitItem.houseOrderId}}
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <span class="txt">数量</span>
+                                                        <input v-model="orderItemInfo.qty" type="text"/>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <ul class="adsRightConInp">
+                                                <li class="searchBtn">
+                                                    <span v-on:click="orderSplitFun()">确定拆单</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="detailList" v-if="showDetailList">
+                                            <p class="adsRightConTitle">子订单列表</p>
+                                            <div class="orderDtailList">
+                                                <ul class="adsRightConInp"
+                                                    v-for="(orderSplitItem,index) in orderSplitList">
+                                                    <li>
+                                                        <div class="sunOrderId">
+                                                            <span class="txt">子订单id</span>
+                                                            <p class="inp">
+                                                                {{orderSplitItem.houseOrderId}}
+                                                            </p>
+                                                        </div>
+                                                        <div class="sunOrderId">
+                                                            <a href="#" class="txt txta txta1"
+                                                               v-on:click="openAddressInfo(index)">查看地址信息</a>
+                                                            <a href="#" class="txt txta txta2"
+                                                               v-on:click="closeAddressInfo(index)">收起地址信息</a>
+                                                        </div>
+                                                        <div class="sunOrderList">
+                                                            <div class="reportMessages">
+                                                                <table>
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th class="repMesTh1">商品</th>
+                                                                        <th class="repMesTh2">包装率</th>
+                                                                        <th class="repMesTh3">件*毛*体</th>
+                                                                        <th class="repMesTh4">数量</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr v-for="orderItemInfo in orderSplitItem.orderItemList">
+                                                                        <td>
+                                                                            <p>{{orderItemInfo.itemName}}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p>{{orderItemInfo.str1}}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p>{{orderItemInfo.qty}} *
+                                                                                {{orderItemInfo.weight}} *
+                                                                                {{orderItemInfo.volume}}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p class="repMesTh4_p">
+                                                                                <input type="text"
+                                                                                       v-model="orderItemInfo.qty"/>
+                                                                            </p>
+                                                                        </td>
+                                                                        <!--<td>{{tableOrderItem.completeTime | timestampToTime}}</td>-->
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="childOrderAddress">
+                                                        <!--发货商信息-->
+                                                        <div class="adsRightConItem">
+                                                            <p class="adsRightConTitle">发货商信息 <span></span></p>
+                                                            <ul class="adsRightConInp">
+                                                                <li>
+                                                                    <span class="txt">发货商名称</span>
+                                                                    <p class="inp">
+                                                                        <input v-bind:disabled="isDisable" type="text"
+                                                                               v-model="orderSplitItem.shipperPartyInfo.party.partyName"
+                                                                               placeholder="发货合作方"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">发货商联系人</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.shipperPartyInfo.imgContact.contactName"
+                                                                               type="text" placeholder="联系人姓名"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">发货商电话</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.shipperPartyInfo.imgContact.contactTel"
+                                                                               type="text" placeholder="联系人电话"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">地址简称</span>
+                                                                    <p class="inp">
+                                                                        <input type="text"
+                                                                               v-model="orderSplitItem.shipperPartyInfo.location.street"
+                                                                               placeholder="地址简称" class="form-control"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">详细地址</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.shipperPartyInfo.location.address"
+                                                                               type="text" placeholder="详细地址"
+                                                                               style="width: 300px;"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">发货地联系人</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.shipperPartyInfo.contact.contactName"
+                                                                               type="text" placeholder="联系人姓名"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">联系电话</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.shipperPartyInfo.contact.contactTel"
+                                                                               type="text" placeholder="联系电话"/>
+                                                                    </p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+
+                                                        <!--收货商信息-->
+                                                        <div class="adsRightConItem">
+                                                            <p class="adsRightConTitle">收货商信息</p>
+                                                            <ul class="adsRightConInp">
+                                                                <li>
+                                                                    <span class="txt">收货商名称</span>
+                                                                    <p class="inp">
+                                                                        <input v-bind:disabled="isDisable" type="text"
+                                                                               v-model="orderSplitItem.receiptPartyInfo.party.partyName"
+                                                                               class="form-control"
+                                                                               placeholder="收货合作方"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">收货商联系人</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.receiptPartyInfo.imgContact.contactName"
+                                                                               type="text" placeholder="联系人姓名"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">收货商电话</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.receiptPartyInfo.imgContact.contactTel"
+                                                                               type="text" placeholder="联系人电话"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">地址简称</span>
+                                                                    <p class="inp">
+                                                                        <input type="text"
+                                                                               v-model="orderSplitItem.receiptPartyInfo.location.street"
+                                                                               placeholder="地址简称" class="form-control"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">详细地址</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.receiptPartyInfo.location.address"
+                                                                               type="text" placeholder="详细地址"
+                                                                               style="width: 300px;"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">收货地联系人</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.receiptPartyInfo.contact.contactName"
+                                                                               type="text" placeholder="联系人姓名"/>
+                                                                    </p>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="txt">联系电话</span>
+                                                                    <p class="inp">
+                                                                        <input v-model="orderSplitItem.receiptPartyInfo.contact.contactTel"
+                                                                               type="text" placeholder="联系人电话"/>
+                                                                    </p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <ul class="adsRightConInp">
+                                                <li class="searchBtn">
+                                                    <span v-on:click="orderSplitFun()">确定拆单</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="openDetailButtonDiv" v-if="abnormalPage == 1">
+                                        <p class="openDetailButton" v-on:click="opOrCloDetail()">查看总单详情</p>
+                                        <div class="openDetailButtonTriangle"></div>
+                                    </div>
+
+                                    <div class="adsRightConItemAndFreely" v-show="abnormalPage != 1">
+                                        <!--订单基本信息-->
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">基本信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">发单方</span>
+                                                    <p class="inp">
+                                                        <select v-bind:disabled="isDisable"
+                                                                v-model="orderDetail.orderFrom" name="" id="">
+                                                            <option value="">请选择发单方</option>
+                                                            <option v-for="orderFormItem in selectListData.orderFromList"
+                                                                    v-bind:value="orderFormItem.code">
+                                                                {{orderFormItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">接单方</span>
+                                                    <p class="inp">
+                                                        <select v-bind:disabled="isDisable"
+                                                                v-model="orderDetail.orderTo" name="" id="">
+                                                            <option value="">请选择发单方</option>
+                                                            <option v-for="orderToItem in selectListData.orderToList"
+                                                                    v-bind:value="orderToItem.code">{{orderToItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">关联号</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="orderDetail.customerRefNo" type="text"
+                                                               placeholder="请输入关联号"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">状态</span>
+                                                    <p class="inp">
+                                                        <select v-bind:disabled="isDisable"
+                                                                v-model="orderDetail.orderType" name="" id="">
+                                                            <option value="">请选择状态</option>
+                                                            <option v-for="orderTypeItem in selectListData.orderTypeList"
+                                                                    v-bind:value="orderTypeItem.code">
+                                                                {{orderTypeItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">要求完成时间</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" size="16" type="text"
+                                                               placeholder="请输入要求完成时间"
+                                                               v-model="orderDetail.completeTime" readonly
+                                                               class="form_datetime">
+                                                    </p>
+                                                </li>
+
+                                                <li v-if="orderDetail.expireTime == null || orderDetail.expireTime ==''">
+                                                    <span class="txt">订单过期时间</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" size="16" type="text"
+                                                               placeholder="请输入订单过期时间" v-model="orderDetail.expireTime"
+                                                               readonly class="form_datetime">
+                                                    </p>
+                                                </li>
+
+                                                <li v-if="orderDetail.expireTime != null || orderDetail.expireTime !=''">
+                                                    <span class="txt">订单过期时间</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" size="16" type="text"
+                                                               readonly class="form_datetime">
+                                                    </p>
+                                                </li>
+
+                                                <li class="unitsLi">
+                                                    <span class="txt">总数量</span>
+                                                    <p class="inp">
+                                                        <input class="width85" v-bind:disabled="isDisable"
+                                                               v-model="orderDetail.totalQty" type="text"
+                                                               placeholder="总数量"/>
+                                                        <select class="width85" v-bind:disabled="isDisable"
+                                                                v-model="orderDetail.qtyUnit" name="" id="">
+                                                            <option value="">请选择单位</option>
+                                                            <option v-for="qtyUnitItem in selectListData.qtyUnitList"
+                                                                    v-bind:value="qtyUnitItem.code">{{qtyUnitItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li class="unitsLi">
+                                                    <span class="txt">总重量</span>
+                                                    <p class="inp">
+                                                        <input class="width85" v-bind:disabled="isDisable"
+                                                               v-model="orderDetail.totalWeight" type="text"
+                                                               placeholder="总重量"/>
+                                                        <select class="width85" v-bind:disabled="isDisable"
+                                                                v-model="orderDetail.weightUnit" name="" id="">
+                                                            <option value="">请选择单位</option>
+                                                            <option v-for="weightUnitItem in selectListData.weightUnitList"
+                                                                    v-bind:value="weightUnitItem.code">
+                                                                {{weightUnitItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li class="unitsLi">
+                                                    <span class="txt">总体积</span>
+                                                    <p class="inp">
+                                                        <input class="width85" v-bind:disabled="isDisable"
+                                                               v-model="orderDetail.totalVolume" type="text"
+                                                               placeholder="总体积"/>
+                                                        <select class="width85" v-bind:disabled="isDisable"
+                                                                v-model="orderDetail.volumeUnit" name="" id="">
+                                                            <option value="">请选择单位</option>
+                                                            <option v-for="volumeUnitItem in selectListData.volumeUnitList"
+                                                                    v-bind:value="volumeUnitItem.code">
+                                                                {{volumeUnitItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li class="unitsLi">
+                                                    <span class="txt">总金额</span>
+                                                    <p class="inp">
+                                                        <input class="width85" v-bind:disabled="isDisable"
+                                                               v-model="orderDetail.totalAmount" type="text"
+                                                               placeholder="总金额"/>
+                                                        <select class="width85" v-bind:disabled="isDisable"
+                                                                v-model="orderDetail.currency" name="" id="">
+                                                            <option value="">请选择单位</option>
+                                                            <option v-for="currencyItem in selectListData.currencyList"
+                                                                    v-bind:value="currencyItem.code">
+                                                                {{currencyItem.text}}
+                                                            </option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">备注</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" v-model="orderDetail.remark"
+                                                               type="text" placeholder="请输入备注"/>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <!--发货商信息-->
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">发货商信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">发货商名称</span>
+                                                    <p class="inp">
+                                                        <input type="text" v-bind:disabled="isDisable"
+                                                               v-model="shipperParty.partyName" placeholder="发货合作方"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">发货商联系人</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="shipperPartyContact.contactName" type="text"
+                                                               placeholder="联系人姓名"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">发货商电话</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="shipperPartyContact.contactTel" type="text"
+                                                               placeholder="联系人电话"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">地址简称</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text"
+                                                               v-model="shipperPartyLocation.street" placeholder="地址简称"
+                                                               class="form-control"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">详细地址</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="shipperPartyLocation.address" type="text"
+                                                               placeholder="详细地址" style="width: 300px;"/>
+                                                    </p>
+                                                </li>
+                                                <!--<li>
+                                                    <span class="txt">邮编</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" v-model="shipperPartyLocation.postCode" type="text" placeholder="邮编" />
+                                                    </p>
+                                                </li>-->
+                                                <!--<li>
+                                                    <span class="txt">位置</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" v-model="shipperPartyLocation.latLng" type="text" placeholder="位置" />
+                                                    </p>
+                                                </li>-->
+                                                <li>
+                                                    <span class="txt">发货地联系人</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="shipperPartyLocationContact.contactName"
+                                                               type="text" placeholder="联系人姓名"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">联系电话</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="shipperPartyLocationContact.contactTel"
+                                                               type="text" placeholder="联系电话"/>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <!--收货商信息-->
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">收货商信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">收货商名称</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text"
+                                                               v-model="receiptParty.partyName" class="form-control"
+                                                               placeholder="收货合作方" disabled/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">收货商联系人</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="receiptPartyContact.contactName" type="text"
+                                                               placeholder="联系人姓名"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">收货商电话</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="receiptPartyContact.contactTel" type="text"
+                                                               placeholder="联系人电话"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">地址简称</span>
+                                                    <p class="inp">
+                                                        <input type="text" v-model="receiptPartyLocation.street"
+                                                               placeholder="地址简称" class="form-control"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">详细地址</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="receiptPartyLocation.address" type="text"
+                                                               placeholder="详细地址" style="width: 300px;"/>
+                                                    </p>
+                                                </li>
+                                                <!--<li>
+                                                    <span class="txt">邮编</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" v-model="receiptPartyLocation.postCode" type="text" placeholder="邮编" />
+                                                    </p>
+                                                </li>-->
+                                                <!--<li>
+                                                    <span class="txt">位置</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" v-model="receiptPartyLocation.latLng" type="text" placeholder="请输入位置" />
+                                                    </p>
+                                                </li>-->
+                                                <li>
+                                                    <span class="txt">收货地联系人</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="receiptPartyLocationContact.contactName"
+                                                               type="text" placeholder="联系人姓名"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">联系电话</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="receiptPartyLocationContact.contactTel"
+                                                               type="text" placeholder="联系人电话"/>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <!--承运商信息-->
+                                        <div class="adsRightConItem" v-if="isShippingOrder">
+                                            <p class="adsRightConTitle">承运商信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">承运商名称</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="OrderCarrier.partyName" type="text"
+                                                               placeholder="承运商名称"/>
+
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">承运商联系人</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="OrderCarrierContact.contactName" type="text"
+                                                               placeholder="联系人姓名"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">承运商电话</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="OrderCarrierContact.contactTel" type="text"
+                                                               placeholder="联系人电话"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">司机姓名</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="OrderCarrierDriver.contactName" type="text"
+                                                               placeholder="司机姓名"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">司机手机</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="OrderCarrierDriver.contactTel" type="text"
+                                                               placeholder="司机手机"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">设备名称</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="OrderCarrierEqp.eqpName" type="text"
+                                                               placeholder="设备名称"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">车牌号</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="OrderCarrierEqp.eqpNo" type="text"
+                                                               placeholder="车牌号"/>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">设备型号</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable"
+                                                               v-model="OrderCarrierEqp.eqpSpec" type="text"
+                                                               placeholder="设备型号"/>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <!--包裹信息-->
+                                        <div class="adsRightConItem packageGoodsList">
+                                            <p class="adsRightConTitle">包裹信息</p>
+                                            <div class="reportMessages">
+                                                <table>
+                                                    <thead>
+                                                    <tr>
+                                                        <th>商品</th>
+                                                        <th>批次号</th>
+                                                        <th>单价</th>
+                                                        <th>总价值</th>
+                                                        <th>金额单位</th>
+                                                        <th>数量</th>
+                                                        <th>体积</th>
+                                                        <th>重量</th>
+                                                        <th>商品描述</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr v-for="goodsItem in packageGoodsDetails">
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.itemName}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.lotNo}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.amount}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.unitPrice}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.currency}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.qty}}
+                                                                {{goodsItem.orderItem.qtyUnit}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.volume}}
+                                                                {{goodsItem.orderItem.volumeUnit}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.weight}}
+                                                                {{goodsItem.orderItem.weight}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{goodsItem.orderItem.itemDesc}}</p>
+                                                        </td>
+
+                                                        <!--<td>{{tableOrderItem.completeTime | timestampToTime}}</td>-->
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理 -新增   、-->
+
+                    <!-- 订单管理 -物流  -->
+                    <div class="logisticsInfo template" id="logisticsInfo">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <!--订单基本信息-->
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle">订单基本信息</p>
+                                        <ul class="adsRightConInp adsRightConInpOnlyText">
+                                            <li>
+                                                <span class="txt">订单号：</span>
+                                                <p class="inp">
+                                                    {{orderLogisticsInfo.orderNo}}
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">发货地址：</span>
+                                                <p class="inp">
+                                                    {{orderLogisticsInfo.sfrAddress}}
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">收货地址：</span>
+                                                <p class="inp">
+                                                    {{orderLogisticsInfo.stoAddress}}
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">件毛体：</span>
+                                                <p class="inp">
+                                                    {{orderLogisticsInfo.totalQty}} *
+                                                    {{orderLogisticsInfo.totalWeight}} *
+                                                    {{orderLogisticsInfo.totalVolume}}
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="adsRightConItem adsRightConHaveMap">
+                                        <div class="deliveryPointInf spaceBetween">
+                                            <div class="adsRightConItem">
+                                                <div class="logisticsItem">
+                                                    <h5 class="logisticsItemTitle">当前状态</h5>
+                                                    <ul class="adsRightConInp adsRightConInpOnlyText">
+                                                        <li>
+                                                            <span class="txt">状态：</span>
+                                                            <p class="inp" v-for="actItem in selectListData.actLists"
+                                                               v-if="actItem.actCode == actCurrentInfo.actCode">
+                                                                {{actItem.actName}}
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">动态时间：</span>
+                                                            <p class="inp">
+                                                                {{actCurrentInfo.actTime | timestampToTime}}
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">备注：</span>
+                                                            <p class="inp">
+                                                                {{actCurrentInfo.remark}}
+                                                            </p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="logisticsItem">
+                                                    <h5 class="logisticsItemTitle">历史状态</h5>
+                                                    <ul class="adsRightConInp adsRightConInpOnlyText"
+                                                        v-for="actItemInfo in actListInfo">
+                                                        <li>
+                                                            <span class="txt">状态：</span>
+                                                            <p class="inp" v-for="actItem in selectListData.actLists"
+                                                               v-if="actItem.actCode == actItemInfo.actCode">
+                                                                {{actItem.actName}}
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">动态时间：</span>
+                                                            <p class="inp">
+                                                                {{actItemInfo.actTime | timestampToTime}}
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">备注：</span>
+                                                            <p class="inp">
+                                                                {{actItemInfo.remark}}
+                                                            </p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="adsRightConRight">
+                                                <div id="container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理 -物流   、-->
+
+                    <!-- 订单管理 -分单  -->
+                    <div class="separateOrders template" id="newAdsActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="receiptTaskDivs">
+                                        <p class="adsRightConTitle">分单列表<span v-on:click="addPassAddress()"
+                                                                              title="增加途经点">+</span></p>
+                                        <ul class="splitOrderTitle">
+                                            <li>标记</li>
+                                            <li>任务类型</li>
+                                            <li>联系方式</li>
+                                            <li>地址</li>
+                                            <li>操作</li>
+                                        </ul>
+                                        <!--起点-->
+                                        <ul class="splitOrderContent">
+                                            <li>
+                                                <p class="addressSymbol">起</p>
+                                            </li>
+                                            <li>
+                                                <select v-model="orderSplitBeginInfo.orderModel">
+                                                    <option value="提货任务">提货任务</option>
+                                                    <option value="干线任务">干线任务</option>
+                                                    <option value="派送任务">派送任务</option>
+                                                </select>
+                                            </li>
+                                            <li>
+                                                <input disabled type="text" placeholder="姓名"
+                                                       v-model="orderSplitBeginInfo.partyInfoModel.imgContact.contactName">
+                                                <input disabled type="text" placeholder="电话"
+                                                       v-model="orderSplitBeginInfo.partyInfoModel.imgContact.contactTel">
+                                            </li>
+                                            <li>
+                                                <select v-model="orderSplitBeginInfo.partyInfoModel.location.provinceCode"
+                                                        v-on:change="selectLocLevelFun('provinceCode',orderSplitBeginInfo.partyInfoModel.location,orderSplitBeginInfo.partyInfoModel.location.provinceCode)"
+                                                        name="">
+                                                    <option value="">省份/自治区</option>
+                                                    <option v-for="addressItem in getAllProviceList('100000')"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <select v-model="orderSplitBeginInfo.partyInfoModel.location.cityCode"
+                                                        v-on:change="selectLocLevelFun('cityCode',orderSplitBeginInfo.partyInfoModel.location,orderSplitBeginInfo.partyInfoModel.location.cityCode)"
+                                                        name="">
+                                                    <option value="">城市/地区</option>
+                                                    <option v-for="addressItem in getAllCityList(orderSplitBeginInfo.partyInfoModel.location.provinceCode)"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <select v-model="orderSplitBeginInfo.partyInfoModel.location.districtCode"
+                                                        v-on:change="selectLocLevelFun('districtCode',orderSplitBeginInfo.partyInfoModel.location,orderSplitBeginInfo.partyInfoModel.location.districtCode)"
+                                                        name="">
+                                                    <option value="">区/县</option>
+                                                    <option v-for="addressItem in getAllDistrictList(orderSplitBeginInfo.partyInfoModel.location.cityCode)"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <input v-model="orderSplitBeginInfo.partyInfoModel.location.street"
+                                                       type="text" placeholder="街道"/>
+                                            </li>
+                                        </ul>
+                                        <!--途经点-->
+                                        <ul class="splitOrderContent" v-for="(passItem,index) in orderSplitPassList">
+                                            <li>
+                                                <p class="addressSymbol" style="border-color: #448ca9;color: #448ca9;">
+                                                    经</p>
+                                            </li>
+                                            <li>
+                                                <select v-model="passItem.orderModel">
+                                                    <option value="提货任务">提货任务</option>
+                                                    <option value="干线任务">干线任务</option>
+                                                    <option value="派送任务">派送任务</option>
+                                                </select>
+                                            </li>
+                                            <li>
+                                                <input type="text" placeholder="姓名"
+                                                       v-model="passItem.partyInfoModel.imgContact.contactName">
+                                                <input type="text" placeholder="电话"
+                                                       v-model="passItem.partyInfoModel.imgContact.contactTel">
+                                            </li>
+                                            <li>
+                                                <select v-model="passItem.partyInfoModel.location.provinceCode"
+                                                        v-on:change="selectLocLevelFun('provinceCode',passItem.partyInfoModel.location,passItem.partyInfoModel.location.provinceCode)"
+                                                        name="">
+                                                    <option value="">省份/自治区</option>
+                                                    <option v-for="addressItem in getAllProviceList('100000')"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <select v-model="passItem.partyInfoModel.location.cityCode"
+                                                        v-on:change="selectLocLevelFun('cityCode',passItem.partyInfoModel.location,passItem.partyInfoModel.location.cityCode)"
+                                                        name="">
+                                                    <option value="">城市/地区</option>
+                                                    <option v-for="addressItem in getAllCityList(passItem.partyInfoModel.location.provinceCode)"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <select v-model="passItem.partyInfoModel.location.districtCode"
+                                                        v-on:change="selectLocLevelFun('districtCode',passItem.partyInfoModel.location,passItem.partyInfoModel.location.districtCode)"
+                                                        name="">
+                                                    <option value="">区/县</option>
+                                                    <option v-for="addressItem in getAllDistrictList(passItem.partyInfoModel.location.cityCode)"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <input v-model="passItem.partyInfoModel.location.street" type="text"
+                                                       placeholder="街道"/>
+                                            </li>
+                                            <li>
+                                                <span v-on:click="deletePassItem(index)">删除</span>
+                                            </li>
+                                        </ul>
+                                        <!--终点-->
+                                        <ul class="splitOrderContent">
+                                            <li>
+                                                <p class="addressSymbol">终</p>
+                                            </li>
+                                            <li>
+                                                <select v-model="orderSplitEndInfo.orderModel">
+                                                    <option value="提货任务">提货任务</option>
+                                                    <option value="干线任务">干线任务</option>
+                                                    <option value="派送任务">派送任务</option>
+                                                </select>
+                                            </li>
+                                            <li>
+                                                <input disabled type="text" placeholder="姓名"
+                                                       v-model="orderSplitEndInfo.partyInfoModel.imgContact.contactName">
+                                                <input disabled type="text" placeholder="电话"
+                                                       v-model="orderSplitEndInfo.partyInfoModel.imgContact.contactTel">
+                                            </li>
+                                            <li>
+                                                <select v-model="orderSplitEndInfo.partyInfoModel.location.provinceCode"
+                                                        v-on:change="selectLocLevelFun('provinceCode',orderSplitEndInfo.partyInfoModel.location,orderSplitEndInfo.partyInfoModel.location.provinceCode)"
+                                                        name="">
+                                                    <option value="">省份/自治区</option>
+                                                    <option v-for="addressItem in getAllProviceList('100000')"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <select v-model="orderSplitEndInfo.partyInfoModel.location.cityCode"
+                                                        v-on:change="selectLocLevelFun('cityCode',orderSplitEndInfo.partyInfoModel.location,orderSplitEndInfo.partyInfoModel.location.cityCode)"
+                                                        name="">
+                                                    <option value="">城市/地区</option>
+                                                    <option v-for="addressItem in getAllCityList(orderSplitEndInfo.partyInfoModel.location.provinceCode)"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <select v-model="orderSplitEndInfo.partyInfoModel.location.districtCode"
+                                                        v-on:change="selectLocLevelFun('districtCode',orderSplitEndInfo.partyInfoModel.location,orderSplitEndInfo.partyInfoModel.location.districtCode)"
+                                                        name="">
+                                                    <option value="">区/县</option>
+                                                    <option v-for="addressItem in getAllDistrictList(orderSplitEndInfo.partyInfoModel.location.cityCode)"
+                                                            v-bind:value="addressItem.adcode">
+                                                        {{addressItem.chineseName}}
+                                                    </option>
+                                                </select>
+                                                <input v-model="orderSplitEndInfo.partyInfoModel.location.street"
+                                                       type="text" placeholder="街道"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--保存订单-->
+                            <div class="adsRightConItem">
+                                <div class="searchBtn" style="text-align: center;width: 83%;">
+                                    <p class="saveNewOrderBtn" v-on:click="savePartOrderInfo()"
+                                       style="display: inline-block;">保存订单</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理 -分单   、-->
+
+                    <!-- 订单管理-添加承运   -->
+                    <div class="addOrderCarrier template" id="addOrderCarrier">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="adsRightConItem" v-for="(orderCarrierItem,index) in orderCarrierList">
+                                        <!--订单基本信息-->
+                                        <p class="adsRightConTitle">订单信息&nbsp;&nbsp;{{index + 1}}</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">发货商</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="orderCarrierItem.shipperPartyHave.partyName"
+                                                           placeholder="--"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">收货商</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="orderCarrierItem.receiptPartyHave.partyName"
+                                                           placeholder="--"/>
+
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">订单号</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="orderCarrierItem.orderDetailHave.orderNo"
+                                                           placeholder="--"/>
+
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">关联号</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="orderCarrierItem.orderDetailHave.customerRefNo"
+                                                           placeholder="--"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">订单类型</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable"
+                                                            v-model="orderCarrierItem.orderDetailHave.orderType"
+                                                            name="">
+                                                        <option value="">订单类型</option>
+                                                        <option v-for="orderTypeItem in selectListData.orderTypeList"
+                                                                v-bind:value="orderTypeItem.code">{{orderTypeItem.text}}
+                                                        </option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <!--承运商信息-->
+                                        <p class="adsRightConTitle">订单已有承运商</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">承运商</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="orderCarrierItem.OrderCarrierHave.partyName"
+                                                           type="text" placeholder=""/>
+
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">联系人</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="orderCarrierItem.OrderCarrierContactHave.contactName"
+                                                           type="text" placeholder=""/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">联系人电话</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="orderCarrierItem.OrderCarrierContactHave.contactTel"
+                                                           type="text" placeholder=""/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">司机</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="orderCarrierItem.OrderCarrierDriverHave.contactName"
+                                                           type="text" placeholder=""/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">司机手机</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="orderCarrierItem.OrderCarrierDriverHave.contactTel"
+                                                           type="text" placeholder=""/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">车辆类型</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="orderCarrierItem.OrderCarrierEqpHave.eqpName"
+                                                           type="text" placeholder=""/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">车牌号</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="orderCarrierItem.OrderCarrierEqpHave.eqpNo"
+                                                           type="text" placeholder=""/>
+                                                </p>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <!--承运商信息-->
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle">添加承运商</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">发货日期</span>
+                                                <p class="inp">
+                                                    <input type="text" readonly id="timeRange1" v-model="timeHorizon1"
+                                                           placeholder="发货时间"/>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">承运商</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="OrderCarrier.cdPartyId"
+                                                            v-on:change="changeCarrierInfo(OrderCarrier.cdPartyId)"
+                                                            name="">
+                                                        <option value="">承运商</option>
+                                                        <option v-for="partyItem in resPartyList"
+                                                                v-bind:value="partyItem.cdPartyId">
+                                                            {{partyItem.partyName}}
+                                                        </option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">承运商名称</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="OrderCarrier1.partyName" placeholder="承运商名称"/>
+                                                </p>
+                                            </li>
+                                            <li class="searchBtn">
+                                                <span class="whiteBtn" v-if="shortShowType == '0'"
+                                                      v-on:click="showItemDetails">详情</span>
+                                                <span class="whiteBtn" v-if="shortShowType == '1'"
+                                                      v-on:click="hideItemDetails">收起</span>
+                                            </li>
+                                        </ul>
+                                        <ul v-if="shortShowType == '1'" class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">承运商联系人</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="OrderCarrierContact.contactName" type="text"
+                                                           placeholder="承运商联系人"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">承运商电话</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="OrderCarrierContact.contactTel" type="text"
+                                                           placeholder="承运商电话"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">承运商邮箱</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="OrderCarrierContact.contactEmail" type="text"
+                                                           placeholder="承运商邮箱"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">承运商地址</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable"
+                                                           v-model="OrderCarrierContact.contactAddress" type="text"
+                                                           placeholder="承运商地址"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">承运商编码</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="OrderCarrier1.partyCode" placeholder="承运商编码"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">是否买家</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="OrderCarrier1.isBuyer"
+                                                            name="">
+                                                        <option value="">是否买家</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">是否卖家</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="OrderCarrier1.isVendor"
+                                                            name="">
+                                                        <option value="">是否卖家</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">是否卡车公司</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="OrderCarrier1.isTruck"
+                                                            name="">
+                                                        <option value="">是否卡车公司</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">是否仓库</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable"
+                                                            v-model="OrderCarrier1.isWarehouse" name="">
+                                                        <option value="">是否仓库</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">是否第三方物流</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="OrderCarrier1.is3pl"
+                                                            name="">
+                                                        <option value="">是否第三方物流</option>
+                                                        <option value="1">是</option>
+                                                        <option value="0">否</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <ul class="adsRightConInp">
+                                            <li class="fate putDown">
+                                                <span class="txt">司机姓名</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" id="carrierDriverName"
+                                                           type="text" v-model="OrderCarrierDriver.contactName"
+                                                           v-on:keyup="getDriverInfo(OrderCarrierDriver.contactName)"
+                                                           placeholder="司机姓名"/>
+                                                </p>
+                                                <dl class="fateCon" v-if="showDriverList">
+                                                    <dd v-for="driverItem in driverList"
+                                                        v-on:click="chooseDriver(driverItem)">{{driverItem.contactName}}
+                                                    </dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <span class="txt">司机手机</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" class="carrierDriverTel"
+                                                           v-model="OrderCarrierDriver.contactTel" type="text"
+                                                           placeholder="司机手机"/>
+                                                </p>
+                                            </li>
+                                            <li class="fate putDown">
+                                                <span class="txt">车牌号</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" id="carrierEqpNo" type="text"
+                                                           v-model="OrderCarrierEqp.eqpNo"
+                                                           v-on:keyup="getPlateInfo(OrderCarrierEqp.eqpNo)"
+                                                           placeholder="车牌号"/>
+                                                </p>
+                                                <dl class="fateCon" v-if="showPlateList">
+                                                    <dd v-for="plateItem in plateList"
+                                                        v-on:click="choosePlate(plateItem)">{{plateItem.eqpNo}}
+                                                    </dd>
+                                                </dl>
+                                            </li>
+                                            <li>
+                                                <span class="txt">设备名称</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" class="carrierEqpName"
+                                                           type="text" v-model="OrderCarrierEqp.eqpName"
+                                                           placeholder="设备名称"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">设备品牌</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           class="carrierEqpBrand" v-model="OrderCarrierEqp.eqpBrand"
+                                                           placeholder="设备品牌"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">设备类型</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable"
+                                                            v-model="OrderCarrierEqp.eqpType" name="">
+                                                        <option value="">设备类型</option>
+                                                        <option v-for="eqpTypeItem in selectListData.eqpTypeList"
+                                                                v-bind:value="eqpTypeItem.code">{{eqpTypeItem.text}}
+                                                        </option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">设备型号</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           class="carrierEqpSpec" v-model="OrderCarrierEqp.eqpSpec"
+                                                           placeholder="设备型号"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">长度 [米]</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="OrderCarrierEqp.eqpLength" placeholder="长度 [米]"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">宽度 [米]</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="OrderCarrierEqp.eqpWidth" placeholder="宽度 [米]"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">高度 [米]</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="OrderCarrierEqp.eqpHeight" placeholder="高度 [米]"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">车载量</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="OrderCarrierEqp.eqpStr1" placeholder="车载量"/>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">客户量</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text"
+                                                           v-model="OrderCarrierEqp.eqpStr2" placeholder="客户量"/>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="searchBtn" style="text-align: center;margin-top: 15px;">
+                                        <span class="butOperateShow" v-on:click="addCarrierFun()">保存</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理-添加承运 --->
+                </div>
+            </div>
+        </div>
+        <!-- adsContent end-->
+
+        <div class="ajax-load-pupup1">
+            <div class="ajax-load-hint">
+                <img src="/img/loading51.gif"/>
+                <span>文件下载中，请稍后......</span>
+            </div>
+        </div>
+    </div>
+    <div class="maskLayer maskLayer1">
+        <div class="popup" style="width: 75%;">
+            <div class="popupCon popupType0" v-if="popupType == 'goods'">
+                <h3 class="popupTitle" style="border:0;">
+                    <span>全部商品</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList" v-if="showItemList == '0'">
+                    <p>数据加载中，请稍后......</p>
+                </div>
+                <ul class="textBoxTitle textBoxMask">
+                    <li>
+                        <input type="text" v-model="selectGoods.partyCode" placeholder="商户编码"/>
+                    </li>
+                    <li>
+                        <input type="text" v-model="selectGoods.partyName" placeholder="商户名称"/>
+                    </li>
+                    <li>
+                        <input type="text" v-model="selectGoods.itemCode" placeholder="商品编码"/>
+                    </li>
+                    <li>
+                        <input type="text" v-model="selectGoods.itemNo" placeholder="商品编号"/>
+                    </li>
+                    <li>
+                        <input type="text" v-model="selectGoods.itemName" placeholder="商品名称"/>
+                    </li>
+                    <li>
+                        <input type="text" v-model="selectGoods.tenantCode" placeholder="公司编码"/>
+                    </li>
+                    <li>
+                        <input type="text" v-model="selectGoods.itemBarCode" placeholder="标识码"/>
+                    </li>
+                    <li>
+                        <input type="text" v-model="selectGoods.producePlace" placeholder="产品归属地"/>
+                    </li>
+                    <li>
+                        <input type="text" v-model="selectGoods.produceParty" placeholder="产地"/>
+                    </li>
+                    <li class="searchBtn" style="border:0;">
+                        <span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+                    </li>
+                </ul>
+                <div class="popupDpList" v-if="showItemList == '1'">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>商户编码</th>
+                            <th>商户名称</th>
+                            <th>商品编码</th>
+                            <th>商品编号</th>
+                            <th>商品名称</th>
+                            <th>库存</th>
+                            <th>最小库存</th>
+                            <th>规格</th>
+                            <th>重量</th>
+                            <th>体积</th>
+                            <th>产品归属地</th>
+                            <th>产地</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item,index) in itemList" v-on:click="selectGoodsFun(item,index)">
+                            <td>
+                                <p>{{item.partyCode}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.partyName}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.itemCode}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.itemNo}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.itemName}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.qty1}} {{item.unit1}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.qty2}} {{item.unit2}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.norm}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.weight}} {{item.weightUnit}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.volume}} {{item.volumeUnit}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.producePlace}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.produceParty}}</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="paging">
+                        <p class="totalPages">共{{pageAllList.length}}页/{{totaAlllList.length}}条</p>
+                        <div class="pagingBox">
+                            <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a
+                                    href="javascript:;">«</a></span>
+                            <div class="pagingCon">
+                                <ul class="pagination">
+                                    <li v-for="pageItem in pageAllList" v-on:click="changePage(pageItem,'current')"><a
+                                            v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span v-if="pageAllList.length != 0 && currentPage != pageAllList.length"
+                                  v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popupCon popupType1" v-if="popupType == 'party'">
+                <h3 class="popupTitle">
+                    <span>全部合作商</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl">
+                        <li>
+                            <select v-model="queryParam1.partyType" name="">
+                                <option value="null">全部合作方类型</option>
+                                <option v-for="contactTypeItem in selectListData.partyTypeList"
+                                        v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam1.partyName" placeholder="请输入合作方名称"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam1.partyCode" placeholder="请输入合作方代码"/>
+                        </li>
+                        <li class="userModifyBtn">
+                            <span v-on:click="getSearchVal1()">查询</span>
+                        </li>
+                    </ul>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>合作商类型</th>
+                            <th>合作商名称</th>
+                            <th>合作方代码</th>
+                            <th>是否买家</th>
+                            <th>是否卖家</th>
+                            <th>是否卡车公司</th>
+                            <th>是否仓库</th>
+                            <th>是否第三方物流</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(partyItem,index) in partyList" v-on:click="selectPaFun(partyItem,index)">
+                            <td v-if="currentPage1 == 1"><p>{{index+1}}</p></td>
+                            <td v-if="currentPage1 != 1"><p>{{(index+1)+((currentPage1-1)*12)}}</p></td>
+                            <td>
+                                <p v-for="contactTypeItem in selectListData.partyTypeList"
+                                   v-if="contactTypeItem.code == partyItem.partyType">{{contactTypeItem.text}}</p>
+                            </td>
+                            <td>
+                                <p>{{partyItem.partyName}}</p>
+                            </td>
+                            <td>
+                                <p>{{partyItem.partyCode}}</p>
+                            </td>
+                            <td>
+                                <p v-if="partyItem.isBuyer == 1">是</p>
+                                <p v-if="partyItem.isBuyer == 0">否</p>
+                            </td>
+                            <td>
+                                <p v-if="partyItem.isVendor == 1">是</p>
+                                <p v-if="partyItem.isVendor == 0">否</p>
+                            </td>
+                            <td>
+                                <p v-if="partyItem.isTruck == 1">是</p>
+                                <p v-if="partyItem.isTruck == 0">否</p>
+                            </td>
+                            <td>
+                                <p v-if="partyItem.isWarehouse == 1">是</p>
+                                <p v-if="partyItem.isWarehouse == 0">否</p>
+                            </td>
+                            <td>
+                                <p v-if="partyItem.is3pl == 1">是</p>
+                                <p v-if="partyItem.is3pl == 0">否</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="paging">
+                        <p class="totalPages">共{{pageList1.length}}页/{{totalPagesNum1}}条</p>
+                        <div class="pagingBox">
+                            <span v-if="currentPage1 != 1" v-on:click="changePage1(currentPage1-1,'up')"><a
+                                    href="javascript:;">«</a></span>
+                            <div class="pagingCon">
+                                <ul class="pagination">
+                                    <li v-for="pageItem in pageList1" v-on:click="changePage1(pageItem,'current')"><a
+                                            v-bind:class="{'active': pageItem == currentPage1 }" href="javascript:;">{{pageItem}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span v-if="pageList1.length != 0 && currentPage1 != pageList1.length"
+                                  v-on:click="changePage1(currentPage1+1,'down')"><a href="javascript:;">»</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popupCon popupType2" v-if="popupType == 'address'">
+                <h3 class="popupTitle">
+                    <span>全部地址</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl">
+                        <li>
+                            <input type="text" v-model="queryParam2.locationName" placeholder="请输入地址名称"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam2.locationCode" placeholder="请输入地址编码"/>
+                        </li>
+                        <li>
+                            <select v-model="queryParam2.partyType" name="">
+                                <option value="null">全部合作方类型</option>
+                                <option v-for="contactTypeItem in selectListData.partyTypeList"
+                                        v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam2.partyName" placeholder="合作方名称"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam2.partyCode" placeholder="合作方代码"/>
+                        </li>
+                        <li class="userModifyBtn">
+                            <span v-on:click="getSearchVal2()">查询</span>
+                        </li>
+                    </ul>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>地址名称</th>
+                            <th>地址编码</th>
+                            <th>地址类型</th>
+                            <th>详细地址</th>
+                            <th>关联编码&nbsp;[上级]</th>
+                            <th>关联名称&nbsp;[上级]</th>
+                            <th>关联详情&nbsp;[上级]</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(addressItem,index) in addressList" v-on:click="selectAddress(addressItem,index)">
+                            <td v-if="currentPage2 == 1"><p>{{index+1}}</p></td>
+                            <td v-if="currentPage2 != 1"><p>{{(index+1)+((currentPage2-1)*12)}}</p></td>
+                            <td><p>{{addressItem.locationName}}</p></td>
+                            <td><p>{{addressItem.locationCode}}</p></td>
+                            <td>
+                                <p v-for="locationTypeItem in selectListData.locationTypeList"
+                                   v-if="locationTypeItem.code == addressItem.locationType">
+                                    {{locationTypeItem.text}}</p>
+                            </td>
+                            <td><p>{{addressItem.address}}</p></td>
+                            <td>
+                                <p v-if="addressItem.eqpNo != null"><span class="tableRemarkSpan">设备号：</span>{{addressItem.eqpNo}}
+                                </p>
+                                <p v-if="addressItem.contactTel != null"><span class="tableRemarkSpan">联系人电话：</span>{{addressItem.contactTel}}
+                                </p>
+                                <p v-if="addressItem.partyCode != null"><span class="tableRemarkSpan">合作方代码：</span>{{addressItem.partyCode}}
+                                </p>
+                            </td>
+                            <td>
+                                <p v-if="addressItem.eqpName != null"><span class="tableRemarkSpan">设备名称:</span>{{addressItem.eqpName}}
+                                </p>
+                                <p v-if="addressItem.contactName != null"><span class="tableRemarkSpan">联系人姓名：</span>{{addressItem.contactName}}
+                                </p>
+                                <p v-if="addressItem.partyName != null"><span class="tableRemarkSpan">合作方名称：</span>{{addressItem.partyName}}
+                                </p>
+                            </td>
+                            <td>
+                                <p v-if="addressItem.eqpSpec != null"><span class="tableRemarkSpan">设备型号：</span>{{addressItem.eqpSpec}}
+                                </p>
+                                <p v-if="addressItem.contactType != null">
+									<span v-for="contactTypeItem in selectListData.contactLists"
+                                          v-if="contactTypeItem.code == addressItem.contactType">
+										<span class="tableRemarkSpan">联系人类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="addressItem.partyType != null">
+									<span v-for="contactTypeItem in selectListData.partyTypeList"
+                                          v-if="contactTypeItem.code == addressItem.partyType">
+										<span class="tableRemarkSpan">合作方类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="paging">
+                        <p class="totalPages">共{{pageList2.length}}页/{{totalPagesNum2}}条</p>
+                        <div class="pagingBox">
+                            <span v-if="currentPage2 != 1" v-on:click="changePage2(currentPage2-1,'up')"><a
+                                    href="javascript:;">«</a></span>
+                            <div class="pagingCon">
+                                <ul class="pagination">
+                                    <li v-for="pageItem in pageList2" v-on:click="changePage2(pageItem,'current')"><a
+                                            v-bind:class="{'active': pageItem == currentPage2 }" href="javascript:;">{{pageItem}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span v-if="pageList2.length != 0 && currentPage2 != pageList2.length"
+                                  v-on:click="changePage2(currentPage2+1,'down')"><a href="javascript:;">»</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popupCon popupType3" v-if="popupType == 'contact'">
+                <h3 class="popupTitle">
+                    <span>全部联系人</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl">
+                        <li>
+                            <select v-model="queryParam3.contactType" name="">
+                                <option value="">全部联系人类型</option>
+                                <option v-for="contactTypeItem in selectListData.contactLists"
+                                        v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam3.contactName" placeholder="请输入联系人姓名"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam3.contactTel" placeholder="请输入联系人电话"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam3.contactAddress" placeholder="请输入联系人地址"/>
+                        </li>
+                        <li>
+                            <select v-model="queryParam3.partyType" name="">
+                                <option value="null">全部合作方类型</option>
+                                <option v-for="contactTypeItem in selectListData.partyTypeList"
+                                        v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam3.partyName" placeholder="合作方名称"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam3.partyCode" placeholder="合作方代码"/>
+                        </li>
+                        <li class="userModifyBtn">
+                            <span v-on:click="getSearchVal3()">查询</span>
+                        </li>
+                    </ul>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>联系人类型</th>
+                            <th>联系人姓名</th>
+                            <th>联系人电话</th>
+                            <th>联系人地址</th>
+                            <th>关联编码&nbsp;[上级]</th>
+                            <th>关联名称&nbsp;[上级]</th>
+                            <th>关联详情&nbsp;[上级]</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(contactItem,index) in contactList" v-on:click="selectCtFun(contactItem,index)">
+                            <td v-if="currentPage3 == 1"><p>{{index+1}}</p></td>
+                            <td v-if="currentPage3 != 1"><p>{{(index+1)+((currentPage3-1)*12)}}</p></td>
+                            <td><p v-for="contactTypeItem in selectListData.contactLists"
+                                   v-if="contactTypeItem.code == contactItem.contactType">{{contactTypeItem.text}}</p>
+                            </td>
+                            <td><p>{{contactItem.contactName}}</p></td>
+                            <td><p>{{contactItem.contactTel}}</p></td>
+                            <td><p>{{contactItem.contactAddress}}</p></td>
+                            <td>
+                                <p v-if="contactItem.locationCode != null"><span class="tableRemarkSpan">地址编码：</span>{{contactItem.locationCode}}
+                                </p>
+                                <p v-if="contactItem.eqpNo != null"><span class="tableRemarkSpan">设备号：</span>{{contactItem.eqpNo}}
+                                </p>
+                                <p v-if="contactItem.partyCode != null"><span class="tableRemarkSpan">合作方代码：</span>{{contactItem.partyCode}}
+                                </p>
+                            </td>
+                            <td>
+                                <p v-if="contactItem.locationName != null"><span class="tableRemarkSpan">地址名称：</span>{{contactItem.locationName}}
+                                </p>
+                                <p v-if="contactItem.eqpName != null"><span class="tableRemarkSpan">设备名称：</span>{{contactItem.eqpName}}
+                                </p>
+                                <p v-if="contactItem.partyName != null"><span class="tableRemarkSpan">合作方名称：</span>{{contactItem.partyName}}
+                                </p>
+                            </td>
+                            <td>
+                                <p v-if="contactItem.locationType != null">
+									<span v-for="locationTypeItem in selectListData.locationTypeList"
+                                          v-if="locationTypeItem.code == contactItem.locationType">
+										<span class="tableRemarkSpan">地址类型：</span>{{locationTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="contactItem.eqpSpec != null"><span class="tableRemarkSpan">设备型号：</span>{{contactItem.eqpSpec}}
+                                </p>
+                                <p v-if="contactItem.partyType != null">
+									<span v-for="contactTypeItem in selectListData.partyTypeList"
+                                          v-if="contactTypeItem.code == contactItem.partyType">
+										<span class="tableRemarkSpan">合作方类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="paging">
+                        <p class="totalPages">共{{pageList3.length}}页/{{totalPagesNum3}}条</p>
+                        <div class="pagingBox">
+                            <span v-if="currentPage3 != 1" v-on:click="changePage3(currentPage3-1,'up')"><a
+                                    href="javascript:;">«</a></span>
+                            <div class="pagingCon">
+                                <ul class="pagination">
+                                    <li v-for="pageItem in pageList3" v-on:click="changePage3(pageItem,'current')"><a
+                                            v-bind:class="{'active': pageItem == currentPage3 }" href="javascript:;">{{pageItem}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span v-if="pageList3.length != 0 && currentPage3 != pageList3.length"
+                                  v-on:click="changePage3(currentPage3+1,'down')"><a href="javascript:;">»</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popupCon popupType5" v-if="popupType == 'eqpDriver'">
+                <h3 class="popupTitle">
+                    <span>全部设备模板</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl">
+                        <li>
+                            <select v-model="queryParam5.refType" name="">
+                                <option value="">全部模板类型</option>
+                                <option v-for="eqpRefTypeItem in selectListData.eqpRefTypeList"
+                                        v-bind:value="eqpRefTypeItem.code">{{eqpRefTypeItem.text}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam5.refName" placeholder="请输入模板名称"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam5.refCode" placeholder="请输入模板编码"/>
+                        </li>
+                        <li>
+                            <select v-model="queryParam5.eqpType" name="">
+                                <option value=null>全部设备类型</option>
+                                <option v-for="eqpTypeItem in selectListData.eqpTypeList"
+                                        v-bind:value="eqpTypeItem.code">{{eqpTypeItem.text}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam5.eqpSpec" placeholder="设备型号"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam5.eqpNo" placeholder="设备号"/>
+                        </li>
+                        <li>
+                            <input type="text" v-model="queryParam5.eqpName" placeholder="设备名称"/>
+                        </li>
+                        <li class="userModifyBtn">
+                            <span v-on:click="getSearchVal5()">查询</span>
+                        </li>
+                    </ul>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>模板类型</th>
+                            <th>模板名称</th>
+                            <th>模板编码</th>
+                            <th>设备类型</th>
+                            <th>设备型号</th>
+                            <th>设备号</th>
+                            <th>设备名称</th>
+                            <th>长[米]&nbsp;*&nbsp;宽[米]&nbsp;*&nbsp;高[米]</th>
+                            <th>关联编码&nbsp;[下级]</th>
+                            <th>关联名称&nbsp;[下级]</th>
+                            <th>关联详情&nbsp;[下级]</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(eqpDriverItem,index) in eqpDriverList"
+                            v-on:click="selecteqpDriverFun(eqpDriverItem,index)">
+                            <td v-if="currentPage5 == 1"><p>{{index+1}}</p></td>
+                            <td v-if="currentPage5 != 1"><p>{{(index+1)+((currentPage5-1)*12)}}</p></td>
+                            <td><p v-for="eqpRefTypeItem in selectListData.eqpRefTypeList"
+                                   v-if="eqpRefTypeItem.code == eqpDriverItem.refType">{{eqpRefTypeItem.text}}</p></td>
+                            <td><p>{{eqpDriverItem.refName}}</p></td>
+                            <td><p>{{eqpDriverItem.refCode}}</p></td>
+                            <td>
+                                <p v-for="eqpTypeItem in selectListData.eqpTypeList"
+                                   v-if="eqpTypeItem.code == eqpDriverItem.eqpType">{{eqpTypeItem.text}}</p>
+                            </td>
+                            <td>
+                                <p>{{eqpDriverItem.eqpSpec}}</p>
+                            </td>
+                            <td>
+                                <p>{{eqpDriverItem.eqpNo}}</p>
+                            </td>
+                            <td>
+                                <p>{{eqpDriverItem.eqpName}}</p>
+                            </td>
+                            <td>
+                                <span v-if="eqpDriverItem.eqpLength != null">{{eqpDriverItem.eqpLength}}&nbsp;*&nbsp;</span>
+                                <span v-if="eqpDriverItem.eqpWidth != null">{{eqpDriverItem.eqpWidth}}&nbsp;*&nbsp;</span>
+                                <span v-if="eqpDriverItem.eqpHeight != null">{{eqpDriverItem.eqpHeight}}</span>
+                            </td>
+                            <td>
+                                <p v-if="eqpDriverItem.locationCode != null"><span class="tableRemarkSpan">地址编码：</span>{{eqpDriverItem.locationCode}}
+                                </p>
+                                <p v-if="eqpDriverItem.contactTel != null"><span class="tableRemarkSpan">联系人电话：</span>{{eqpDriverItem.contactTel}}
+                                </p>
+                            </td>
+                            <td>
+                                <p v-if="eqpDriverItem.locationName != null"><span class="tableRemarkSpan">地址名称：</span>{{eqpDriverItem.locationName}}
+                                </p>
+                                <p v-if="eqpDriverItem.contactName != null"><span class="tableRemarkSpan">联系人姓名：</span>{{eqpDriverItem.contactName}}
+                                </p>
+                            </td>
+                            <td>
+                                <p v-if="eqpDriverItem.locationType != null">
+									<span v-for="locationTypeItem in selectListData.locationTypeList"
+                                          v-if="locationTypeItem.code == eqpDriverItem.locationType">
+										<span class="tableRemarkSpan">地址类型：</span>{{locationTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="eqpDriverItem.contactType != null">
+									<span v-for="contactTypeItem in selectListData.contactLists"
+                                          v-if="contactTypeItem.code == eqpDriverItem.contactType">
+										<span class="tableRemarkSpan">联系人类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="paging">
+                        <p class="totalPages">共{{pageList5.length}}页/{{totalPagesNum5}}条</p>
+                        <div class="pagingBox">
+                            <span v-if="currentPage5 != 1" v-on:click="changePage5(currentPage5-1,'up')"><a
+                                    href="javascript:;">«</a></span>
+                            <div class="pagingCon">
+                                <ul class="pagination">
+                                    <li v-for="pageItem in pageList5" v-on:click="changePage5(pageItem,'current')"><a
+                                            v-bind:class="{'active': pageItem == currentPage5 }" href="javascript:;">{{pageItem}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span v-if="pageList5.length != 0 && currentPage5 != pageList5.length"
+                                  v-on:click="changePage5(currentPage5+1,'down')"><a href="javascript:;">»</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popupCon popupType5" v-if="popupType == 'orderAudit'">
+                <h3 class="popupTitle">
+                    <span>订单审核</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl" id="userModifyUl">
+                        <li>流向：<input type="radio" v-model="orderDirection.direction" name="incDecType" value="0"/>&nbsp;本租户&nbsp;
+                            <input type="radio" v-model="orderDirection.direction" name="incDecType" value="1"/>&nbsp;其他租户&nbsp;
+                            <input type="radio" v-model="orderDirection.direction" name="incDecType" value="2"/>&nbsp;其他接口
+                        </li>
+                        <li v-if="orderDirection.direction == '1' || orderDirection.direction == '2'">
+                            <input type="text" v-model="orderDirection.refCode" placeholder="请输入平台认证秘钥（必填）"/>
+                        </li>
+                        <li class="userModifyBtn"
+                            v-if="orderDirection.direction == '1' || orderDirection.direction == '2'">
+                            <span v-on:click="orderAuditRefCodeTable()" style="width: 110px;">可选平台编码</span>
+                        </li>
+                    </ul>
+                    <div class="userModifyUl">
+                        <textarea name="" rows="" cols="" v-model="orderDirection.auditOrderRemark"
+                                  placeholder="请填写审核备注"></textarea>
+                    </div>
+                    <ul class="userModifyUl">
+                        <li class="userModifyBtn" style="width: auto;float: right;">
+                            <span v-on:click="orderAuditStatus1()" style="width: 110px;">审核通过</span>
+                        </li>
+                        <li class="userModifyBtn" style="width: auto;float: right;" v-if="auditOrderType == '1'">
+                            <span v-on:click="orderAuditStatus0()" style="width: 110px;">审核不通过</span>
+                        </li>
+                    </ul>
+                    <table v-if="(orderDirection.direction == '1' || orderDirection.direction == '2') && orderDirection.refCodeTable == '1'">
+                        <thead>
+                        <tr>
+                            <th>平台名称</th>
+                            <th>平台编码</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(orderPartyItem,index) in orderPartyList" class="see"
+                            v-on:click="selectOrderPartyItemFun(orderPartyItem,index)">
+                            <td>
+                                <p>{{orderPartyItem.toPartyName}}</p>
+                            </td>
+                            <td>
+                                <p>{{orderPartyItem.refNo}}</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br><br>
+                    <table v-if="tableOrderList0.length != 0">
+                        <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>关联号</th>
+                            <!--<th>原单号</th>-->
+                            <th>当前动作</th>
+                            <th>发单方</th>
+                            <th>接单方</th>
+                            <th>类型</th>
+                            <th>拆/合</th>
+                            <th>超时状态</th>
+                            <th>完成状态</th>
+                            <th>发送状态</th>
+                            <th>异常状态</th>
+                            <th>激活状态</th>
+                            <th>审核状态</th>
+                            <!--<th>创建时间</th>
+                            <th>要求完成时间</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="tableOrderItem0 in tableOrderList0" class="see">
+                            <td>
+                                <p>{{tableOrderItem0.orderNo}}</p>
+                            </td>
+                            <td>
+                                <p>{{tableOrderItem0.customerRefNo}}</p>
+                            </td>
+                            <!--<td>
+                                <p>{{tableOrderItem0.customerOriginalNo}}</p>
+                            </td>-->
+                            <td>
+                                <p v-for="actItem in selectListData.actLists"
+                                   v-if="tableOrderItem0.actCode == actItem.actCode">{{actItem.actName}}</p>
+                            </td>
+                            <td>
+                                <span v-for="orderFormItem in selectListData.orderFromList"
+                                      v-if="orderFormItem.code == tableOrderItem0.orderFrom">{{orderFormItem.text}}</span><br><span> 【 {{tableOrderItem0.sfrPartyName}} 】 </span>
+                            </td>
+                            <td>
+                                <span v-for="orderToItem in selectListData.orderToList"
+                                      v-if="orderToItem.code == tableOrderItem0.orderTo">{{orderToItem.text}}</span><br><span> 【 {{tableOrderItem0.stoPartyName}} 】 </span>
+                            </td>
+                            <td>
+                                <p v-for="orderTypeItem in selectListData.orderTypeList"
+                                   v-if="orderTypeItem.code == tableOrderItem0.orderType">{{orderTypeItem.text}}</p>
+                            </td>
+                            <td>
+                                <p>{{tableOrderItem0.orderInd}}</p>
+                            </td>
+                            <td>
+                                <p v-for="expireStatusItem in selectListData.expireStatusList"
+                                   v-if="expireStatusItem.code == tableOrderItem0.expireStatus">
+                                    {{expireStatusItem.text}}</p>
+                            </td>
+                            <td>
+                                <p v-for="completeStatusItem in selectListData.completeStatusList"
+                                   v-if="completeStatusItem.code == tableOrderItem0.completeStatus">
+                                    {{completeStatusItem.text}}</p>
+                            </td>
+                            <td>
+                                <p v-for="sendStausItem in selectListData.sendStatusList"
+                                   v-if="sendStausItem.code == tableOrderItem0.sendStatus">{{sendStausItem.text}}</p>
+                            </td>
+                            <td>
+                                <p v-for="exceptionStatusItem in selectListData.exceptionStatusList"
+                                   v-if="exceptionStatusItem.code == tableOrderItem0.exceptionStatus">
+                                    {{exceptionStatusItem.text}}</p>
+                            </td>
+                            <td>
+                                <p v-for="activeStatusItem in selectListData.activeStatusList"
+                                   v-if="activeStatusItem.code == tableOrderItem0.activeStatus">
+                                    {{activeStatusItem.text}}</p>
+                            </td>
+                            <td>
+                                <p v-for="auditStatusItem in selectListData.auditStatusList"
+                                   v-if="auditStatusItem.code == tableOrderItem0.auditStatus">
+                                    {{auditStatusItem.text}}</p>
+                            </td>
+                            <!--<td>
+                                <p>{{tableOrderItem0.createTime | timestampToTime}}</p>
+                            </td>
+                            <td>
+                                <p>{{tableOrderItem0.completeTime | timestampToTime}}</p>
+                            </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="popupCon popupType6" v-if="popupType == 'uploadPackageGoods'">
+                <h3 class="popupTitle">
+                    <span>商品附件</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img
+                            src="../../img/windowicon/bar_icon_close.png" alt=""/></a>
+                </h3>
+                <div class="popupDpList">
+
+                    <div class="adsRightCon">
+                        <div class="adsRightConList">
+                            <div class="adsRightConMatter">
+                                <!--已有商品图片-->
+                                <div class="adsRightConItem">
+                                    <div class="adsRightConItemReceipt" style="border-bottom: 1px dashed #ddd;">
+                                        <h5 class="title"><span>已有商品图片</span></h5>
+                                        <div class="con uploadPictures">
+                                            <div class="imageGroups" style="background: none;">
+                                                <div class="imageList">
+                                                    <div class="imageItem"
+                                                         v-for="(orderItemImg,index) in orderItemImgList">
+                                                        <p class="pic" v-on:click="magnifyReceiptImage(index,'comImg')">
+                                                            <img v-bind:src='orderItemImg'>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--上传商品图片-->
+                                <div class="adsRightConItem" style="border-bottom: 1px dashed #ddd;">
+                                    <div class="adsRightConItemReceipt">
+                                        <h5 class="title"><span>上传商品图片</span></h5>
+                                        <div class="con uploadPictures">
+                                            <div class="imageGroups" v-on:click="clickUploadOrderItemImg()"
+                                                 style="width: 140px;height: 140px;display: block;cursor: pointer;">
+
+                                            </div>
+                                            <div class="imageDesc">
+                                                <p>上传图片要求</p>
+                                                <p class="prompt">提示：图片格式支持jpg、png、gif、bmp,大小不超过2M</p>
+                                            </div>
+                                            <div class="" style="display: none;" v-if="clearShow3">
+                                                <input type="file" name="uploadImgs"
+                                                       v-on:change="uploadOrderItemImgFun()" id="itemImgfiles"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--已有商品文件-->
+                                <div class="adsRightConItem" style="padding-top: 20px;">
+                                    <div class="adsRightConItemReceipt">
+                                        <h5 class="title"><span>已有商品文件</span><a href="#" class="downloadComFile"
+                                                                                v-on:click="downloadOrderItemFile()"
+                                                                                v-if="orderItemFilesList.length">下载全部商品文件</a>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="adsRightConItem">
+                                    <ul class="adsRightConInp adsRightConInp1" style="padding-top: 0;">
+                                        <li style="padding-bottom: 20px;padding-right: 20px;"
+                                            v-for="(orderItemFiles,index) in orderItemFilesList">
+										<span class="txt">
+											<img src="../../img/rarPic.png" style="width: 50px;height: auto;"
+                                                 v-if="orderItemFiles.picType == 'rar'">
+											<img src="../../img/zipPic.png" style="width: 50px;height: auto;"
+                                                 v-if="orderItemFiles.picType == 'zip'">
+										</span>
+                                            <p class="inp">
+                                                {{orderItemFiles.extValue}}
+                                            </p>
+                                            <a href="#" class="downloadFileItem" title="下载本文件"
+                                               v-on:click="downloadComFileItem(index)">
+                                                下载本文件
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--上传商品文件-->
+                                <div class="adsRightConItem">
+                                    <div class="adsRightConItemReceipt">
+                                        <h5 class="title"><span>上传商品文件</span></h5>
+                                        <div class="con uploadPictures">
+                                            <div class="imageGroups" v-on:click="clickUploadOrderItemFiles()"
+                                                 style="width: 140px;height: 140px;display: block;cursor: pointer;">
+
+                                            </div>
+                                            <div class="imageDesc">
+                                                <p>上传文件要求</p>
+                                                <p class="prompt">提示：文件格式支持rar、zip,大小不超过5M</p>
+                                            </div>
+                                            <div class="" style="display: none;" v-if="clearShow4">
+                                                <input type="file" name="uploadFiles"
+                                                       v-on:change="uploadOrderItemFilesFun()" id="itemFiles"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript" src="../../js/lib/ajaxFileUpload.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/moment.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/daterangepicker.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.6&key=" + AmapQdKey + "&plugin=AMap.Driving'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/tms/queryOrderInfo.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

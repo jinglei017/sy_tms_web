@@ -1,0 +1,27 @@
+.contentTitMap .contentTit{
+    padding-top: 12px;
+    padding-left: 18px;
+    padding-bottom: 12px;
+    background: #00365b;
+    color: #fff;
+    font-size: 18px;
+}
+.contentTitMap .contentMap{
+    width: 100%;
+    position: relative;
+}
+.contentTitMap .contentMap .adsRightConMap{
+    width: 98%;
+    margin: 1%;
+    height: 90%;
+}
+
+.contentTitMap .contentMap .adsRightConMapTip{
+    position: absolute;
+    top: 0;
+    left: 1%;
+    padding: 10px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 15px;
+}

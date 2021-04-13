@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>怡亚通商品管理-OMS订单管理系统</title>
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="../../js/common/env_config.js"></script>
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+	</script>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+	<div class="myOverall">
+		<!-- header start-->
+		<div class="adsLeft">
+
+		</div>
+		<!-- header end-->
+
+		<!-- adsContent start-->
+		<div class="adsContent">
+			<div class="header">
+
+			</div>
+			<div class="adsRight">
+				<!-- 顶部操作、搜索条件、列表   start -->
+				<div class="activityDshBoard template" id="activityDshBoard">
+					<div class="adsRightCon">
+						<div class="adsRightConMain">
+							<ul class="textBoxTitle">
+								<li>
+									<input type="text" v-model="queryParam.itemCode" placeholder="商品编码" />
+								</li>
+								<li>
+									<input type="text" v-model="queryParam.itemLabel" placeholder="商品标签" />
+								</li>
+								<li>
+									<input type="text" v-model="queryParam.itemNo" placeholder="客户自编码" />
+								</li>
+								<li>
+									<input type="text" v-model="queryParam.itemBarCode" placeholder="条码号" />
+								</li>
+								<li class="searchBtn" style="width: 80px;">
+									<span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+								</li>
+								<li class="searchBtn fileUploadLi" style="width: 80px;">
+									<p class="inputBox butOperatePermission" buttonCode="UPLOAD" v-if="clearShow">
+										<span>上传文件</span>
+										<input type="file" name="excelFile" v-on:change="chooseTheFile()" id="excelFile" />
+									</p>
+									<p class="txtBox butOperatePermission" buttonCode="UPLOAD">
+										<span>上传文件</span>
+									</p>
+								</li>
+							</ul>
+							<div class="reportMessages">
+								<table>
+									<thead>
+									<tr>
+										<!--<th>
+                                            <div class="selectAll select yes">
+                                                <input type="hidden" />
+                                            </div>
+                                        </th>-->
+										<th>序号</th>
+										<th>商品编码</th>
+										<th>商品名称</th>
+										<th>商品标签</th>
+										<th>商品描述</th>
+										<th>产品名称</th>
+										<th>客户自编码</th>
+										<th>条码号</th>
+										<th>货主名称</th>
+										<th>货主编码</th>
+										<th>操作</th>
+										<th>创建时间</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr v-for="(tableOrderItem,index) in tableOrderList" orderid="'+orderListData[i].omOrderId+'" class="see">
+										<!--<td>
+                                            <div class="select yes">
+                                                <input type="hidden" />
+                                            </div>
+                                        </td>-->
+										<td v-if="currentPage == 1">
+											<p>{{index+1}}</p>
+										</td>
+										<td v-if="currentPage != 1">
+											<p>{{(index+1)+((currentPage-1)*12)}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.itemCode}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.itemName}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.itemLabel}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.itemDesc}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.prdCatLabel}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.itemNo}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.itemBarCode}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.partyName}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.partyCode}}</p>
+										</td>
+										<td>
+											<span class="btn btn-details visible butOperatePermission orderDetailBtn"  buttonCode="DETAIL" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('商品详情',tableOrderItem,'0')">详情</span>
+											<span class="btn btn-code visible butOperatePermission orderCodeBtn"  buttonCode="BOM" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('BOM',tableOrderItem,'1')">BOM</span>
+											<span class="btn btn-edit visible butOperatePermission orderEditBtn"  buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeOrderDetails('商品信息修改',tableOrderItem)">修改</span>
+											<span class="btn btn-logistics visible butOperatePermission orderDeteleBtn"  buttonCode="DELETE" btn="logisticsInfoBtn" v-on:click="deleteOrderDetails(tableOrderItem)">删除</span>
+										</td>
+										<td><p>{{tableOrderItem.createTime | timestampToTime}}</p></td>
+									</tr>
+									</tbody>
+								</table>
+								<div class="paging">
+									<p class="totalPages">共{{pageList.length}}页/{{totalList.length}}条</p>
+									<div class="pagingBox">
+										<span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+										<div class="pagingCon">
+											<ul class="pagination">
+												<li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+											</ul>
+										</div>
+										<span v-if="pageList.length != 0 && currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 顶部操作、搜索条件、列表   end -->
+
+				<!--  新增、详情、修改   start -->
+				<div class="newActivityDshBoard template" id="newAdsActivityManage">
+					<div class="adsRightCon">
+						<div class="adsRightConList">
+							<div class="adsRightConMatter">
+								<!--货点基本信息-->
+								<div class="deliveryPointInf contactInf">
+									<div class="adsRightConItem" v-if="clickBtnType != 'detailBom'">
+										<p class="adsRightConTitle">商品基本信息</p>
+										<ul class="adsRightConInp">
+											<li class="chooseLi" v-on:click="selectSomeModel('0')" v-if="clickBtnType != 'detail' && clickBtnType != 'detailBom'">
+												<span class="packageGoodsBtn">选择产品</span>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>产品代码</span>
+												<p class="inp">
+													<input disabled type="text" v-model="itemSingle1.prdCode" placeholder="产品代码" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>产品名称</span>
+												<p class="inp">
+													<input disabled type="text" v-model="itemSingle1.prdLabel" placeholder="产品名称" />
+												</p>
+											</li>
+										</ul>
+										<ul class="adsRightConInp">
+											<li>
+												<span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>商品编码</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle.itemCode" placeholder="商品编码" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>商品名称</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle.itemName" placeholder="商品名称" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>商品标签</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle.itemLabel" placeholder="商品标签" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">商品描述</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle.itemDesc" placeholder="商品描述" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>货主</span>
+												<p class="inp">
+													<select v-bind:disabled="isDisable" v-model="itemSingle0.partyCode" v-on:change="chooseOnePartyCode(itemAttrLnkValList,itemSingle0.partyCode)" name="">
+														<option value="">请选择</option>
+														<option v-for="itemAttrVal in itemAttrLnkValList" v-bind:value="itemAttrVal.propValue">{{itemAttrVal.propValueDesc}}</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">客户自编码</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle.itemNo" placeholder="客户自编码" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">条形码</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle.itemBarCode"  placeholder="条形码" />
+												</p>
+											</li>
+
+											<li>
+												<span class="txt">数量单位</span>
+												<p class="inp">
+													<select v-bind:disabled="isDisable" v-model="itemSingle.qtyUnit" name="">
+														<option value="">请选择</option>
+														<option v-for="qtyUnitItem in selectListData.qtyUnitList" v-bind:value="qtyUnitItem.code">{{qtyUnitItem.text}}</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">重量</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle.weight"  placeholder="重量" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">重量单位</span>
+												<p class="inp">
+													<select v-bind:disabled="isDisable" v-model="itemSingle.weightUnit" name="">
+														<option value="">请选择</option>
+														<option v-for="weightUnitItem in selectListData.weightUnitList" v-bind:value="weightUnitItem.code">{{weightUnitItem.text}}</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">体积</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle.volume"  placeholder="体积" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">体积单位</span>
+												<p class="inp">
+													<select v-bind:disabled="isDisable" v-model="itemSingle.volumeUnit" name="">
+														<option value="">请选择</option>
+														<option v-for="volumeUnitItem in selectListData.volumeUnitList" v-bind:value="volumeUnitItem.code">{{volumeUnitItem.text}}</option>
+													</select>
+												</p>
+											</li>
+
+											<li>
+												<span class="txt">包装单位</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle0.prackingUnit"  placeholder="包装单位" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">包装规格</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle0.prackingSpec"  placeholder="包装规格" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">税率</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle0.taxRate"  placeholder="税率" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">品牌  </span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="itemSingle0.brand"  placeholder="品牌" />
+												</p>
+											</li>
+
+										</ul>
+									</div>
+									<div class="adsRightConItem" v-if="clickBtnType == 'add' || clickBtnType == 'detail'">
+										<p class="adsRightConTitle">商品属性信息</p>
+										<ul class="adsRightConInp" v-for="(propValueModel,index) in propValueModelList">
+											<li class="chooseLi" v-on:click="selectSomeModel('2',index)" v-if="clickBtnType == 'add'">
+												<span class="packageGoodsBtn">选择模板</span>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>属性</span>
+												<p class="inp">
+													<select v-bind:disabled="isDisable" v-model="propValueModel.pdPropId" v-on:change="chooseOneItemAttr(itemAttrLists,propValueModel.pdPropId,index)" name="">
+														<option value="">请选择</option>
+														<option v-for="itemAttr in itemAttrLists" v-bind:value="itemAttr.pdPropId">{{itemAttr.propLabel}}</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>属性值</span>
+												<p class="inp">
+													<select v-bind:disabled="isDisable" v-model="propValueModel.pdPropValueId" v-on:change="chooseOneItemAttrVal(itemAttrValLists,propValueModel.pdPropValueId,index)" name="">
+														<option value="">请选择</option>
+														<option v-for="itemAttrVal in itemAttrValLists" v-bind:value="itemAttrVal.pdPropValueId">{{itemAttrVal.propValue}}</option>
+													</select>
+												</p>
+												<span class="chooseIsDefault addContactBtn" v-if="clickBtnType != 'detail'" v-on:click="delPropValueModelFun(index)" style="cursor: pointer;">- 商品属性</span>
+											</li>
+										</ul>
+										<div v-if="clickBtnType != 'detail'">
+											<p class="addContactBtn" v-on:click="addPropValueModelFun()">+ 商品属性</p>
+										</div>
+									</div>
+									<div class="adsRightConItem" v-if="clickBtnType == 'detailBom'">
+										<p class="adsRightConTitle">BOM信息</p>
+										<div class="reportMessages" style="padding-top: 25px;">
+											<table>
+												<thead>
+												<tr>
+													<th>商品编码</th>
+													<th>商品名称</th>
+													<th>商品标签</th>
+													<th>级别</th>
+													<th>是否激活</th>
+													<th>末级类目</th>
+													<th>数量</th>
+													<th>数量单位</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr v-for="item in bomInfoLists">
+													<td>
+														<p>{{item.itemCode}}</p>
+													</td>
+													<td>
+														<p>{{item.itemName}}</p>
+													</td>
+													<td>
+														<p>{{item.itemLabel}}</p>
+													</td>
+													<td>
+														<p>{{item.level}}</p>
+													</td>
+													<td>
+														<p v-if="item.isActive == '1'">是</p>
+														<p v-if="item.isActive == '0'">否</p>
+													</td>
+													<td>
+														<p v-if="item.isLeaf == '1'">是</p>
+														<p v-if="item.isLeaf == '0'">否</p>
+													</td>
+													<td>
+														<p>{{item.itemQty}}</p>
+													</td>
+													<td>
+														<p v-for="items in selectListData.qtyUnitList" v-if="item.qtyUnit == items.code">{{items.text}}</p>
+													</td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="adsRightConItem" v-if="clickBtnType == 'detailBom'">
+										<p class="adsRightConTitle">同级BOM</p>
+										<div class="reportMessages" style="padding-top: 25px;">
+											<table>
+												<thead>
+												<tr>
+													<th>商品编码</th>
+													<th>商品名称</th>
+													<th>商品标签</th>
+													<th>级别</th>
+													<th>是否激活</th>
+													<th>末级类目</th>
+													<th>数量</th>
+													<th>数量单位</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr v-for="item in equallyBomLists">
+													<td>
+														<p>{{item.itemCode}}</p>
+													</td>
+													<td>
+														<p>{{item.itemName}}</p>
+													</td>
+													<td>
+														<p>{{item.itemLabel}}</p>
+													</td>
+													<td>
+														<p>{{item.level}}</p>
+													</td>
+													<td>
+														<p v-if="item.isActive == '1'">是</p>
+														<p v-if="item.isActive == '0'">否</p>
+													</td>
+													<td>
+														<p v-if="item.isLeaf == '1'">是</p>
+														<p v-if="item.isLeaf == '0'">否</p>
+													</td>
+													<td>
+														<p>{{item.itemQty}}</p>
+													</td>
+													<td>
+														<p v-for="items in selectListData.qtyUnitList" v-if="item.qtyUnit == items.code">{{items.text}}</p>
+													</td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="adsRightConItem" v-if="clickBtnType == 'detailBom'">
+										<p class="adsRightConTitle">上级BOM</p>
+										<div class="reportMessages" style="padding-top: 25px;">
+											<table>
+												<thead>
+												<tr>
+													<th>商品编码</th>
+													<th>商品名称</th>
+													<th>商品标签</th>
+													<th>级别</th>
+													<th>是否激活</th>
+													<th>末级类目</th>
+													<th>数量</th>
+													<th>数量单位</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr v-for="item in rootBomLists">
+													<td>
+														<p>{{item.itemCode}}</p>
+													</td>
+													<td>
+														<p>{{item.itemName}}</p>
+													</td>
+													<td>
+														<p>{{item.itemLabel}}</p>
+													</td>
+													<td>
+														<p>{{item.level}}</p>
+													</td>
+													<td>
+														<p v-if="item.isActive == '1'">是</p>
+														<p v-if="item.isActive == '0'">否</p>
+													</td>
+													<td>
+														<p v-if="item.isLeaf == '1'">是</p>
+														<p v-if="item.isLeaf == '0'">否</p>
+													</td>
+													<td>
+														<p>{{item.itemQty}}</p>
+													</td>
+													<td>
+														<p v-for="items in selectListData.qtyUnitList" v-if="item.qtyUnit == items.code">{{items.text}}</p>
+													</td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="adsRightConItem" v-if="clickBtnType == 'detailBom'">
+										<p class="adsRightConTitle">下级BOM</p>
+										<div class="reportMessages" style="padding-top: 25px;">
+											<table>
+												<thead>
+												<tr>
+													<th>商品编码</th>
+													<th>商品名称</th>
+													<th>商品标签</th>
+													<th>级别</th>
+													<th>是否激活</th>
+													<th>末级类目</th>
+													<th>数量</th>
+													<th>数量单位</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr v-for="item in leafBomLists">
+													<td>
+														<p>{{item.itemCode}}</p>
+													</td>
+													<td>
+														<p>{{item.itemName}}</p>
+													</td>
+													<td>
+														<p>{{item.itemLabel}}</p>
+													</td>
+													<td>
+														<p>{{item.level}}</p>
+													</td>
+													<td>
+														<p v-if="item.isActive == '1'">是</p>
+														<p v-if="item.isActive == '0'">否</p>
+													</td>
+													<td>
+														<p v-if="item.isLeaf == '1'">是</p>
+														<p v-if="item.isLeaf == '0'">否</p>
+													</td>
+													<td>
+														<p>{{item.itemQty}}</p>
+													</td>
+													<td>
+														<p v-for="items in selectListData.qtyUnitList" v-if="item.qtyUnit == items.code">{{items.text}}</p>
+													</td>
+												</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="adsRightConItem" v-if="clickBtnType == 'detailBom'">
+										<p class="adsRightConTitle">新增BOM</p>
+										<ul class="adsRightConInp">
+											<li>
+												<span class="txt"><span class="color_r">*&nbsp;</span>换算值</span>
+												<p class="inp">
+													<input type="text" v-model="itemSingleBom.itemQty" placeholder="换算值" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r">*&nbsp;</span>单位</span>
+												<p class="inp">
+													<select v-model="itemSingleBom.qtyUnit" v-on:change="changeBomQtyUnit(itemSingleBom.qtyUnit)" name="">
+														<option value="">请选择</option>
+														<option v-for="qtyUnitItem in selectListData.qtyUnitList" v-bind:value="qtyUnitItem.code">{{qtyUnitItem.text}}</option>
+													</select>
+												</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="addNewOrderBot addNewContactBot">
+									<div class="searchBtn" v-if="clickBtnType == 'add'">
+										<span v-on:click="saveNewOrderInfo()">保存</span>
+									</div>
+									<div class="searchBtn" v-if="clickBtnType == 'edit'">
+										<span v-on:click="editOrderInfo()">保存</span>
+									</div>
+									<div class="searchBtn" v-if="clickBtnType == 'detailBom'">
+										<span v-on:click="saveNewBomInfo()">保存</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--  新增、详情、修改  end-->
+			</div>
+		</div>
+		<!-- adsContent end-->
+	</div>
+
+	<div class="maskLayer" id="someSelectModel">
+		<div class="popup">
+			<div class="popupCon">
+				<h3 class="popupTitle">
+					<span v-if="modelType == '0'">全部产品</span>
+					<span v-if="modelType == '1'">商品属性模板</span>
+					<a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+				</h3>
+				<div class="popupDpList">
+					<ul class="popupDpListDiv" v-if="modelType == '0'">
+						<li>
+							<input type="text" v-model="queryParamModel0.prdCode" placeholder="产品代码" />
+						</li>
+						<li>
+							<input type="text" v-model="queryParamModel0.prdLabel" placeholder="产品名称" />
+						</li>
+						<li class="searchBtn1" v-on:click="getSearchModelVal0()">
+							<span>查询</span>
+						</li>
+					</ul>
+					<table v-if="modelType == '0'">
+						<thead>
+						<tr>
+							<th>产品id</th>
+							<th>产品代码</th>
+							<th>产品名称</th>
+							<th>产品描述</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr v-for="(item,index) in pdLists0" v-on:click="selectOneFun0(item,index)">
+							<td>
+								<p>{{item.pdPrdId}}</p>
+							</td>
+							<td>
+								<p>{{item.prdCode}}</p>
+							</td>
+							<td>
+								<p>{{item.prdLabel}}</p>
+							</td>
+							<td>
+								<p>{{item.prdDesc}}</p>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<ul class="popupDpListDiv" v-if="modelType == '1'">
+						<li>
+							<input type="text" v-model="queryParamModel1.propLabel" placeholder="商品属性" />
+						</li>
+						<li>
+							<input type="text" v-model="queryParamModel1.propValue" placeholder="商品属性值" />
+						</li>
+						<li class="searchBtn1" v-on:click="getSearchModelVal1()">
+							<span>查询</span>
+						</li>
+					</ul>
+					<table v-if="modelType == '1'">
+						<thead>
+						<tr>
+							<th>模板（属性 - 属性值）</th>
+							<th>属性描述</th>
+							<th>属性值描述</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr v-for="(item,index) in pdLists1" v-on:click="selectOneFun1(item,index)">
+							<td>
+								<p>{{item.propLabel}}&nbsp;-&nbsp;{{item.propValue}}</p>
+							</td>
+							<td>
+								<p>{{item.propDesc}}</p>
+							</td>
+							<td>
+								<p>{{item.propValueDesc}}</p>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="scheduleLoadPopup">
+		<div class="schedulePopupCon">
+			<div class="scheduleTitle">
+				<span>正在上传商品，请稍后......</span>
+			</div>
+			<div class="scheduleProgress">
+				<p class="scheduleHint">进度...</p>
+				<div class="lineCon">
+					<span class="progressCon"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/ajaxFileUpload.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/pid/yytItemInfo.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

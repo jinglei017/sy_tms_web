@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>VTMS智慧城配运输系统</title>
+	<link rel="icon" href="img/fontIcon/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="js/common/env_config.js"></script>
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='css/login/login.css?v=" + pageVerson + "'/>");
+	</script>
+</head>
+<body>
+
+<div class="overall" id="overall">
+	<div class="main">
+		<div class="mCon">
+			<div class="myInf">
+				<div class="logo">
+					<img src="img/logo_1.png" alt="" />
+				</div>
+			</div>
+			<div class="loginCon">
+				<h3 class="title">欢迎登录</h3>
+				<ul class="loginType1">
+					<li>
+						<p class="inp">
+							<input type="text" class="tenantcode" placeholder="请输入租户名（租户账号）" />
+						</p>
+					</li>
+					<li>
+						<p class="inp">
+							<input type="text" class="username" placeholder="请输入用户名（登录账号）" />
+						</p>
+					</li>
+					<li>
+						<p class="inp">
+							<input type="password" class="password" placeholder="请输入密码" autocomplete="off" />
+						</p>
+					</li>
+
+					<!--滑块验证-->
+					<div class="yzDivCont">
+
+						<div class="yzDivContImg">
+							<!--存放 uuid-->
+							<input type="hidden" id="uuidVal"/>
+							<!--滑块图-->
+							<div class="partImageStyle" id="partImage"></div>
+							<!--底图-->
+							<div class="basImageStyle" id="basImage"></div>
+						</div>
+
+						<div class="yzDivContSlider">
+							<div class="YZImageSliDiv">
+								<p class="YZImageSliDivP" id="YZImageSliDivP">按住左边滑块，拖动完成拼图登录</p>
+							</div>
+							<!--滑动按钮-->
+							<div class="YZImageSlider" id="YZImageSlider" title="按住并向右拖动"></div>
+						</div>
+
+					</div>
+
+				</ul>
+				<ul class="loginType2 display_n">
+					<li>
+						<p class="inp">
+							<input type="text" class="userInputTel" placeholder="请输入手机号" />
+						</p>
+					</li>
+					<li class="loginType2-telCode">
+						<p class="loginType2-codeRes" id="popupDpLoginCodeRes"></p>
+						<p class="loginType2-sendCode" id="getTelCodeBtn" onclick="getYZCodeFun()" title="点击发送验证码">验证码</p>
+					</li>
+					<li>
+						<p class="inp">
+							<input type="text" class="userInputTelCode" placeholder="请输入验证码" />
+						</p>
+					</li>
+					<li class="loginType2-login">
+						<p>登录</p>
+					</li>
+				</ul>
+				<p class="loginBtn" style="display: none;">登录</p>
+				<p class="loginKuai"><span class="span1 display_n">< 密码登录</span><span class="span2">快捷登录 ></span></p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='js/login/login.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

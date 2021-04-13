@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title class="myfont"></title>
+	<link rel="stylesheet" type="text/css" href="../../css/newBoard/style/common.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/newBoard/style/vehicleInfo.css" />
+	<link rel="stylesheet" type="text/css" href="https://webapi.amap.com/ui/1.0/ui/geo/DistrictExplorer/examples/area.css">
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+
+	<script type="text/javascript" src="../../js/newBoard/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="../../js/lib/vue.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/public.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/echarts.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/scroll.js"></script>
+</head>
+
+<body>
+
+<div class="overall" id="overall">
+    <div class="allMap">
+        <div id="container"></div>
+    </div>
+    <div class="markerGuide">
+        <div class="markerGuideChild">
+            <p>车辆标记点位置：</p>
+            <div class="input-item">
+                <button style="margin-right: 15px;" v-on:click="showPositionType('clLatLng')">当前位置</button>
+                <button v-on:click="showPositionType('loaLatLng')">归属地位置</button>
+            </div>
+        </div>
+        <div class="markerGuideChild">
+            <p>车辆标记点类型：</p>
+            <div class="p-item">
+                <p><span class="item-text" style="padding-left: 0;">常温</span><span class="item-circle"></span></p>
+                <p><span class="item-text">双温</span><span class="item-circle"></span></p>
+                <p><span class="item-text">冷链</span><span class="item-circle"></span></p>
+                <p><span class="item-text">其它</span><span class="item-circle"></span></p>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <a href="javascript:;" onclick="javascript:history.back(-1);">
+            <span class="img"></span>
+            <span class="txt">返回</span>
+        </a>
+        <div class="hTxt myfont"></div>
+    </div>
+    <div class="main">
+            <div class="mHeader">
+                <div class="mLeft">
+                    <div class="carItem mlItem">
+                        <div class="mliTitle">
+                            <h3 class="txt">车辆总数</h3>
+                            <p class="num"><b>{{eqpStatusCountVo.carTotal}}</b> 辆</p>
+                        </div>
+                        <div class="carCon">
+                            <p class="txt1">
+                                <b>{{eqpStatusCountVo.operateCarCount}}</b><b v-if="!eqpStatusCountVo.operateCarCount">--</b> 辆
+                                <b>/</b>
+                                <b>{{eqpStatusCountVo.freeCarCount}}</b><b v-if="!eqpStatusCountVo.freeCarCount">--</b>辆
+                            </p>
+                            <p class="txt2">在途车辆/空闲车辆</p>
+                        </div>
+                    </div>
+                    <div class="vehicleTripsItem mlItem">
+                        <div class="mliTitle">
+                            <h3 class="txt">本月车次统计</h3>
+                            <p class="num">（车次/月/车）</p>
+                        </div>
+                        <div class="vehicleTripsCon">
+                            <p class="monthAverageNum">车次/月/车：<b>{{monthCarCount}}</b></p>
+                            <ul>
+                                <li>
+                                    <p class="left">常温车次</p>
+                                    <p class="line"><i style="width: 100%;"></i></p>
+                                    <p class="num" v-if="monthEqpNatureCountList.norm.eqpNatureCount">{{monthEqpNatureCountList.norm.eqpNatureCount}}</p>
+                                    <p class="num" v-if="!monthEqpNatureCountList.norm.eqpNatureCount">0</p>
+                                </li>
+                                <li>
+                                    <p class="left">双温车次</p>
+                                    <p class="line"><i style="width: 100%;"></i></p>
+                                    <p class="num" v-if="monthEqpNatureCountList.mixi.eqpNatureCount">{{monthEqpNatureCountList.mixi.eqpNatureCount}}</p>
+                                    <p class="num" v-if="!monthEqpNatureCountList.mixi.eqpNatureCount">0</p>
+                                </li>
+                                <li>
+                                    <p class="left">冷链车次</p>
+                                    <p class="line"><i style="width: 100%;"></i></p>
+                                    <p class="num" v-if="monthEqpNatureCountList.cold.eqpNatureCount">{{monthEqpNatureCountList.cold.eqpNatureCount}}</p>
+                                    <p class="num" v-if="!monthEqpNatureCountList.cold.eqpNatureCount">0</p>
+                                </li>
+                                <li>
+                                    <p class="left">其它车次</p>
+                                    <p class="line"><i style="width: 100%;"></i></p>
+                                    <p class="num" v-if="monthEqpNatureCountList.else.eqpNatureCount">{{monthEqpNatureCountList.else.eqpNatureCount}}</p>
+                                    <p class="num" v-if="!monthEqpNatureCountList.else.eqpNatureCount">0</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mCon">
+                    <div class="resourceStatCon">
+                        <ul class="resourceStatNum">
+                            <li>
+                                <p class="txt">总运营</p>
+                                <p class="num" v-if="allOrderNatureCount.totalCount">
+                                    <span v-for="num in allOrderTotalCounts">{{num}}</span>班次
+                                </p>
+                                <p class="num" v-if="!allOrderNatureCount.totalCount">
+                                    <span>-</span><span>-</span>班次
+                                </p>
+                            </li>
+                            <li>
+                                <p class="txt">今日运营</p>
+                                <p class="num" v-if="operateOrderNatureCountToday.totalCount">
+                                    <span v-for="num in operateOrderTotalCounts">{{num}}</span>班次
+                                </p>
+                                <p class="num" v-if="!operateOrderNatureCountToday.totalCount">
+                                    <span>-</span><span>-</span>班次
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="resourceDetail">
+                        <ul>
+                            <li></li>
+                            <li>常温车辆</li>
+                            <li>双温车辆</li>
+                            <li>冷链车辆</li>
+                            <li>其它车辆</li>
+                        </ul>
+                        <ul>
+                            <li>总运力</li>
+                            <li>{{allEqpNatureCount.normCount}}</li>
+                            <li>{{allEqpNatureCount.mixiCount}}</li>
+                            <li>{{allEqpNatureCount.coldCount}}</li>
+                            <li>{{allEqpNatureCount.otherCount}}</li>
+                        </ul>
+                        <ul class="today">
+                            <li>今日运营</li>
+                            <li>{{operateOrderNatureCountToday.normCount}}</li>
+                            <li>{{operateOrderNatureCountToday.mixiCount}}</li>
+                            <li>{{operateOrderNatureCountToday.coldCount}}</li>
+                            <li>{{operateOrderNatureCountToday.otherCount}}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mRight">
+                    <div class="capacityGrowthItem">
+                        <div class="mriTitle">
+                            <h3 class="txt">运力增长图</h3>
+                        </div>
+                        <div class="capacityGrowthCon">
+                            <div class="capacityGrowthCharts" id="capacityGrowthCharts">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mBottom">
+                <div class="mbLeft">
+                    <div class="mcbTitle">月平均车次统计</div>
+                    <div class="classNumberCon">
+                        <div class="classNumberCharts" id="classNumberCharts">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mbRight">
+                    <div class="mcbTitle">月车次统计与日车次总数</div>
+                    <div class="classNumberCon">
+                        <div class="vehiclesCarryConCharts" id="vehiclesCarryConCharts">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="showDivPoint" v-bind:arrows="arrows" v-on:click="isShowMain(arrows)"></div>
+</div>
+
+<script type="text/javascript" src="../../js/common/env_config.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.11&key=" + AmapQdKey + "'></s" + "cript>");
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript" src="../../js/newBoard/vehicleInfo.js"></script>
+
+</body>
+</html>

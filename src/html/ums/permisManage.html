@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>模块管理-OMS订单管理系统</title>
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="../../js/common/env_config.js"></script>
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+	</script>
+	<link rel="stylesheet" type="text/css" href="../../css/plugIn/zTreeStyle.css" />
+</head>
+<body>
+
+<div class="overall" id="overall">
+	<div class="myOverall">
+		<!-- header start-->
+		<div class="adsLeft">
+
+		</div>
+		<!-- header end-->
+
+		<!-- adsContent start-->
+		<div class="adsContent">
+			<div class="header">
+
+			</div>
+			<div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">模块管理</a></span></li>
+                    </ul>
+                </div>
+
+                <div class="adsRightPackage">
+                    <!-- 订单管理   -->
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain adsRightConHaveTree">
+                                <div id="tableMain">
+                                    <ul id="dataTree" class="ztree"> </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理   、-->
+
+                    <!-- 订单管理-新增   -->
+                    <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <!--货点基本信息-->
+                                    <div class="deliveryPointInf contactInf">
+                                        <div class="adsRightConItem" style="width: 60%;">
+                                            <p class="adsRightConTitle">模块信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">模块代码</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="moduleInf.objectCode" placeholder="模块代码" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">模块名称</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="moduleInf.objectName" placeholder="模块名称" />
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <span class="txt">模块类型</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="moduleInf.objectType" placeholder="模块类型" />
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="addNewOrderBot addNewContactBot">
+                                        <div class="searchBtn" v-if="clickBtnType == 'add'">
+                                            <span v-on:click="saveNewOrderInfo()">保存</span>
+                                        </div>
+                                        <div class="searchBtn" v-if="clickBtnType == 'edit'">
+                                            <span v-on:click="editOrderInfo()">保存</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理 -新增   、-->
+
+                </div>
+			</div>
+		</div>
+	</div>
+
+	<div class="maskLayer maskLayer1">
+		<div class="popup">
+			<div class="popupCon">
+				<h3 class="popupTitle">
+					<span>{{opeMeauTitle}}</span>
+					<a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+				</h3>
+				<div class="popupDpList">
+					<input type="hidden" class="currentModuleId" value="" />
+					<input type="hidden" class="currentModulePid" value="" />
+					<ul class="userModifyUl userModifyUlRows">
+						<li>
+							<label>模块代码</label>
+							<p class="inp">
+								<input type="text" class="newModuleCode" placeholder="模块代码" />
+							</p>
+						</li>
+						<li>
+							<label>模块名称</label>
+							<p class="inp">
+								<input type="text" class="newModuleName" placeholder="模块名称" />
+							</p>
+						</li>
+						<li>
+							<label>模块描述</label>
+							<p class="inp">
+								<input type="text" class="newModuleDesc" placeholder="模块描述" />
+							</p>
+						</li>
+						<li>
+							<label>模块类型</label>
+							<p class="inp">
+								<input type="text" class="newModuleType" placeholder="模块类型" />
+							</p>
+						</li>
+					</ul>
+                    <div class="addNewOrderBot">
+                        <div class="searchBtn">
+                            <span class="saveNewOrgInf saveNewMeauInf">保存</span>
+                            <span class="saveNewOrgInf editMeauInf">保存</span>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="maskLayer permissionsLayer">
+		<div class="popup">
+			<div class="popupCon">
+				<h3 class="popupTitle">
+					<span>权限信息</span>
+					<a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+				</h3>
+				<div class="permissionsCon popupDpList">
+					<div class="permissList">
+						<div class="reportMessages adsRightConItemTabConRi">
+							<table>
+								<thead>
+									<tr>
+										<th>权限id</th>
+										<th>权限名字</th>
+										<th>权限code</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="meauPermissionItem in meauPermissionList">
+										<td>
+											<p>{{meauPermissionItem.umPermissionId}}</p>
+										</td>
+										<td>
+											<p>{{meauPermissionItem.permissionName}}</p>
+										</td>
+										<td>
+											<p>{{meauPermissionItem.permissionCode}}</p>
+										</td>
+										<td>
+                                            <span class="deleBtns" v-on:click="eidtPerItem(meauPermissionItem)">修改</span>
+                                            <span class="deleBtns" v-on:click="deletePerItem(meauPermissionItem)">删除</span>
+                                        </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="addPermiss">
+						<div>
+							<h3 class="popupTitle" style="border: 0;">{{permissTitle}}</h3>
+							<input type="hidden" class="currentPermissId" />
+							<input type="hidden" class="currentObjId" />
+							<ul class="newClassesInf userModifyUl">
+								<li>
+									<label>权限代码</label>
+									<p class="inp">
+										<input type="text" class="newPermissionCode" placeholder="权限代码" />
+									</p>
+								</li>
+								<li>
+									<label>权限名称</label>
+									<p class="inp">
+										<input type="text" class="newPermissionName" placeholder="权限名称" />
+									</p>
+								</li>
+                                <li class="searchBtn">
+                                    <span class="saveNewPermissionInf">新增</span>
+                                    <span class="whiteBtn eidtPermissionInf">修改</span>
+                                </li>
+							</ul>
+<!--                            <div class="addNewOrderBot">-->
+<!--                                <li class="searchBtn">-->
+<!--                                    <span class="saveNewPermissionInf">新增</span>-->
+<!--                                    <span class="whiteBtn eidtPermissionInf">修改</span>-->
+<!--                                </li>-->
+<!--                            </div>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/ums/permisManage.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

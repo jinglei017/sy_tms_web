@@ -1,0 +1,122 @@
+<link rel="stylesheet" type="text/css" href="/css/popup.css" />
+<ul class="hLeft">
+    <li class="hlMeau">
+        <a href="javascript:;">
+            <img src="../../img/menu_1.png" alt="">
+        </a>
+    </li>
+    <li>
+        <a href="../../index.html">
+            <img src="../../img/home_1.png" alt="">
+        </a>
+    </li>
+    <li class="refresh">
+        <a href="javascript:;">
+            <img src="../../img/fresh_1.png" alt="">
+        </a>
+    </li>
+</ul>
+<div class="hRight">
+    <ul>
+        <li>
+            <a href="javascript:;">
+                <img src="../../img/problem_1.png" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <img src="../../img/infrom_1.png" alt="">
+            </a>
+        </li>
+        <li class="userShow">
+            <img src="/img/user_pic.png" alt="" style="" />
+            <span class="user_name"></span>
+            <!--退出登录-->
+            <div class="userInfo_show">
+                <div class="user_logout">
+                    <div class="user_logoutDiv userModify">
+                        <p class="txt">修改密码</p>
+                        <a href="javascript:;" class="btn btn-userModify"></a>
+                    </div>
+                    <div class="user_logoutDiv userInfoModify">
+                        <p class="txt">修改用户信息</p>
+                        <a href="javascript:;" class="btn btn-userModify"></a>
+                    </div>
+                    <div class="user_logoutDiv userLogout">
+                        <p class="txt">退出登录</p>
+                        <a href="javascript:;" class="btn btn-userLogout"></a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+<!--修改密码 模态框-->
+<div class="maskLayer changePassword" id="maskLayer-userModify">
+	<div class="popup">
+		<div class="popupCon">
+			<h3 class="popupTitle">
+				<span>修改密码</span>
+				<a href="javascript:;" id="closeUserModify"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+			</h3>
+			<div class="popupDpList">
+				<ul class="userModifyUl userModifyUlPassword">
+					<li>
+						<input type="password" class="oldPsd" placeholder="请输入原密码" autocomplete="off" />
+					</li>
+					<li>
+						<input disabled type="tel" class="inputPhone" placeholder="手机号" autocomplete="off" />
+					</li>
+					<li class="amendYzmParent">
+						<input type="password" class="inputYzm" placeholder="请输入验证码" autocomplete="off" />
+						<p class="amendYzm">验证码</p>
+					</li>
+					<li>
+						<input type="password" class="newPsd" placeholder="请输入新密码" autocomplete="off" />
+					</li>
+					<li>
+						<input type="password" class="sameNewPsd" placeholder="请确认新密码" autocomplete="off" />
+					</li>
+					<li class="passwordMethods">
+						<p>短信验证方式修改</p>
+					</li>
+					<li class="userModifyBtn">
+						<span class="modifySpan1">保存</span>
+						<span class="modifySpan2">保存</span>
+					</li>
+				</ul>
+				<p class="changePasswordP">新密码格式：字母、数字、下划线，至少包含任意两种（6-50个字符）</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!--修改密码 模态框-->
+<div class="maskLayer changePassword" id="maskLayer-userInfoModify">
+	<div class="popup">
+		<div class="popupCon">
+			<h3 class="popupTitle">
+				<span>用户信息修改</span>
+				<a href="javascript:;" id="closeUserInfoModify"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+			</h3>
+			<div class="popupDpList">
+				<ul class="userModifyUl userInfoModifyUl">
+					<li>
+						<input type="text" class="userName" autocomplete="off" placeholder="请输入用户名" />
+					</li>
+					<li>
+						<input type="tel" class="userPhone" autocomplete="off" placeholder="请输入手机号" />
+					</li>
+					<li class="amendYzmParent">
+						<input type="tel" class="phoneYzm" placeholder="请输入验证码" autocomplete="off" />
+						<p class="obtainYzm">验证码</p>
+					</li>
+					<li class="userModifyBtn" style="margin-top: 34px">
+						<span class="modifySpan3">保存</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

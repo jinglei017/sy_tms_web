@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title class="myfont"></title>
+	<link rel="stylesheet" type="text/css" href="../../css/newBoard/style/common.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/newBoard/style/orderInfo.css" />
+	<link rel="stylesheet" type="text/css" href="https://webapi.amap.com/ui/1.0/ui/geo/DistrictExplorer/examples/area.css">
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+
+	<script type="text/javascript" src="../../js/newBoard/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/public.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/echarts.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/indexMapData.js"></script>
+    <style>
+        .font_14{color: #333;}
+        .mapNumDiv{width:auto;padding:0 3px;position:absolute;top:-22px;left:50%;transform: translateX(-50%);background:rgba(255,255,255,0.4);white-space: nowrap;}
+    </style>
+</head>
+<body>
+
+<div class="overall">
+	<div class="header">
+		<a href="javascript:;" onclick="javascript:history.back(-1);">
+			<span class="img"></span>
+			<span class="txt">返回</span>
+		</a>
+		<div class="hTxt myfont"></div>
+	</div>
+	<div class="main">
+		<div class="mLeft">
+			<div class="mlItem">
+				<div class="mliTitle">
+					<h3 class="txt">订单分布统计</h3>
+					<p class="num"></p>
+				</div>
+				<div class="distributionCon">
+					<ul>
+						<!--<li>
+							<p class="left">订单总数</p>
+							<p class="line"><i style="width: 100%;"></i></p>
+							<p class="num">20 &nbsp; 20%</p>
+						</li>
+						<li>
+							<p class="left">卖场订单</p>
+							<p class="line"><i style="width: 100%;"></i></p>
+							<p class="num">20 &nbsp; 20%</p>
+						</li>
+						<li>
+							<p class="left">冷链订单</p>
+							<p class="line"><i style="width: 100%;"></i></p>
+							<p class="num">20 &nbsp; 20%</p>
+						</li>
+						<li>
+							<p class="left">其它订单</p>
+							<p class="line"><i style="width: 100%;"></i></p>
+							<p class="num">20 &nbsp; 20%</p>
+						</li>-->
+					</ul>
+				</div>
+			</div>
+
+
+			<div class="mlItem">
+				<div class="mliTitle">
+					<h3 class="txt">订单分布区域统计（上海）</h3>
+					<p class="num"></p>
+				</div>
+				<div class="arealDistributeCon">
+					<div class="arealDistributeCharts" id="arealDistributeCharts"></div>
+				</div>
+			</div>
+
+			<div class="mlItem">
+				<div class="mliTitle">
+					<h3 class="txt">区域统计（上海）</h3>
+					<p class="num"></p>
+				</div>
+				<div class="orderStatisticsCon">
+					<div class="orderStatisticsChatrs" id="orderStatisticsChatrs"></div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="mCon" style="display: block;">
+			<div class="platformStatsCon">
+				<div class="platformStatsMap" id="platformStatsMap">
+
+				</div>
+				<div class="mcTitle">
+					<ul class="monthStatistics">
+						<!--<li>
+							<p class="txt">本月订单累计</p>
+							<p class="num">
+								<span>0</span>
+								<span>7</span>
+								<span>6</span>亿元
+							</p>
+						</li>
+
+						<li>
+							<p class="txt">本月车次累计</p>
+							<p class="num">
+								<span>0</span>
+								<span>2</span>
+								<span>6</span>
+								<span>5</span>
+								<span>5</span>万单
+							</p>
+						</li>-->
+					</ul>
+					<ul class="todayStatistics">
+						<!--<li>
+							<p class="txt">今日订单总数</p>
+							<p class="num">
+								<span>500</span>
+								<em>万单</em>
+							</p>
+						</li>
+						<li>
+							<p class="txt">当前完成</p>
+							<p class="num">
+								<span style="color:#00b050;">500</span>
+								<em>万单</em>
+							</p>
+						</li>-->
+					</ul>
+				</div>
+				<div class="mcTitleShowHide mcTitleShowHideImg_l" title="点击伸缩"></div>
+			</div>
+		</div>
+
+		<div class="mRight">
+			<div class="regionalOrder mrItem">
+				<div class="mriTitle">
+					<h3 class="txt">行政区订单统计图</h3>
+					<p class="num"></p>
+				</div>
+				<!--<div class="regionalOrderCon">
+					<div class="regionalOrderCharts" id="regionalOrderCharts">
+
+					</div>
+				</div>-->
+				<div class="regionalOrderCon">
+					<div class="regionalOrderCharts">
+						<div class="list">
+							<!--<ul>
+								<li>闵行区</li>
+								<li>9</li>
+							</ul>-->
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="orderNumber mrItem">
+				<div class="mriTitle">
+					<h3 class="txt">7日订单数图表</h3>
+					<p class="num"></p>
+				</div>
+				<div class="orderNumberCon">
+					<div class="orderNumberCharts" id="orderNumberCharts">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/common/env_config.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.11&key=" + AmapQdKey + "'></s" + "cript>");
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript" src="../../js/newBoard/orderInfoMap.js"></script>
+<script type="text/javascript" src="../../js/newBoard/orderInfoData.js"></script>
+
+</body>
+</html>

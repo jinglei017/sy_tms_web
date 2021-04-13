@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>班次地图-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <link href="../../dateRangePicker/font-awesome.4.6.0.css" rel="stylesheet">
+    <link href="../../dateRangePicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+    </script>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/plugIn/schedule.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+    <style>
+        .amap-toolbar{display: none;}
+        .searchDivUl>li .boxshaw{background: #fff;}
+        .activityDshBoard.template{display: flex;}
+    </style>
+</head>
+<body>
+    <div id="overall" class="myOverallDiv overall">
+        <div class="myOverall">
+            <div class="adsLeft"></div>
+
+            <div class="adsContent">
+                <div class="header"></div>
+                <div class="adsRight">
+                    <div class="pageHeader">
+                        <ul class="pageHeaderL">
+                            <li><span><a :href="linkHrefs[0]">班次管理</a></span></li>
+                            <li><span class="active"><a href="javascript:;">班次地图</a></span></li>
+                        </ul>
+                        <ul class="pageHeaderR"></ul>
+                        <ul class="pageHeaderBack">
+                            <li class="visible">
+                                <img src="../../img/back_2.png" alt="返回上一步">
+                                <span>返回上一步</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="adsRightPackage">
+                        <div class="activityDshBoard template" id="activityDshBoard">
+                            <!--地图-->
+                            <div class="allLeft">
+                                <div id="container"></div>
+                            </div>
+                            <!--地图模式-->
+                            <div class="allRight" v-show="allRight">
+                                <!--搜索栏-->
+                                <div class="searchDiv">
+                                    <ul class="searchDivUl">
+                                        <li>
+                                            <input type="text" v-model="queryParam.carDrvContactName" placeholder="司机姓名" />
+                                        </li>
+                                        <li>
+                                            <input type="text" v-model="queryParam.carDrvEqpNo" placeholder="车牌号" />
+                                        </li>
+                                        <li>
+                                            <select v-model="queryParam.completeStatus">
+                                                <option value="">请选择完成状态</option>
+                                                <option v-for="completeStatusItem in selectListData.completeStatusList" v-bind:value="completeStatusItem.code">{{completeStatusItem.text}}</option>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                    <ul class="searchDivUl textBoxTitle textBoxTitle26">
+                                        <li style="margin: 0;"><span>预计发货时间</span></li>
+                                        <li style="width: auto;">
+                                            <input type="text" readonly class="timePlugIn" id="timeRange"  v-model="timeHorizon"  placeholder="发货时间范围"/>
+                                        </li>
+                                        <li class="searchBtn">
+                                            <span style="display: inline-block;" v-on:click="getSearchVal()">查询</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--班次列表-->
+                                <div class="listboxDiv">
+                                    <div>
+                                        <ul>
+                                            <li class="seeItembox" v-for="(tableOrderItem,index) in tableOrderList">
+                                                <div class="seeItemBasics">
+                                                    <div class="seeItemCheck">
+                                                        <input class="checkInp" type="checkbox" v-bind:value="tableOrderItem.omOrderId" v-on:change="textboxSelectionFun($event,tableOrderItem)"/>
+                                                    </div>
+                                                    <div class="seeItemDetail">
+                                                        <ul>
+                                                            <li><p>单号：<span>{{tableOrderItem.str1}}</span></p></li>
+                                                            <li><p>完成状态：<span v-for="completeStatusItem in selectListData.completeStatusList" v-if="completeStatusItem.code == tableOrderItem.completeStatus">{{completeStatusItem.text}}</span></p></li>
+                                                            <li class="switchOrd switchOrd1" v-on:click="getShowPathList(tableOrderItem,index)" title="查看配送列表"><img src="../../img/green_down.png"></li>
+                                                            <li class="switchOrd switchOrd2" v-on:click="closeShowPathList()" title="闭合配送列表"><img src="../../img/green_up.png"></li>
+                                                        </ul>
+                                                        <ul>
+                                                            <li><p>司机：<span>{{tableOrderItem.carDrvContactName}}</span></p></li>
+                                                            <li><p>件毛体：<span>{{tableOrderItem.totalQty}}件*{{tableOrderItem.totalWeight}}kg*{{tableOrderItem.totalVolume}}m³</span></p></li>
+                                                        </ul>
+                                                        <ul>
+                                                            <li><p>满载率：<span v-if="tableOrderItem.num3 && tableOrderItem.num3<=100">{{tableOrderItem.num3}} %</span><span v-if="tableOrderItem.num3>100" style="color: red;">{{tableOrderItem.num3}} %</span><span v-if="!tableOrderItem.num3">-- %</span></p></li>
+                                                            <li><p>发货时间：<span>{{tableOrderItem.shpDtmTime | timestampToTime}}</span></p></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="itemAddress">
+                                                    <ul>
+                                                        <li v-if="showPathList.length">
+                                                            <span>0</span>
+                                                            <p style="color: #000;">[起点]&nbsp;&nbsp;{{showPathList[0].sfrAddress}}</p>
+                                                        </li>
+                                                        <li v-if="showPathList.length" v-for="(showPathItem,index) in showPathList">
+                                                            <span>{{index+1}}</span>
+                                                            <p>{{showPathItem.stoAddress}}</p>
+                                                        </li>
+                                                        <li v-if="!showPathList.length" style="color: #ee9200;">暂无配送列表</li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="paging">
+                                            <p class="totalPages">共{{pageList.length}}页 /{{totalPagesNum}}条</p>
+                                            <div class="pagingBox">
+                                                <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                                <div class="pagingCon">
+                                                    <ul class="pagination">
+                                                        <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                                    </ul>
+                                                </div>
+                                                <span v-if="currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--调整线路按钮-->
+                                    <ul class="textBoxTitle textBoxTitle26" style="padding-top: 8px;box-shadow: 0 -1px 4px rgba(0, 21, 41, .08);">
+                                        <li class="searchBtn">
+                                            <label></label>
+                                            <span>调整线路</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--调线模式-->
+                            <div class="allRight1" v-show="!allRight">
+                                <div class="allDragContent">
+                                    <div class="allDragTitle">
+                                        <p>手动调整</p>
+                                        <a v-on:click="backListDetail()">取消 ></a>
+                                    </div>
+                                    <div class="allDragDiv">
+                                        <div class="dragItemDiv" v-for="(orderTotalItem,index) in orderTotallist">
+                                            <div class="dragItemHead">
+                                                <p>单号：{{orderTotalItem.str1}}</p>
+                                                <ul class="dragTotalInfos">
+                                                    <li>
+                                                        <span>司机姓名：</span>
+                                                        <p>{{orderTotalItem.contactName}}</p>
+                                                    </li>
+                                                    <li>
+                                                        <span>车牌号：</span>
+                                                        <p>{{orderTotalItem.eqpNo}}</p>
+                                                    </li>
+                                                    <li>
+                                                        <span>总数量：</span>
+                                                        <p><span>{{besicInfosList[index].totalQty}}</span> 件</p>
+                                                    </li>
+                                                    <li>
+                                                        <span>总重量：</span>
+                                                        <p><span>{{besicInfosList[index].totalWeight}}</span> kg</p>
+                                                    </li>
+                                                    <li>
+                                                        <span>总体积：</span>
+                                                        <p><span>{{besicInfosList[index].totalVolume}}</span> m³</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <ul class="dragUl" v-if="sortTemShowList[index]" ref="drop">
+                                                <li class="dragUlLi" v-for="(drawWayPathItem,ids) in sortTemShowList[index]" v-on:click="hintOrder($event,index,ids)">
+                                                    <span class="addressIcon" v-bind:style="iconBackgrounds[index]"></span>
+                                                    <p v-bind:title="drawWayPathItem.stoAddress">{{drawWayPathItem.seq}}-{{drawWayPathItem.stoAddress}}</p>
+                                                    <div v-bind:title="totalQwv[ids]">{{drawWayPathItem.totalQty}}件</div>
+                                                </li>
+                                            </ul>
+                                            <ul class="dragUl" v-if="!sortTemShowList[index]">
+                                                <li>
+                                                    <p style="color: #e96d11;">暂无配送信息</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="allDragFooter">
+                                    <button v-on:click="saveOrderSortingFun()">保存排序</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/Sortable.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/moment.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/daterangepicker.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.9&key=" + AmapQdKey + "&plugin=AMap.MouseTool'></s" + "cript>");
+</script>
+<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+<script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/tms/classesListAdjust.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+</body>
+</html>

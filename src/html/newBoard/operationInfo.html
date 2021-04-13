@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title class="myfont"></title>
+    <link rel="stylesheet" type="text/css" href="../../css/newBoard/style/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/newBoard/style/operationInfo.css" />
+    <link rel="stylesheet" type="text/css" href="https://webapi.amap.com/ui/1.0/ui/geo/DistrictExplorer/examples/area.css">
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+
+    <script type="text/javascript" src="../../js/newBoard/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="../../js/newBoard/public.js"></script>
+</head>
+<body>
+
+<div id="overall" class="overall">
+    <div class="main">
+        <div class="allMap">
+            <div id="container"></div>
+        </div>
+        <div class="markerGuide" style="display: block">
+            <div class="markerGuideChild">
+                <p>车辆标记点类型：</p>
+                <div class="p-item">
+                    <p><span class="item-text" style="padding-left: 0;">常温</span><span class="item-circle"></span></p>
+                    <p><span class="item-text">双温</span><span class="item-circle"></span></p>
+                    <p><span class="item-text">冷链</span><span class="item-circle"></span></p>
+                    <p><span class="item-text">其它</span><span class="item-circle"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="header">
+            <a href="javascript:;" onclick="javascript:history.back(-1);">
+                <span class="img"></span>
+                <span class="txt">返回</span>
+            </a>
+            <div class="hTxt myfont"></div>
+        </div>
+        <!--今日运营车辆列表-->
+        <div class="left">
+            <div class="leftMain">
+                <div class="littleBor"></div><div class="littleBor"></div><div class="littleBor"></div><div class="littleBor"></div>
+                <div class="orderHeader">
+                    <p>班次列表</p>
+                    <span title="闭合" v-on:click="closeCoverDiv('left')"><<</span>
+                </div>
+                <div class="orderBody">
+                    <div class="title">
+                        <ul>
+                            <li style="width: 30%;">订单号</li>
+                            <li style="width: 10%;">司机</li>
+                            <li style="width: 20%;">车牌号</li>
+                            <li style="width: 20%;">是否满载</li>
+                            <li style="width: 20%;">当前状态</li>
+                        </ul>
+                    </div>
+                    <div class="includeList includeList1">
+                        <div class="list">
+                            <ul v-for="(vehicleItem,index) in vehicleList" v-on:click="showOrderInfo(index)">
+                                <li style="width: 30%;">{{vehicleItem.orderNo}}</li>
+                                <li style="width: 10%;">{{vehicleItem.contactName}}</li>
+                                <li style="width: 20%;">{{vehicleItem.eqpNo}}</li>
+                                <li style="width: 20%;" v-if="vehicleItem.str3">{{vehicleItem.str3}}</li>
+                                <li style="width: 20%;" v-if="!vehicleItem.str3">未满载</li>
+                                <li style="width: 20%;">{{vehicleItem.completeStatus | fullCompleteStatus}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="showDivPoint showLeftPoint" v-on:click="openCoverDiv('left')"></div>
+
+        <!--班次详情-->
+        <div class="detailOrderDiv">
+            <div class="detailOrhead">
+                <p>班次详情</p>
+                <span v-on:click="closeDetailOrder()">×</span>
+            </div>
+            <div class="detailOrBody">
+                <div class="reportMessagesOrder">
+                    <ul class="messagesOrderTable" style="font-size: 15px;">
+                        <li>订单号</li>
+                        <li>发货商 | 发货商地址</li>
+                        <li>收货商 | 收货商地址</li>
+                    </ul>
+                    <div class="messagesOrderParent">
+                        <ul class="messagesOrderTable messagesOrderList" v-for="orderMessageItem in orderMessageList">
+                            <li v-bind:title="orderMessageItem.customerRefNo">{{orderMessageItem.customerRefNo}}</li>
+                            <li v-bind:title="orderMessageItem.sfrAddress">{{orderMessageItem.sfrPartyName}} | {{orderMessageItem.sfrAddress}}</li>
+                            <li v-bind:title="orderMessageItem.stoAddress">{{orderMessageItem.stoPartyName}} | {{orderMessageItem.stoAddress}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/common/env_config.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.11&key=" + AmapQdKey + "'></s" + "cript>");
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript" src="../../js/newBoard/operationInfo.js"></script>
+</body>
+</html>

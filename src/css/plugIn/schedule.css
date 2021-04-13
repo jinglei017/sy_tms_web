@@ -1,0 +1,346 @@
+#startTime{
+	display: none;
+	width: 230px;
+	z-index: 99;
+}
+#startTime1{
+	display: none;
+	width: 230px;
+	z-index: 99;
+}
+.boxshaw{
+	position: relative;
+}
+#endTime{
+	width: 230px;
+	display: none;
+	z-index: 99;
+}
+#endTime1{
+	width: 230px;
+	display: none;
+	z-index: 99;
+}
+#completionTime,#completionTime0,#completionTime1,#completionTime2,#completionTime3,#completionTime4,#completionTime5{
+	width: 230px;
+	display: none;
+	z-index: 99;
+}
+#overdueTime{
+	width: 230px;
+	display: none;
+	z-index: 99;
+}
+#crcdStartTime{
+	width: 230px;
+	display: none;
+	z-index: 99;
+}
+#crcdEndTime{
+	width: 230px;
+	display: none;
+	z-index: 99;
+}
+#deliveryTime{
+	width: 230px;
+	display: none;
+	z-index: 99;
+}
+#changeEndTime{
+    display: none;
+    width: 240px;
+    z-index: 99;
+}
+#effectDate{
+    display: none;
+    width: 240px;
+    z-index: 99;
+}
+#expiredDate{
+    display: none;
+    width: 240px;
+    z-index: 99;
+}
+.schedule-hd{
+	display: flex;
+	justify-content: space-between;
+	padding: 0 15px;
+}
+.schedule-hd{
+	padding-top: 9px;
+	padding-bottom: 7px;
+	line-height: 30px;
+	background: #fff;
+}
+.week-ul{
+	padding: 6px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+.schedule-bd{
+	padding: 6px;
+	padding-bottom: 12px;
+}
+.today{
+	flex: 1;
+	text-align: center;
+}
+.ul-box{
+	overflow: hidden;
+}
+.adsContent .adsRight .adsRightCon .adsRightConInp li .ul-box > li{
+	float: left;
+	width: 14.28%;
+	text-align: center;
+	border: none;
+	margin-left: 0px;
+	margin-bottom: 5px;
+	display: block;
+	box-sizing: border-box;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .startTimeSpan,.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .endTimeSpan{
+	width: 100%;
+	height: 34px;
+	display: block;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .crcdStartTimeSpan,.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .crcdEndTimeSpan{
+	width: 100%;
+	height: 34px;
+	display: block;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .deliveryTimeSpan{
+	width: 100%;
+	height: 34px;
+	display: block;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .ul-box,.maskLayer5 .amendOrderTimeDiv .ul-box{
+	overflow: hidden;
+	background: #fff;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .ul-box > li,.allRight .searchDivUl li .ul-box > li,.maskLayer5 .amendOrderTimeDiv .ul-box > li{
+	float: left;
+	width: 14.28%;
+	text-align: center;
+	padding: 5px 0;
+	border: none;
+	margin-left: 0px;
+	margin-bottom: 5px;
+}
+.allRight .searchDivUl li .ul-box > li,.maskLayer5 .amendOrderTimeDiv .ul-box > li{
+    padding: 0;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .week-ul,.maskLayer5 .amendOrderTimeDiv .week-ul{
+	padding: 6px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .week-ul > li,.maskLayer5 .amendOrderTimeDiv .week-ul>li{
+	margin-bottom: 0px;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .schedule-bd,.maskLayer5 .amendOrderTimeDiv .schedule-hd{
+	padding: 6px;
+	padding-bottom: 12px;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .schedule-hd,.maskLayer5 .amendOrderTimeDiv .schedule-hd{
+	padding-top: 9px;
+	line-height: 30px;
+	background: #fff;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .ul-box .other-month,.maskLayer5 .amendOrderTimeDiv .ul-box .other-month{
+	color: #999999;
+}
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li .ul-box .selected-style {
+	background: #00BDFF;
+	color: #ffffff;
+}
+.newClassesInf #completionTime{
+	background: #fff;
+	position: absolute;
+	width: 230px;
+	z-index: 9;
+	left: 123px;
+	top: 35px;
+}
+.newClassesInf #completionTime .schedule-hd span{
+	width: auto;
+
+}
+.newClassesCon .newClassesInf li .other-month{
+	float: left;
+}
+.newClassesCon .newClassesInf li .ul-box > li{
+	float: left;
+    width: 14.28%;
+    text-align: center;
+    border: none;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    display: block;
+    box-sizing: border-box;
+}
+.newClassesCon .newClassesInf li .dayStyle{
+	display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    cursor: pointer;
+    float: none;
+    padding-right: 0px;
+    color: #555;
+}
+.newClassesCon .newClassesInf li .dayStyle:hover{
+	color: #fff;
+}
+.newClassesCon .newClassesInf li .today-flag{
+	color: #fff;
+}
+.current-month{
+	color: #333333;
+}
+.today-style{
+	border-radius: 50%;
+	background: #58d321;
+}
+.arrow{
+	cursor: pointer;
+}
+.dayStyle{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+}
+.current-month > .dayStyle:hover{
+	background: #00BDFF;
+	color: #ffffff;
+}
+.today-flag{
+	background: #00C2B1;
+	color: #fff;
+}
+.boxshaw{
+	box-shadow: 2px 2px 15px 2px #e3e3e3;
+}
+
+
+
+
+.popupCon .TheExistingRoute .textBoxTitle li .ul-box > li{
+	float: left;
+	width: 14.28%;
+	text-align: center;
+	border: none;
+	margin-left: 0px;
+	margin-bottom: 5px;
+	display: block;
+	box-sizing: border-box;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .startTimeSpan,.popupCon .TheExistingRoute .textBoxTitle li .endTimeSpan{
+	width: 100%;
+	height: 34px;
+	display: block;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .crcdStartTimeSpan,.popupCon .TheExistingRoute .textBoxTitle li .crcdEndTimeSpan{
+	width: 100%;
+	height: 34px;
+	display: block;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .deliveryTimeSpan{
+	width: 100%;
+	height: 34px;
+	display: block;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .ul-box{
+	overflow: hidden;
+	background: #fff;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .ul-box > li{
+	float: left;
+	width: 14.28%;
+	text-align: center;
+	padding: 5px 0;
+	border: none;
+	margin-left: 0px;
+	margin-bottom: 5px;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .week-ul{
+	padding: 6px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .week-ul > li{
+	margin-bottom: 0px;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .schedule-bd{
+	padding: 6px;
+	padding-bottom: 12px;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .schedule-hd{
+	padding-top: 9px;
+	line-height: 34px;
+	background: #fff;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .ul-box .other-month{
+	color: #999999;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .ul-box .selected-style {
+	background: #00BDFF;
+	color: #ffffff;
+}
+.newClassesInf #completionTime{
+	background: #fff;
+	position: absolute;
+	width: 230px;
+	z-index: 9;
+	left: 123px;
+	top: 35px;
+}
+.newClassesInf #completionTime .schedule-hd span{
+	width: auto;
+
+}
+.newClassesCon .newClassesInf li .other-month{
+	float: left;
+}
+.newClassesCon .newClassesInf li .ul-box > li{
+	float: left;
+    width: 14.28%;
+    text-align: center;
+    border: none;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    display: block;
+    box-sizing: border-box;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .schedule-bd .current-month{
+	width: 14.28%;
+	background: none;
+	display: inline-block;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .schedule-hd span{
+	width: auto;
+	background: none;
+	color: #808080;
+	display: inline-block;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .schedule-bd span{
+	width: 35px;
+	background: none;
+	color: #808080;
+	display: inline-block;
+}
+.popupCon .TheExistingRoute .textBoxTitle li .schedule-bd .today-flag{
+	background: #00C2B1;
+	color: #fff;
+}
+
+#deliveryTime{
+	position: relative;
+	background: #fff;
+}

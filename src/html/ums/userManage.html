@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>账号管理-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <link href="../../dateRangePicker/font-awesome.4.6.0.css" rel="stylesheet">
+    <link href="../../dateRangePicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+		document.write("<link rel='stylesheet' type='text/css' href='../../css/plugIn/schedule.css?v=" + pageVerson + "'/>");
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../css/plugIn/zTreeStyle.css" />
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <!-- header start-->
+        <div class="adsLeft">
+
+        </div>
+        <!-- header end-->
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header">
+
+            </div>
+            <div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">用户管理</a></span></li>
+                    </ul>
+                    <ul class="pageHeaderR">
+                        <li class="searchBtn">
+                            <span class="butOperatePermission visible" buttonCode="ADD"  btn="newActivityDshBoardBtn"  @click="addOrderDetails('新增用户')">新增用户</span>
+                        </li>
+                        <li class="searchBtn">
+                            <span class="butOperateShow visible" btn="driverActivityDshBoardBtn">司机入驻</span>
+                        </li>
+                    </ul>
+                    <ul class="pageHeaderBack">
+                        <li class="visible">
+                            <img src="../../img/back_2.png" alt="返回上一步">
+                            <span>返回上一步</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="adsRightPackage">
+                    <!-- 列表   -->
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <ul class="textBoxTitle">
+                                    <li>
+                                        <label>创建时间</label>
+                                        <input type="text" readonly class="timePlugIn" id="timeRange"  v-model="timeHorizon"  placeholder="创建时间范围"/>
+                                    </li>
+                                    <li>
+                                        <label>用户名</label>
+                                        <input type="text" v-model="queryParam.userName" placeholder="用户名" />
+                                    </li>
+                                    <li>
+                                        <label>手机号</label>
+                                        <input type="text" v-model="queryParam.mobilePhone" placeholder="手机号" />
+                                    </li>
+                                    <li class="searchBtn">
+                                        <span class="butOperatePermission" buttonCode="QUERY" @click="getSearchVal()">查询</span>
+                                    </li>
+                                    <li class="searchBtn">
+                                        <span class="whiteBtn collSwitch"><i></i>筛选</span>
+                                        <div class="collUnfold">
+                                            <div>
+                                                <p><img class="closeCollUnfold" src="../../img/closeBtn2.png" alt=""></p>
+                                                <ul>
+                                                    <li>
+                                                        <label>用户编码</label>
+                                                        <input type="text" v-model="queryParam.userCode" placeholder="用户编码" />
+                                                    </li>
+                                                    <li>
+                                                        <label>租户编码</label>
+                                                        <input type="text" v-model="queryParam.tenantCode" placeholder="租户编码" />
+                                                    </li>
+                                                    <li>
+                                                        <label>租户名称</label>
+                                                        <input type="text" v-model="queryParam.tenantName" placeholder="租户名称" />
+                                                    </li>
+                                                    <li>
+                                                        <label>当前状态</label>
+                                                        <select v-bind:disabled="isDisable"  v-model="queryParam.state" name="">
+                                                            <option value=undefined>当前状态</option>
+                                                            <option value="active">启用</option>
+                                                            <option value="disable">禁用</option>
+                                                            <option value="black">关闭</option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <label>角色等级</label>
+                                                        <input type="text" v-model="queryParam.roleLevel" placeholder="角色等级" />
+                                                    </li>
+                                                </ul>
+                                                <div class="searchBtn collSearch">
+                                                    <span class="whiteBtn" @click="clearSearchInfo()">重置</span>
+                                                    <span @click="getSearchVal()">确认</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="reportMessages">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>用户名</th>
+                                            <th>操作</th>
+                                            <th>用户编码</th>
+                                            <th>租户编号</th>
+                                            <th>租户编码</th>
+                                            <th>租户名称</th>
+                                            <th>角色等级</th>
+                                            <th>当前状态</th>
+                                            <th>手机号</th>
+                                            <th>邮箱</th>
+                                            <th>创建时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(tableOrderItem,index) in tableOrderList" class="see">
+
+                                            <td v-if="currentPage == 1">
+                                                <p>{{index+1}}</p>
+                                            </td>
+                                            <td v-if="currentPage == 2">
+                                                <!-- 转换成数字  否则是字符串相加序号这一列顺序就不对 -->
+                                                <p>{{Number(queryPageSize)+index+1}}</p>
+                                            </td>
+                                            <td v-if="currentPage > 2">
+                                                <!-- 每页显示的个数+当前点击的分页-每页显示的个数+index+1 -->
+                                                <p>{{queryPageSize*currentPage-queryPageSize+index+1}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.userName}}</p>
+                                            </td>
+                                            <td>
+                                                <div class="foldBotton">
+                                                    <span class="handleIcon"></span>
+                                                    <p>
+                                                        <span class="btn btn-details visible butOperatePermission" buttonCode="DETAIL" btn="newActivityDshBoardBtn" @click="getOrderDetails('用户详情',tableOrderItem)">详情</span>
+                                                        <span class="btn btn-edit visible butOperatePermission" buttonCode="UPDATE" btn="newActivityDshBoardBtn" @click="changeOrderDetails('修改用户',tableOrderItem)">修改</span>
+                                                        <span class="btn btn-code-two visible butOperatePermission" buttonCode="ALLOT_ROLE" btn="currentOrderCodeBtn" @click="assignRole(tableOrderItem)">分配角色</span>
+                                                        <span class="btn btn-code-two visible butOperatePermission" buttonCode="ALLOT_ORGANIZE" id="getAllotOrgId" v-bind:userId="tableOrderItem.umUserId" btn="allotOrganizationBtn" @click="allotOrganization(tableOrderItem)">分配组织</span>
+                                                        <span v-if="tableOrderItem.state !== 'black'" class="btn btn-danger butOperateShow" buttonCode="UPDATE" btn="newActivityDshBoardBtn" @click="changeUserStatus(tableOrderItem,'black')">注销</span>
+                                                        <span v-if="tableOrderItem.state === 'active'" class="btn btn-disabled butOperateShow" buttonCode="UPDATE" btn="newActivityDshBoardBtn" @click="changeUserStatus(tableOrderItem,'disable')">禁用</span>
+                                                        <span v-else="tableOrderItem.state === 'disable'" class="btn btn-code-two butOperateShow" buttonCode="UPDATE" btn="newActivityDshBoardBtn " @click="changeUserStatus(tableOrderItem,'active')">启用</span>
+
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.userCode}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantCode}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.roleLevel}}</p>
+                                            </td>
+                                            <td>
+                                                <div v-if="tableOrderItem.state === 'active'">
+                                                    <span class="btn btn-mini btn-code " >启用</span>
+                                                </div>
+                                                <div v-else-if="tableOrderItem.state === 'disable'">
+                                                    <span class="btn btn-mini btn-disabled" >已禁用</span>
+                                                </div>
+                                                <div v-else-if="tableOrderItem.state === 'black'">
+                                                    <span class="btn btn-mini btn-black" >已注销</span>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.mobilePhone}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.email}}</p>
+                                            </td>
+                                            <td><p>{{tableOrderItem.createTime | timestampToTime}}</p></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="adsRightFooter">
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageList.length}}页 /{{totalList.length}}条
+                                        <select v-model="queryPageSize">
+                                            <option value="20">20条/页</option>
+                                            <option value="30">30条/页</option>
+                                            <option value="40">40条/页</option>
+                                            <option value="50">50条/页</option>
+                                            <option value="80">80条/页</option>
+                                            <option value="100">100条/页</option>
+                                        </select>
+                                    </p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" @click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageList" @click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="currentPage != pageList.length" @click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 列表   、-->
+
+                    <!-- 新增 修改   -->
+                    <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+
+                                    <div class="deliveryPointInf">
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">用户信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">用户名</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.userName" placeholder="用户名" />
+                                                    </p>
+                                                </li>
+                                                <li class="fate" v-if="cooperative">
+                                                    <span class="txt">合作商</span>
+                                                    <p class="inp">
+                                                        <input type="text" id="placeName" v-model="userInfObj.partyName" @keyup="queryPlaceInfo(userInfObj.partyName)"  placeholder="合作商" />
+                                                        <dl class="fateCon" v-if="showPlaceList" style="width: 258px;top: 33px;right: 0;">
+                                                            <dd v-for="placeItem in placeList" @click="choosePlace(placeItem)">{{placeItem.partyName}}</dd>
+                                                        </dl>
+                                                    </p>
+                                                </li>
+                                                <li style="width:100%" class="zzDivLi">
+                                                    <span class="txt">组织</span>
+                                                    <div class="inp zzDiv" v-for="(zzItem,i) in zzList">
+                                                        <input v-bind:disabled="isDisable" type="checkbox" v-bind:value="zzItem.umOrgId" @change="chooseZz(zzItem.umOrgId)"/><span>{{zzItem.orgName}}</span>
+                                                    </div>
+                                                </li>
+                                                <li style="width:100%" class="roleDivLi">
+                                                    <span class="txt">角色</span>
+                                                    <div class="inp zzDiv" v-for="(roleItem1,i) in roleList1">
+                                                        <input v-bind:disabled="isDisable" type="checkbox" v-bind:value="roleItem1.umRoleId" @change="chooseRole(roleItem1.umRoleId)"/><span>{{roleItem1.roleName}}</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">用户编码</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.userCode" placeholder="用户编码" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">用户等级</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.roleLevel" placeholder="用户等级" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">设备类型</span>
+                                                    <p class="inp">
+                                                        <select v-bind:disabled="isDisable"  v-model="userInfObj.deviceType" name="">
+                                                            <option value=null>请选择设备类型</option>
+                                                            <option value="EQP_GPS">车辆GPS</option>
+                                                            <option value="PHONE_GPS">手机GPS</option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">设备号</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.deviceNo" placeholder="设备号" />
+                                                    </p>
+                                                </li>
+                                                <li v-if="clickBtnType == 'add'">
+                                                    <span class="txt">当前状态</span>
+                                                    <p class="inp">
+                                                        <select v-bind:disabled="isDisable"  v-model="userInfObj.state" name="">
+                                                            <option value=undefined>当前状态</option>
+                                                            <option value="active">启用</option>
+                                                            <option value="disable">禁用</option>
+                                                            <option value="black">关闭</option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <span class="txt">手机号</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.mobilePhone" placeholder="手机号" />
+                                                    </p>
+                                                </li>
+                                                <li v-if="cooperative">
+                                                    <span class="txt">密码</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="clickBtnType != 'add'" type="text" v-model="userInfObj.passwd" placeholder="密码" />
+                                                    </p>
+                                                    <span v-if="clickBtnType == 'add'" style="font-size: 13px;line-height: 32px;margin-left: 6px;color: #666;">字母、数字、下划线，至少包含任意两种（6-50个字符）</span>
+                                                    <span v-if="clickBtnType == 'edit'" style="font-size: 13px;line-height: 32px;margin-left: 6px;color: #666;">不可修改</span>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">邮箱</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.email" placeholder="邮箱" />
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                            <div class="addNewOrderBot">
+                                                <div class="searchBtn" v-if="clickBtnType == 'add'">
+                                                    <span @click="saveNewUserInfo()">保存</span>
+                                                </div>
+                                                <div class="searchBtn" v-if="clickBtnType == 'edit'">
+                                                    <span @click="editUserInfo()">保存</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 新增 修改   、-->
+
+                    <!-- 司机入驻  -->
+                    <div class="driverActivityDshBoard template" id="driverActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="deliveryPointInf">
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">司机入驻</p>
+
+                                            <ul class="adsRightConInp">
+                                                <div>
+                                                    <li>
+                                                        <span class="txt">用户名称</span>
+                                                        <p class="inp">
+                                                            <input type="text" v-model="driverInfObj.userName" placeholder="登录账号" />
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <span class="txt">登录账号</span>
+                                                        <p class="inp">
+                                                            <input type="text" v-model="driverInfObj.userCode" placeholder="登录账号" />
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <span class="txt">密码</span>
+                                                        <p class="inp">
+                                                            <input type="password" v-model="driverInfObj.passWd" placeholder="密码" />
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <span class="txt">确认密码</span>
+                                                        <p class="inp">
+                                                            <input type="password" v-model="driverInfObj.newPassWd" placeholder="确认密码" />
+                                                        </p>
+                                                    </li>
+                                                </div>
+                                                <div>
+                                                    <li>
+                                                        <span class="txt">姓名</span>
+                                                        <p class="inp">
+                                                            <input type="text" v-model="driverInfObj.contactName" placeholder="姓名" />
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <span class="txt">手机号</span>
+                                                        <p class="inp">
+                                                            <input type="text" v-model="driverInfObj.contactTel" placeholder="手机号" />
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <span class="txt">邮箱</span>
+                                                        <p class="inp">
+                                                            <input type="text" v-model="driverInfObj.contactEmail" placeholder="邮箱" />
+                                                        </p>
+                                                    </li>
+                                                    <li class="addressLi driverAddress">
+                                                        <span class="txt">所在地址</span>
+                                                        <p class="inp">
+                                                            <select v-model="driverInfObj.provinceCode" v-on:change="selectLocLevelFun('provinceCode',driverInfObj,driverInfObj.provinceCode)" name="">
+                                                                <option value="">省份/自治州</option>
+                                                                <option v-for="addressItem in getAllProviceList(driverInfObj.countryCode)" v-bind:value="addressItem.adcode">{{addressItem.chineseName}}</option>
+                                                            </select>
+                                                            <select v-model="driverInfObj.cityCode" v-on:change="selectLocLevelFun('cityCode',driverInfObj,driverInfObj.cityCode)" name="">
+                                                                <option value="">城市/地区</option>
+                                                                <option v-for="addressItem in getAllCityList(driverInfObj.provinceCode)" v-bind:value="addressItem.adcode">{{addressItem.chineseName}}</option>
+                                                            </select>
+                                                            <select v-model="driverInfObj.districtCode" v-on:change="selectLocLevelFun('districtCode',driverInfObj,driverInfObj.districtCode)" name="">
+                                                                <option value="">区/县</option>
+                                                                <option v-for="addressItem in getAllDistrictList(driverInfObj.cityCode)" v-bind:value="addressItem.adcode">{{addressItem.chineseName}}</option>
+                                                            </select>
+                                                        </p>
+                                                    </li>
+                                                    <li class="driverStreet">
+                                                        <span class="txt">街道</span>
+                                                        <p class="inp">
+                                                            <input type="text" v-model="driverInfObj.street" placeholder="街道" />
+                                                        </p>
+                                                    </li>
+                                                </div>
+                                            </ul>
+
+                                            <div class="addNewOrderBot">
+                                                <div class="searchBtn">
+                                                    <span @click="saveNewDriverInfo()">提交</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 司机入驻 、-->
+
+                    <!-- 分配角色  -->
+                    <div class="currentOrderCode template" id="currentOrderCode">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="adsRightConItem roleInfList">
+                                        <p class="adsRightConTitle">用户信息</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">用户名</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.userName" placeholder="用户名" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">用户编码</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.userCode" placeholder="用户编码" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">用户等级</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.roleLevel" placeholder="用户等级" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">当前状态</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable"  v-model="userInfObj.state" name="">
+                                                        <option value="">当前状态</option>
+                                                        <option value="active">启用</option>
+                                                        <option value="disable">禁用</option>
+                                                        <option value="black">关闭</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">手机号</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.mobilePhone" placeholder="手机号" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">邮箱</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.email" placeholder="邮箱" />
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="adsRightConItem roleInfList">
+                                        <p class="adsRightConTitle">角色列表</p>
+                                         <ul class="adsRightConList adsRightConRoleList">
+                                            <li class="roleitemLi" ref="dataRoleid" v-for="roleItem in roleList"  v-bind:data-roleid="roleItem.umRoleId" @click="checkedRole($event,roleItem)">{{roleItem.roleName}}</li>
+                                        </ul>
+                                        <div class="addNewOrderBot">
+                                            <div class="searchBtn">
+                                                <span @click="saveRolePermission()">保存</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 分配角色    、-->
+
+                    <!-- 分配组织  -->
+                    <div class="allotOrganization template" id="allotOrganization">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="adsRightConItem roleInfList">
+                                        <p class="adsRightConTitle">用户信息</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">用户名</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.userName" placeholder="用户名" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">用户编码</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.userCode" placeholder="用户编码" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">用户等级</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.roleLevel" placeholder="用户等级" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">当前状态</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable"  v-model="userInfObj.state" name="">
+                                                        <option value="">当前状态</option>
+                                                        <option value="active">启用</option>
+                                                        <option value="disable">禁用</option>
+                                                        <option value="black">关闭</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">手机号</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.mobilePhone" placeholder="手机号" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">邮箱</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="userInfObj.email" placeholder="邮箱" />
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle">分配组织</p>
+                                        <div class="zTreeDemoBackground left">
+                                            <ul id="treeDemo" class="ztree"></ul>
+                                        </div>
+                                        <div class="addNewOrderBot">
+                                            <div class="searchBtn">
+                                                <span class="saveNewOrderBtn saveNewOrgBtn">保存</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ul style="display: none;">
+                                        <li v-for="treeDemoInputItem in treeDemoInputList">{{treeDemoInputItem.name}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 分配组织    、-->
+                </div>
+            </div>
+        </div>
+        <!-- adsContent end-->
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/moment.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/daterangepicker.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/ums/userManage.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>设备模板-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <link href="../../dateRangePicker/font-awesome.4.6.0.css" rel="stylesheet">
+    <link href="../../dateRangePicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <!-- header start-->
+        <div class="adsLeft">
+
+        </div>
+        <!-- header end-->
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header">
+
+            </div>
+            <div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span><a :href="linkHrefs[0]">车辆管理</a></span></li>
+                        <li><span class="active"><a href="javascript:;">车辆模板管理</a></span></li>
+                    </ul>
+                    <ul class="pageHeaderR">
+                        <li class="searchBtn">
+                            <span class="butOperatePermission visible" buttonCode="ADD"  btn="newActivityDshBoardBtn"  v-on:click="addOrderDetails('新增设备模板')">新增设备模板</span>
+                        </li>
+                        <li class="searchBtn">
+                            <span class="txtBox butOperatePermission" buttonCode="UPLOAD" v-on:click="chooseTheFileType('0')">上传设备联系人数据</span>
+                            <input type="file" name="excelFile" style="display: none;" v-on:change="chooseTheFile()" id="excelFile" />
+                            <div class="suspend">
+                                <b>*请先下载<a href="../../download/cdm-ImportEqpContactLnkData v1.2.xlsx">excel模板</a>，按照模板填写。</b>
+                            </div>
+                            <div class="triangle"></div>
+                        </li>
+                    </ul>
+                    <ul class="pageHeaderBack">
+                        <li class="visible">
+                            <img src="../../img/back_2.png" alt="返回上一步">
+                            <span>返回上一步</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="adsRightPackage">
+                    <!-- 订单管理   -->
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <ul class="textBoxTitle">
+                                    <li>
+                                        <label>模板类型：</label>
+                                        <select v-model="queryParam.refType" name="">
+                                            <option value="">全部模板类型</option>
+                                            <option  v-for="eqpRefTypeItem in selectListData.eqpRefTypeList"  v-bind:value="eqpRefTypeItem.code">{{eqpRefTypeItem.text}}</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <label>模板名称：</label>
+                                        <input type="text" v-model="queryParam.refName" placeholder="请输入模板名称" />
+                                    </li>
+                                    <li>
+                                        <label>模板编码：</label>
+                                        <input type="text" v-model="queryParam.refCode" placeholder="请输入模板编码" />
+                                    </li>
+                                    <li class="searchBtn" style="width: 80px;">
+                                        <span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+                                    </li>
+                                    <li class="searchBtn">
+                                        <span class="whiteBtn collSwitch"><i></i>筛选</span>
+                                        <div class="collUnfold">
+                                            <div>
+                                                <p><img class="closeCollUnfold" src="../../img/closeBtn2.png" alt=""></p>
+                                                <ul>
+                                                    <li>
+                                                        <label>设备类型：</label>
+                                                        <select v-model="queryParam.eqpType" name="" id="">
+                                                            <option value="">全部设备类型</option>
+                                                            <option  v-for="eqpTypeItem in selectListData.eqpTypeList"  v-bind:value="eqpTypeItem.code">{{eqpTypeItem.text}}</option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <label>设备型号：</label>
+                                                        <input type="text" v-model="queryParam.eqpSpec" placeholder="设备型号" />
+                                                    </li>
+                                                    <li>
+                                                        <label>设备号：</label>
+                                                        <input type="text" v-model="queryParam.eqpNo" placeholder="设备号" />
+                                                    </li>
+                                                    <li>
+                                                        <label>设备名称：</label>
+                                                        <input type="text" v-model="queryParam.eqpName" placeholder="设备名称" />
+                                                    </li>
+                                                </ul>
+                                                <div class="searchBtn collSearch">
+                                                    <span class="whiteBtn" v-on:click="clearSearchInfo()">重置</span>
+                                                    <span v-on:click="getSearchVal()">确认</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="reportMessages">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <!--<th>
+                                                <div class="selectAll select yes">
+                                                    <input type="hidden" />
+                                                </div>
+                                            </th>-->
+                                            <th>序号</th>
+                                            <th>模板类型</th>
+                                            <th>操作</th>
+                                            <th>模板名称</th>
+                                            <th>模板编码</th>
+                                            <th>设备类型</th>
+                                            <th>设备型号</th>
+                                            <th>设备号</th>
+                                            <th>设备名称</th>
+                                            <th>长[米]&nbsp;*&nbsp;宽[米]&nbsp;*&nbsp;高[米]</th>
+                                            <th>客户量&nbsp;/&nbsp;装载量</th>
+                                            <th>关联编码&nbsp;[下级]</th>
+                                            <th>关联名称&nbsp;[下级]</th>
+                                            <th>关联详情&nbsp;[下级]</th>
+                                            <th>创建时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(tableOrderItem,index) in tableOrderList" orderid="'+orderListData[i].omOrderId+'" class="see">
+                                            <!--<td>
+                                                <div class="select yes">
+                                                    <input type="hidden" />
+                                                </div>
+                                            </td>-->
+                                            <td v-if="currentPage == 1">
+                                                <p>{{index+1}}</p>
+                                            </td>
+                                            <td v-if="currentPage != 1">
+                                                <p>{{(index+1)+((currentPage-1)*multipleNum)}}</p>
+                                            </td>
+                                            <td><p v-for="eqpRefTypeItem in selectListData.eqpRefTypeList" v-if="eqpRefTypeItem.code == tableOrderItem.refType">{{eqpRefTypeItem.text}}</p></td>
+                                            <td>
+                                                <div class="foldBotton">
+                                                    <span class="handleIcon"></span>
+                                                    <p>
+                                                        <span class="btn btn-details visible butOperatePermission orderDetailBtn"  buttonCode="DETAIL" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('设备模板详情',tableOrderItem)">详情</span>
+                                                        <span class="btn btn-edit visible butOperatePermission orderEditBtn"  buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeOrderDetails('设备模板修改',tableOrderItem)">修改</span>
+                                                        <span class="btn btn-logistics visible butOperatePermission orderDeteleBtn"  buttonCode="DELETE" btn="logisticsInfoBtn" v-on:click="deleteOrderDetails(tableOrderItem)">删除</span>
+                                                        <span v-if="tableOrderItem.isDefault == 0" class="btn btn-code visible butOperatePermission orderCodeBtn"  buttonCode="DEFAULT" btn="logisticsInfoBtn" v-on:click="defaultOrderDetails(tableOrderItem,'1')">设为默认</span>
+                                                        <span v-if="tableOrderItem.isDefault == 1" class="btn btn-abnormal visible butOperatePermission orderSplitBtn"  buttonCode="DEFAULT" btn="logisticsInfoBtn" v-on:click="defaultOrderDetails(tableOrderItem,'0')">取消默认</span>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td><p>{{tableOrderItem.refName}}</p></td>
+                                            <td><p>{{tableOrderItem.refCode}}</p></td>
+                                            <td>
+                                                <p v-for="eqpTypeItem in selectListData.eqpTypeList" v-if="eqpTypeItem.code == tableOrderItem.eqpType">{{eqpTypeItem.text}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.eqpSpec}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.eqpNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.eqpName}}</p>
+                                            </td>
+                                            <td>
+                                                <span v-if="tableOrderItem.eqpLength != null">{{tableOrderItem.eqpLength}}&nbsp;*&nbsp;</span>
+                                                <span v-if="tableOrderItem.eqpWidth != null">{{tableOrderItem.eqpWidth}}&nbsp;*&nbsp;</span>
+                                                <span v-if="tableOrderItem.eqpHeight != null">{{tableOrderItem.eqpHeight}}</span>
+                                            </td>
+                                            <td>
+                                                <span v-if="tableOrderItem.eqpStr2 != null">{{tableOrderItem.eqpStr2}}&nbsp;/</span>
+                                                <span v-if="tableOrderItem.eqpStr1 != null">{{tableOrderItem.eqpStr1}}</span>
+                                            </td>
+                                            <td>
+                                                <p v-if="tableOrderItem.locationCode != null"><span class="tableRemarkSpan">地址编码：</span>{{tableOrderItem.locationCode}}</p>
+                                                <p v-if="tableOrderItem.contactTel != null"><span class="tableRemarkSpan">联系人电话：</span>{{tableOrderItem.contactTel}}</p>
+                                            </td>
+                                            <td>
+                                                <p v-if="tableOrderItem.locationName != null"><span class="tableRemarkSpan">地址简称：</span>{{tableOrderItem.locationName}}</p>
+                                                <p v-if="tableOrderItem.contactName != null"><span class="tableRemarkSpan">联系人姓名：</span>{{tableOrderItem.contactName}}</p>
+                                            </td>
+                                            <td>
+                                                <p v-if="tableOrderItem.locationType != null">
+                                                    <span v-for="locationTypeItem in selectListData.locationTypeList" v-if="locationTypeItem.code == tableOrderItem.locationType">
+                                                        <span class="tableRemarkSpan">地址类型：</span>{{locationTypeItem.text}}
+                                                    </span>
+                                                </p>
+                                                <p v-if="tableOrderItem.contactType != null">
+                                                    <span v-for="contactTypeItem in selectListData.contactLists" v-if="contactTypeItem.code == tableOrderItem.contactType">
+                                                        <span class="tableRemarkSpan">联系人类型：</span>{{contactTypeItem.text}}
+                                                    </span>
+                                                </p>
+                                            </td>
+                                            <td><p>{{tableOrderItem.createTime | timestampToTime}}</p></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="adsRightFooter">
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageList.length}}页 /{{totalList.length}}条
+                                        <select v-model="queryPageSize">
+                                            <option value="20">20条/页</option>
+                                            <option value="30">30条/页</option>
+                                            <option value="40">40条/页</option>
+                                            <option value="50">50条/页</option>
+                                            <option value="80">80条/页</option>
+                                            <option value="100">100条/页</option>
+                                        </select>
+                                    </p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理   、-->
+
+                    <!-- 订单管理-新增   -->
+                    <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="deliveryPointItem">
+                                        <!--设备模板基本信息-->
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">模板基本信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt"><span class="color_r">*</span>合作商编码</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text"  v-model="partyCode" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>模板类型</span>
+                                                    <p class="inp">
+                                                        <select v-bind:disabled="isDisable" v-model="modelInfo.refType" v-on:change="changeAddContType(modelInfo.refType)" name="">
+                                                            <option value="">请选择</option>
+                                                            <option v-for="eqpRefTypeItem in selectListData.eqpRefTypeList" v-bind:value="eqpRefTypeItem.code">{{eqpRefTypeItem.text}}</option>
+                                                        </select>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>模板名称</span>
+                                                    <p class="inp">
+                                                        <input type="text" v-bind:disabled="isDisable" v-model="modelInfo.refName" placeholder="模板名称" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">模板编码</span>
+                                                    <p class="inp">
+                                                        <input type="text" v-bind:disabled="isDisable" v-model="modelInfo.refCode" placeholder="模板编码" />
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle" v-if="clickBtnType == 'detail'">设备信息</p>
+                                            <ul class="adsRightConInp">
+                                            <li class="searchBtn searchBtnModel" v-if="clickBtnType == 'add' || clickBtnType == 'edit'">
+                                                <span  v-on:click="chooseDeviceFun('device')">选择设备<b></b></span>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>设备名称</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpName" placeholder="设备名称" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>设备类型</span>
+                                                <p class="inp">
+                                                    <select v-model="deviceInfo.eqpType" name="">
+                                                        <option value="">设备类型</option>
+                                                        <option v-for="eqpTypeItem in selectListData.eqpTypeList" v-bind:value="eqpTypeItem.code">{{eqpTypeItem.text}}</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>设备品牌</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpBrand" placeholder="设备品牌" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>设备型号</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpSpec" placeholder="设备型号" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>设备号</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpNo" placeholder="设备号" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>长度 [米]</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpLength" placeholder="长度 [米]" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>宽度 [米]</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpWidth" placeholder="宽度 [米]" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>高度 [米]</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpHeight" placeholder="高度 [米]" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">装载量</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpStr1" placeholder="装载量" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">承载重量</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.loadWeight" placeholder="承载重量" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">承载体积</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.loadVolume" placeholder="承载体积" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">客户量</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.eqpStr2" placeholder="客户量" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">备注</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="deviceInfo.remark"  placeholder="备注" />
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        </div>
+                                    </div>
+
+                                    <!--联系人信息-->
+                                    <div class="adsRightConItem" v-if="addContType == '0'">
+                                        <p class="adsRightConTitle" v-if="clickBtnType == 'detail'">联系人信息</p>
+                                        <ul class="adsRightConInp" v-for="(eqpContact,index) in eqpContactList">
+                                            <li class="searchBtn searchBtnModel" v-if="clickBtnType == 'add' || clickBtnType == 'edit'">
+                                                <span  v-on:click="chooseContactFun(index,'contact')">选择联系人<b></b></span>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>联系人类型</span>
+                                                <p class="inp">
+                                                    <select v-model="eqpContact.contactType" name="">
+                                                        <option value="">联系人类型</option>
+                                                        <option v-for="contactTypeItem in selectListData.contactLists" v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}</option>
+                                                    </select>
+                                                </p>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>姓名</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="eqpContact.contactName" placeholder="姓名" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>电话</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="eqpContact.contactTel" placeholder="电话" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">邮箱</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="eqpContact.contactEmail" placeholder="邮箱" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">地址</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="eqpContact.contactAddress" placeholder="地址" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">备注</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="eqpContact.remark" placeholder="备注" />
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!--地址信息-->
+                                    <div class="adsRightConItem" v-if="addContType == '1'">
+                                        <p class="adsRightConTitle" v-if="clickBtnType == 'detail'">地址信息</p>
+                                        <ul class="adsRightConInp" v-for="(locationInfo,index) in locationContactList">
+                                            <li class="searchBtn searchBtnModel" v-if="clickBtnType == 'add' || clickBtnType == 'edit'">
+                                                <span  v-on:click="chooseAddressFun(index,'address')">选择地址<b></b></span>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>地址简称</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="locationInfo.locationName" placeholder="地址简称" />
+                                                </p>
+                                            </li>
+                                            <li class="newPartyLi2">
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>地址类型</span>
+                                                <p class="inp">
+                                                    <select v-model="locationInfo.locationType" name="">
+                                                        <option value="">请选择</option>
+                                                        <option v-for="locationTypeItem in selectListData.locationTypeList" v-bind:value="locationTypeItem.code">{{locationTypeItem.text}}</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li v-if="clickBtnType == 'add'">
+                                                <span class="txt">地址编码</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="locationInfo.locationCode" placeholder="地址编码" />
+                                                </p>
+                                            </li>
+                                            <li v-if="clickBtnType == 'edit'">
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>地址编码</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="locationInfo.locationCode" placeholder="地址编码" />
+                                                </p>
+                                                <span class="chooseIsDefault">不可修改</span>
+                                            </li>
+                                            <li class="addressLi">
+
+                                                    <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>国省市区</span>
+                                                    <p class="inp">
+                                                        <select v-bind:disabled="isDisable" v-model="locationInfo.countryCode" v-on:change="selectLocLevelFun('countryCode',locationInfo,locationInfo.countryCode)">
+                                                            <option value="">国/洲</option>
+                                                            <option v-for="addressItem in getAllCountryList" v-bind:value="addressItem.adcode">{{addressItem.chineseName}}</option>
+                                                        </select>
+                                                        <select v-bind:disabled="isDisable" v-model="locationInfo.provinceCode" v-on:change="selectLocLevelFun('provinceCode',locationInfo,locationInfo.provinceCode)">
+                                                            <option value="">省份/自治区</option>
+                                                            <option v-for="addressItem in getAllProviceList(locationInfo.countryCode)" v-bind:value="addressItem.adcode">{{addressItem.chineseName}}</option>
+                                                        </select>
+                                                        <select v-bind:disabled="isDisable" v-model="locationInfo.cityCode" v-on:change="selectLocLevelFun('cityCode',locationInfo,locationInfo.cityCode)">
+                                                            <option value="">城市/地区</option>
+                                                            <option v-for="addressItem in getAllCityList(locationInfo.provinceCode)" v-bind:value="addressItem.adcode">{{addressItem.chineseName}}</option>
+                                                        </select>
+                                                        <select v-bind:disabled="isDisable" v-model="locationInfo.districtCode" v-on:change="selectLocLevelFun('districtCode',locationInfo,locationInfo.districtCode)">
+                                                            <option value="">区/县</option>
+                                                            <option v-for="addressItem in getAllDistrictList(locationInfo.cityCode)" v-bind:value="addressItem.adcode">{{addressItem.chineseName}}</option>
+                                                        </select>
+                                                    </p>
+
+                                            </li>
+                                            <li class="addBtnLi">
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>街道</span>
+                                                <p class="inp">
+                                                    <input type="text" class="pointAddress" v-model="locationInfo.street" v-on:blur="changeAddress(locationInfo,locationInfo.street)" placeholder="街道" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">邮编</span>
+                                                <p class="inp">
+                                                    <input type="text" v-model="locationInfo.postCode" placeholder="邮编" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>详细地址</span>
+                                                <p class="inp">
+                                                    <input type="text" disabled v-model="locationInfo.address" placeholder="省市区街道"/>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="adsRightConItem noBackground" v-if="clickBtnType != 'detail'">
+                                        <div class="searchBtn">
+                                            <span class="saveNewOrderBtn" v-on:click="saveNewOrderInfo()">保存</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理 -新增   、-->
+                </div>
+            </div>
+        </div>
+        <!-- adsContent end-->
+    </div>
+    <div class="maskLayer maskLayer1">
+        <div class="popup">
+            <div class="popupCon" v-if="popupType == 'address'">
+                <h3 class="popupTitle">
+                    <span>全部地址</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl">
+                        <li>
+                            <label>名称：</label>
+                            <input type="text" v-model="queryParam1.locationName" placeholder="请输入地址名称" />
+                        </li>
+                        <li>
+                            <label>编码：</label>
+                            <input type="text" v-model="queryParam1.locationCode" placeholder="请输入地址编码" />
+                        </li>
+                        <li class="userModifyBtn">
+                            <span v-on:click="getSearchVal1()">查询</span>
+                        </li>
+                    </ul>
+                    <div class="table_Scroll">
+                        <table>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>地址简称</th>
+                            <th>地址编码</th>
+                            <th>地址类型</th>
+                            <th>详细地址</th>
+                            <th>关联编码&nbsp;[上级]</th>
+                            <th>关联名称&nbsp;[上级]</th>
+                            <th>关联详情&nbsp;[上级]</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(addressItem,index) in addressList" v-on:click="selectAddress(addressItem,index)">
+                            <td v-if="currentPage1 == 1"><p>{{index+1}}</p></td>
+                            <td v-if="currentPage1 != 1"><p>{{(index+1)+((currentPage1-1)*12)}}</p></td>
+                            <td><p>{{addressItem.locationName}}</p></td>
+                            <td><p>{{addressItem.locationCode}}</p></td>
+                            <td>
+                                <p v-for="locationTypeItem in selectListData.locationTypeList" v-if="locationTypeItem.code == addressItem.locationType">{{locationTypeItem.text}}</p>
+                            </td>
+                            <td><p>{{addressItem.address}}</p></td>
+                            <td>
+                                <p v-if="addressItem.eqpNo != null"><span class="tableRemarkSpan">设备号：</span>{{addressItem.eqpNo}}</p>
+                                <p v-if="addressItem.contactTel != null"><span class="tableRemarkSpan">联系人电话：</span>{{addressItem.contactTel}}</p>
+                                <p v-if="addressItem.partyCode != null"><span class="tableRemarkSpan">合作方代码：</span>{{addressItem.partyCode}}</p>
+                            </td>
+                            <td>
+                                <p v-if="addressItem.eqpName != null"><span class="tableRemarkSpan">设备名称:</span>{{addressItem.eqpName}}</p>
+                                <p v-if="addressItem.contactName != null"><span class="tableRemarkSpan">联系人姓名：</span>{{addressItem.contactName}}</p>
+                                <p v-if="addressItem.partyName != null"><span class="tableRemarkSpan">合作方名称：</span>{{addressItem.partyName}}</p>
+                            </td>
+                            <td>
+                                <p v-if="addressItem.eqpType != null">
+									<span v-for="eqpTypeItem in selectListData.eqpTypeList" v-if="eqpTypeItem.code == addressItem.eqpType">
+										<span class="tableRemarkSpan">设备类型：</span>{{eqpTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="addressItem.contactType != null">
+									<span v-for="contactTypeItem in selectListData.contactLists" v-if="contactTypeItem.code == addressItem.contactType">
+										<span class="tableRemarkSpan">联系人类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="addressItem.partyType != null">
+									<span v-for="contactTypeItem in selectListData.partyTypeList" v-if="contactTypeItem.code == addressItem.partyType">
+										<span class="tableRemarkSpan">合作方类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="paging">
+                        <p class="totalPages">共{{pageList1.length}}页/{{totalPagesNum1}}条</p>
+                        <div class="pagingBox">
+                            <span v-if="currentPage1 != 1" v-on:click="changePage1(currentPage1-1,'up')"><a href="javascript:;">«</a></span>
+                            <div class="pagingCon">
+                                <ul class="pagination">
+                                    <li v-for="pageItem in pageList1" v-on:click="changePage1(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage1 }" href="javascript:;">{{pageItem}}</a></li>
+                                </ul>
+                            </div>
+                            <span v-if="pageList1.length != 0 && currentPage1 != pageList1.length" v-on:click="changePage1(currentPage1+1,'down')"><a href="javascript:;">»</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popupCon" v-if="popupType == 'contact'">
+                <h3 class="popupTitle">
+                    <span>全部联系人</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl">
+                        <li>
+                            <label>类型：</label>
+                            <select v-model="queryParam2.contactType" name="">
+                                <option value="">全部联系人类型</option>
+                                <option  v-for="contactTypeItem in selectListData.contactLists"  v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>姓名：</label>
+                            <input type="text" v-model="queryParam2.contactName" placeholder="请输入联系人姓名" />
+                        </li>
+                        <li>
+                            <label>电话：</label>
+                            <input type="text" v-model="queryParam2.contactTel" placeholder="请输入联系人电话" />
+                        </li>
+                        <li>
+                            <label>地址：</label>
+                            <input type="text" v-model="queryParam2.contactAddress" placeholder="请输入联系人地址" />
+                        </li>
+                        <li class="userModifyBtn">
+                            <span v-on:click="getSearchVal2()">查询</span>
+                        </li>
+                    </ul>
+                    <div class="table_Scroll">
+                        <table>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>联系人类型</th>
+                            <th>联系人姓名</th>
+                            <th>联系人电话</th>
+                            <th>联系人地址</th>
+                            <th>关联编码&nbsp;[上级]</th>
+                            <th>关联名称&nbsp;[上级]</th>
+                            <th>关联详情&nbsp;[上级]</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(contactItem,index) in contactList" v-on:click="selectContactFun(contactItem,index)">
+                            <td v-if="currentPage2 == 1"><p>{{index+1}}</p></td>
+                            <td v-if="currentPage2 != 1"><p>{{(index+1)+((currentPage2-1)*12)}}</p></td>
+                            <td><p v-for="contactTypeItem in selectListData.contactLists" v-if="contactTypeItem.code == contactItem.contactType">{{contactTypeItem.text}}</p></td>
+                            <td><p>{{contactItem.contactName}}</p></td>
+                            <td><p>{{contactItem.contactTel}}</p></td>
+                            <td><p>{{contactItem.contactAddress}}</p></td>
+                            <td>
+                                <p v-if="contactItem.locationCode != null"><span class="tableRemarkSpan">地址编码：</span>{{contactItem.locationCode}}</p>
+                                <p v-if="contactItem.eqpNo != null"><span class="tableRemarkSpan">设备号：</span>{{contactItem.eqpNo}}</p>
+                                <p v-if="contactItem.partyCode != null"><span class="tableRemarkSpan">合作方代码：</span>{{contactItem.partyCode}}</p>
+                            </td>
+                            <td>
+                                <p v-if="contactItem.locationName != null"><span class="tableRemarkSpan">地址简称：</span>{{contactItem.locationName}}</p>
+                                <p v-if="contactItem.eqpName != null"><span class="tableRemarkSpan">设备名称：</span>{{contactItem.eqpName}}</p>
+                                <p v-if="contactItem.partyName != null"><span class="tableRemarkSpan">合作方名称：</span>{{contactItem.partyName}}</p>
+                            </td>
+                            <td>
+                                <p v-if="contactItem.locationType != null">
+									<span v-for="locationTypeItem in selectListData.locationTypeList" v-if="locationTypeItem.code == contactItem.locationType">
+										<span class="tableRemarkSpan">地址类型：</span>{{locationTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="contactItem.eqpType != null">
+									<span v-for="eqpTypeItem in selectListData.eqpTypeList" v-if="eqpTypeItem.code == contactItem.eqpType">
+										<span class="tableRemarkSpan">设备类型：</span>{{eqpTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="contactItem.partyType != null">
+									<span v-for="contactTypeItem in selectListData.partyTypeList" v-if="contactTypeItem.code == contactItem.partyType">
+										<span class="tableRemarkSpan">合作方类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="paging">
+                        <p class="totalPages">共{{pageList2.length}}页/{{totalPagesNum2}}条</p>
+                        <div class="pagingBox">
+                            <span v-if="currentPage2 != 1" v-on:click="changePage2(currentPage2-1,'up')"><a href="javascript:;">«</a></span>
+                            <div class="pagingCon">
+                                <ul class="pagination">
+                                    <li v-for="pageItem in pageList2" v-on:click="changePage2(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage2 }" href="javascript:;">{{pageItem}}</a></li>
+                                </ul>
+                            </div>
+                            <span v-if="pageList2.length != 0 && currentPage2 != pageList2.length" v-on:click="changePage2(currentPage2+1,'down')"><a href="javascript:;">»</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popupCon" v-if="popupType == 'device'">
+                <h3 class="popupTitle">
+                    <span>全部设备</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl">
+                        <li>
+                            <label>名称：</label>
+                            <input type="text" v-model="queryParam3.eqpName" placeholder="请输入设备名称" />
+                        </li>
+                        <li>
+                            <label>类型：</label>
+                            <select v-model="queryParam3.eqpType" name="">
+                                <option value="">全部设备类型</option>
+                                <option  v-for="eqpTypeItem in selectListData.eqpTypeList"  v-bind:value="eqpTypeItem.code">{{eqpTypeItem.text}}</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>型号：</label>
+                            <input type="text" v-model="queryParam3.eqpSpec" placeholder="请输入设备型号" />
+                        </li>
+                        <li>
+                            <label>设备号：</label>
+                            <input type="text" v-model="queryParam3.eqpNo" placeholder="请输入设备号" />
+                        </li>
+                        <li class="userModifyBtn">
+                            <span v-on:click="getSearchVal3()">查询</span>
+                        </li>
+                    </ul>
+                    <div class="table_Scroll">
+                        <table>
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>设备类型</th>
+                            <th>设备品牌</th>
+                            <th>设备型号</th>
+                            <th>设备号</th>
+                            <th>设备名称</th>
+                            <th>长[米]&nbsp;*&nbsp;宽[米]&nbsp;*&nbsp;高[米]</th>
+                            <th>客户量&nbsp;/&nbsp;装载量</th>
+                            <th>关联编码&nbsp;[上级]</th>
+                            <th>关联名称&nbsp;[上级]</th>
+                            <th>关联详情&nbsp;[上级]</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(deviceItem,index) in deviceList" v-on:click="selectDqFun(deviceItem,index)">
+                            <td v-if="currentPage3 == 1"><p>{{index+1}}</p></td>
+                            <td v-if="currentPage3 != 1"><p>{{(index+1)+((currentPage3-1)*12)}}</p></td>
+                            <td><p v-for="eqpTypeItem in selectListData.eqpTypeList" v-if="eqpTypeItem.code == deviceItem.eqpType">{{eqpTypeItem.text}}</p></td>
+                            <td><p>{{deviceItem.eqpBrand}}</p></td>
+                            <td><p>{{deviceItem.eqpSpec}}</p></td>
+                            <td><p>{{deviceItem.eqpNo}}</p></td>
+                            <td><p>{{deviceItem.eqpName}}</p></td>
+                            <td>
+                                <span v-if="deviceItem.eqpLength != null">{{deviceItem.eqpLength}}&nbsp;*&nbsp;</span>
+                                <span v-if="deviceItem.eqpWidth != null">{{deviceItem.eqpWidth}}&nbsp;*&nbsp;</span>
+                                <span v-if="deviceItem.eqpHeight != null">{{deviceItem.eqpHeight}}</span>
+                            </td>
+                            <td>
+                                <span v-if="deviceItem.eqpStr2 != null">{{deviceItem.eqpStr2}}&nbsp;/</span>
+                                <span v-if="deviceItem.eqpStr1 != null">{{deviceItem.eqpStr1}}</span>
+                            </td>
+                            <td>
+                                <p v-if="deviceItem.locationCode != null"><span class="tableRemarkSpan">地址编码：</span>{{deviceItem.locationCode}}</p>
+                                <p v-if="deviceItem.contactTel != null"><span class="tableRemarkSpan">联系人电话：</span>{{deviceItem.contactTel}}</p>
+                                <p v-if="deviceItem.partyCode != null"><span class="tableRemarkSpan">合作方代码：</span>{{deviceItem.partyCode}}</p>
+                            </td>
+                            <td>
+                                <p v-if="deviceItem.locationName != null"><span class="tableRemarkSpan">地址简称：</span>{{deviceItem.locationName}}</p>
+                                <p v-if="deviceItem.contactName != null"><span class="tableRemarkSpan">联系人姓名：</span>{{deviceItem.contactName}}</p>
+                                <p v-if="deviceItem.partyName != null"><span class="tableRemarkSpan">合作方名称：</span>{{deviceItem.partyName}}</p>
+                            </td>
+                            <td>
+                                <p v-if="deviceItem.locationType != null">
+									<span v-for="locationTypeItem in selectListData.locationTypeList" v-if="locationTypeItem.code == deviceItem.locationType">
+										<span class="tableRemarkSpan">地址类型：</span>{{locationTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="deviceItem.contactType != null">
+									<span v-for="contactTypeItem in selectListData.contactLists" v-if="contactTypeItem.code == deviceItem.contactType">
+										<span class="tableRemarkSpan">联系人类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                                <p v-if="deviceItem.partyType != null">
+									<span v-for="contactTypeItem in selectListData.partyTypeList" v-if="contactTypeItem.code == deviceItem.partyType">
+										<span class="tableRemarkSpan">合作方类型：</span>{{contactTypeItem.text}}
+									</span>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="paging">
+                        <p class="totalPages">共{{pageList3.length}}页/{{totalPagesNum3}}条</p>
+                        <div class="pagingBox">
+                            <span v-if="currentPage3 != 1" v-on:click="changePage3(currentPage3-1,'up')"><a href="javascript:;">«</a></span>
+                            <div class="pagingCon">
+                                <ul class="pagination">
+                                    <li v-for="pageItem in pageList3" v-on:click="changePage3(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage3 }" href="javascript:;">{{pageItem}}</a></li>
+                                </ul>
+                            </div>
+                            <span v-if="pageList3.length != 0 && currentPage3 != pageList3.length" v-on:click="changePage3(currentPage3+1,'down')"><a href="javascript:;">»</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/ajaxFileUpload.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/moment.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/daterangepicker.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/cdm/eqpModel.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

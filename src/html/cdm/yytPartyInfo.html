@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>怡亚通合作商管理-OMS订单管理系统</title>
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="../../js/common/env_config.js"></script>
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+	</script>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+	<div class="myOverall">
+		<!-- header start-->
+		<div class="adsLeft">
+
+		</div>
+		<!-- header end-->
+
+		<!-- adsContent start-->
+		<div class="adsContent">
+			<div class="header">
+
+			</div>
+			<div class="adsRight">
+				<!-- 订单管理   -->
+				<div class="activityDshBoard template" id="activityDshBoard">
+					<div class="adsRightCon">
+						<div class="adsRightConMain">
+							<ul class="textBoxTitle">
+								<li>
+									<select v-model="queryParam.partyType" name="">
+										<option value="null">合作方类型</option>
+										<option  v-for="contactTypeItem in selectListData.contactLists"  v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}</option>
+									</select>
+								</li>
+								<li>
+									<input type="text" v-model="queryParam.partyName" placeholder="合作方名称" />
+								</li>
+								<li>
+									<input type="text" v-model="queryParam.partyCode" placeholder="合作方代码" />
+								</li>
+								<li class="searchBtn" style="width: 80px;">
+									<span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+								</li>
+								<li class="searchBtn fileUploadLi" style="width: 80px;">
+									<p class="inputBox butOperatePermission" buttonCode="UPLOAD" v-if="clearShow">
+										<span>上传文件</span>
+										<input type="file" name="excelFile" v-on:change="chooseTheFile()" id="excelFile" />
+									</p>
+									<p class="txtBox butOperatePermission" buttonCode="UPLOAD">
+										<span>上传文件</span>
+									</p>
+								</li>
+								<!--<li class="fileUploadHint" style="border: none; width: 320px;">
+									*请先下载<a href="/download/pidImportPartyInfoExcel v1.0.xlsx">excel模板</a>，按照模板填写。
+								</li>-->
+							</ul>
+							<div class="reportMessages">
+								<table>
+									<thead>
+									<tr>
+										<!--<th>
+                                            <div class="selectAll select yes">
+                                                <input type="hidden" />
+                                            </div>
+                                        </th>-->
+										<th>序号</th>
+										<th>商户类型</th>
+										<th>商户名称</th>
+										<!--<th>联系人电话</th>-->
+										<th>商户地址</th>
+										<th>地址联系人</th>
+										<th>地址联系人电话</th>
+										<th>紧急联系人</th>
+										<th>紧急联系人电话</th>
+										<th>操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr v-for="(tableOrderItem,index) in tableOrderList" orderid="'+orderListData[i].omOrderId+'" class="see">
+										<!--<td>
+                                            <div class="select yes">
+                                                <input type="hidden" />
+                                            </div>
+                                        </td>-->
+										<td v-if="currentPage == 1">
+											<p>{{index+1}}</p>
+										</td>
+										<td v-if="currentPage != 1">
+											<p>{{(index+1)+((currentPage-1)*12)}}</p>
+										</td>
+										<td>
+											<p v-for="contactTypeItem in selectListData.contactLists" v-if="contactTypeItem.code == tableOrderItem.partyType">{{contactTypeItem.text}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.partyName}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.mrAddress}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.mrdzContactName}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.mrdzContactTel}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.imgContactName}}</p>
+										</td>
+										<td>
+											<p>{{tableOrderItem.imgContactTel}}</p>
+										</td>
+										<td>
+											<span class="btn btn-details visible butOperatePermission orderDetailBtn"  buttonCode="DETAIL" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('合作商信息',tableOrderItem)">详情</span>
+											<span class="btn btn-edit visible butOperatePermission orderEditBtn"  buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeOrderDetails('修改合作商信息',tableOrderItem)">修改</span>
+											<span class="btn btn-logistics visible butOperatePermission orderDeteleBtn"  buttonCode="DELETE" btn="logisticsInfoBtn" v-on:click="deleteOrderDetails(tableOrderItem)">删除</span>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+								<div class="paging">
+									<p class="totalPages">共{{pageList.length}}页/{{totalPagesNum}}条</p>
+									<div class="pagingBox">
+										<span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+										<div class="pagingCon">
+											<ul class="pagination">
+												<li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+											</ul>
+										</div>
+										<span v-if="pageList.length != 0 && currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 订单管理   、-->
+
+				<!-- 订单管理-新增   -->
+				<div class="newActivityDshBoard template" id="newAdsActivityManage">
+					<div class="adsRightCon">
+						<div class="adsRightConList">
+							<div class="adsRightConMatter">
+								<div class="deliveryPointInf contactInf">
+									<!--合作商基本信息-->
+									<div class="adsRightConItem">
+										<p class="adsRightConTitle">合作商基本信息</p>
+										<ul class="adsRightConInp">
+											<li>
+												<span class="txt"><span class="color_r" v-if="!titleDisable">*&nbsp;</span>合作方类型</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="partyBaseInfo.partyType" name="">
+														<option value="">请选择</option>
+														<option v-for="contactTypeItem in selectListData.contactLists" v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!titleDisable">*&nbsp;</span>合作商名称</span>
+												<p class="inp">
+													<input type="text" v-bind:disabled="titleDisable" v-model="partyBaseInfo.partyName" placeholder="合作商名称" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!titleDisable">*&nbsp;</span>合作方代码</span>
+												<p class="inp">
+													<input type="text" v-bind:disabled="titleDisable" v-model="partyBaseInfo.partyCode" placeholder="合作方代码" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">拼音缩写</span>
+												<p class="inp">
+													<input type="text" v-bind:disabled="titleDisable" v-model="partyBaseInfo.partyAbbr" placeholder="拼音缩写" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">是否买家</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="partyBaseInfo.isBuyer" name="">
+														<option value="">请选择</option>
+														<option value="1">是</option>
+														<option value="0">否</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">是否卖家</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="partyBaseInfo.isVendor" name="">
+														<option value="">请选择</option>
+														<option value="1">是</option>
+														<option value="0">否</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">是否卡车公司</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="partyBaseInfo.isTruck" name="">
+														<option value="">请选择</option>
+														<option value="1">是</option>
+														<option value="0">否</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">是否仓库</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="partyBaseInfo.isWarehouse" name="">
+														<option value="">请选择</option>
+														<option value="1">是</option>
+														<option value="0">否</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">是否第三方物流</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="partyBaseInfo.is3pl" name="">
+														<option value="">请选择</option>
+														<option value="1">是</option>
+														<option value="0">否</option>
+													</select>
+												</p>
+											</li>
+
+										</ul>
+									</div>
+									<!--地址信息-->
+									<div class="adsRightConItem">
+										<p class="adsRightConTitle">地址信息</p>
+										<ul class="adsRightConInp" v-for="(locationInfo,index) in locationContactList">
+											<li v-if="clickBtnType != 'detail'">
+												<span class="chooseContactBtn" v-on:click="chooseAddressFun(index,'address')">选择地址</span>
+											</li>
+											<li class="addressLi">
+												<div v-if="clickBtnType != 'detail'">
+													<span class="txt">地址</span>
+													<p class="inp">
+														<select v-bind:disabled="isDisable" v-model="locationInfo.provinceCode" class="pointProvinceName" v-on:change="selectCity1(locationInfo.provinceCode)" name="">
+															<option value="">省份/自治州</option>
+															<option v-for="address in dpDistrictList" v-bind:value="address.adcode">{{address.chineseName}}</option>
+														</select>
+														<select v-bind:disabled="isDisable" v-model="locationInfo.cityCode" class="pointCityName" v-on:change="selectDistrict1(locationInfo.cityCode)" name="">
+															<option value="">城市/地区</option>
+															<option v-for="address in selectCity(locationInfo.provinceCode)" v-bind:value="address.adcode">{{address.chineseName}}</option>
+														</select>
+														<select v-bind:disabled="isDisable" v-model="locationInfo.districtCode" class="pointDistrictName" name="">
+															<option value="">区/县</option>
+															<option v-for="address in selectDistrict(locationInfo.cityCode)" v-bind:value="address.adcode">{{address.chineseName}}</option>
+														</select>
+													</p>
+												</div>
+											</li>
+											<li class="addBtnLi">
+												<div v-if="clickBtnType == 'detail'">
+													<span class="txt">地址</span>
+													<p class="inp">
+														<input v-bind:disabled="isDisable" type="text" class="pointAddress" v-model="locationInfo.address" placeholder="地址" />
+													</p>
+												</div>
+												<div v-else>
+													<span class="txt">街道</span>
+													<p class="inp">
+														<input v-bind:disabled="isDisable" type="text" class="pointAddress" v-model="locationInfo.address" placeholder="街道" />
+													</p>
+												</div>
+											</li>
+											<li>
+												<span class="txt">邮编</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="locationInfo.postCode" placeholder="邮编" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">位置编码</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" id="latlng" type="text" v-model="locationInfo.latLng" placeholder="位置编码" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!titleDisable">*&nbsp;</span>是否默认</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="locationInfo.isDefault" name="">
+														<option value="">请选择</option>
+														<option value="1">是</option>
+														<option value="0">否</option>
+													</select>
+												</p>
+												<span class="chooseIsDefault" v-if="!titleDisable">请手动选择该地址是否默认</span>
+											</li>
+										</ul>
+										<div v-if="clickBtnType != 'detail'">
+											<p class="addContactBtn" v-on:click="addAddressFun()">+新增地址</p>
+										</div>
+									</div>
+
+
+									<div class="adsRightConItem">
+										<p class="adsRightConTitle">设备信息</p>
+										<ul class="adsRightConInp" v-for="(contactEqpInfos,index) in contactEqplList">
+											<li v-if="clickBtnType != 'detail'">
+												<span class="chooseContactBtn" v-on:click="chooseDeviceFun(index,'device')">选择设备</span>
+											</li>
+											<li>
+												<span class="txt">设备名</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="contactEqpInfos.eqpName" placeholder="设备名" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">设备类型</span>
+												<p class="inp">
+													<select v-bind:disabled="isDisable" v-model="contactEqpInfos.eqpType" name="">
+														<option value="">设备类型</option>
+														<option v-for="eqpTypeItem in selectListData.eqpTypeList" v-bind:value="eqpTypeItem.code">{{eqpTypeItem.text}}</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">设备品牌</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="contactEqpInfos.eqpBrand" placeholder="设备品牌" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">设备型号</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="contactEqpInfos.eqpSpec" placeholder="设备型号" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">设备号</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="contactEqpInfos.eqpNo" placeholder="设备号" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">备注</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="contactEqpInfos.remark"  placeholder="备注" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!titleDisable">*&nbsp;</span>是否默认</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="contactEqpInfos.isDefault" name="">
+														<option value="">请选择</option>
+														<option value="1">是</option>
+														<option value="0">否</option>
+													</select>
+												</p>
+												<span class="chooseIsDefault" v-if="!titleDisable">请手动选择该设备是否默认</span>
+											</li>
+										</ul>
+										<div v-if="clickBtnType != 'detail'">
+											<p class="addContactBtn" v-on:click="addDeviceFun()">+新增设备</p>
+										</div>
+									</div>
+
+									<div class="adsRightConItem">
+										<p class="adsRightConTitle">联系人信息</p>
+										<ul class="adsRightConInp" v-for="(partyContact,index) in partyContactlList">
+											<li v-if="clickBtnType != 'detail'">
+												<span class="chooseContactBtn" v-on:click="chooseContactFun(index,'contact')">选择联系人</span>
+											</li>
+											<li>
+												<span class="txt">联系人类型</span>
+												<p class="inp">
+													<select v-bind:disabled="isDisable" v-model="partyContact.contactType" name="">
+														<option value="">联系人类型</option>
+														<option v-for="contactTypeItem in selectListData.contactLists" v-bind:value="contactTypeItem.code">{{contactTypeItem.text}}</option>
+													</select>
+												</p>
+											</li>
+											<li>
+												<span class="txt">姓名</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="partyContact.contactName" placeholder="姓名" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">电话</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="partyContact.contactTel" placeholder="电话" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">邮箱</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="partyContact.contactEmail" placeholder="邮箱" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">地址</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="partyContact.contactAddress" placeholder="地址" />
+												</p>
+											</li>
+											<li>
+												<span class="txt">备注</span>
+												<p class="inp">
+													<input v-bind:disabled="isDisable" type="text" v-model="partyContact.remark" placeholder="备注" />
+												</p>
+											</li>
+											<li>
+												<span class="txt"><span class="color_r" v-if="!titleDisable">*&nbsp;</span>是否默认</span>
+												<p class="inp">
+													<select v-bind:disabled="titleDisable" v-model="partyContact.isDefault" name="">
+														<option value="">请选择</option>
+														<option value="1">是</option>
+														<option value="0">否</option>
+													</select>
+												</p>
+												<span class="chooseIsDefault" v-if="!titleDisable">请手动选择该联系人是否默认</span>
+											</li>
+										</ul>
+										<div v-if="clickBtnType != 'detail'">
+											<p class="addContactBtn" v-on:click="addConactFun()">+新增联系人</p>
+										</div>
+									</div>
+
+
+								</div>
+								<div class="addNewOrderBot addNewContactBot">
+									<div class="searchBtn" v-if="clickBtnType == 'add'">
+										<span v-on:click="saveNewOrderInfo()">保存</span>
+									</div>
+									<div class="searchBtn" v-if="clickBtnType == 'edit'">
+										<span v-on:click="editOrderInfo()">保存</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 订单管理 -新增   、-->
+			</div>
+		</div>
+		<!-- adsContent end-->
+	</div>
+	<div class="maskLayer">
+		<div class="popup">
+			<div v-if="popupType == 'address'">
+				<div class="popupCon">
+					<h3 class="popupTitle">
+						<span>全部地址</span>
+						<a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+					</h3>
+					<div class="popupDpList">
+						<table>
+							<thead>
+							<tr>
+								<th>街道</th>
+								<th>邮编</th>
+								<th>位置编码</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr v-for="(addressItem,index) in addressList" v-on:click="selectAddress(addressItem,index)">
+								<td>
+									<p>{{addressItem.address}}</p>
+								</td>
+								<td>
+									<p>{{addressItem.postCode}}</p>
+								</td>
+								<td>
+									<p>{{addressItem.latLng}}</p>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</div>
+
+			<div v-if="popupType == 'device'">
+				<div class="popupCon">
+					<h3 class="popupTitle">
+						<span>全部设备</span>
+						<a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+					</h3>
+					<div class="popupDpList">
+						<table>
+							<thead>
+							<tr>
+								<th>设备名</th>
+								<th>设备类型</th>
+								<th>设备型号</th>
+								<th>设备号</th>
+								<th>设备品牌</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr v-for="(deviceItem,index) in deviceList" v-on:click="selectDqFun(deviceItem,index)">
+								<td>
+									<p>{{deviceItem.eqpName}}</p>
+								</td>
+								<td>
+									<p v-for="eqpTypeItem in selectListData.eqpTypeList" v-if="eqpTypeItem.code == deviceItem.eqpType">{{eqpTypeItem.text}}</p>
+								</td>
+								<td>
+									<p>{{deviceItem.eqpSpec}}</p>
+								</td>
+								<td>
+									<p>{{deviceItem.eqpNo}}</p>
+								</td>
+								<td>
+									<p>{{deviceItem.eqpBrand}}</p>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div v-if="popupType == 'contact'">
+				<div class="popupCon">
+					<h3 class="popupTitle">
+						<span>全部联系人</span>
+						<a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+					</h3>
+					<div class="popupDpList">
+						<table>
+							<thead>
+							<tr>
+								<th>联系人姓名</th>
+								<th>联系人电话</th>
+								<th>联系人类型</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr v-for="(contactItem,index) in contactList" v-on:click="selectCtFun(contactItem,index)">
+								<td>
+									<p>{{contactItem.contactName}}</p>
+								</td>
+								<td>
+									<p>{{contactItem.contactTel}}</p>
+								</td>
+								<td>
+									<p v-for="contactTypeItem in selectListData.contactLists" v-if="contactTypeItem.code == contactItem.contactType">{{contactTypeItem.text}}</p>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="scheduleLoadPopup">
+		<div class="schedulePopupCon">
+			<div class="scheduleTitle">
+				<span>正在上传客户信息，请稍后......</span>
+			</div>
+			<div class="scheduleProgress">
+				<p class="scheduleHint">进度...</p>
+				<div class="lineCon">
+					<span class="progressCon"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/ajaxFileUpload.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/cdm/yytPartyInfo.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

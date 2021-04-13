@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>组织管理-OMS订单管理系统</title>
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="../../js/common/env_config.js"></script>
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+	</script>
+	<link rel="stylesheet" type="text/css" href="../../css/plugIn/zTreeStyle.css" />
+</head>
+<body>
+
+<div class="overall" id="overall">
+	<div class="myOverall">
+		<!-- header start-->
+		<div class="adsLeft">
+
+		</div>
+		<!-- header end-->
+
+		<!-- adsContent start-->
+		<div class="adsContent">
+			<div class="header">
+
+			</div>
+			<div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">组织管理</a></span></li>
+                    </ul>
+                </div>
+				<!-- 组织管理   -->
+                <div class="adsRightPackage">
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <div class="reportMessages">
+                                    <div class="zTreeDemoBackground left">
+                                        <ul id="treeDemo" class="ztree"></ul>
+                                    </div>
+                                    <div class="paging">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理   、-->
+                    <!-- 订单管理-新增   -->
+                    <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <!--货点基本信息-->
+                                    <div class="deliveryPointInf contactInf">
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">组织信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">组织代码</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="organizeInf.orgCode" placeholder="组织代码" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">组织名称</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="organizeInf.orgName" placeholder="组织名称" />
+                                                    </p>
+                                                </li>
+                                                <!--<li>
+                                                    <span class="txt">组织id</span>
+                                                    <p class="inp">
+                                                        <input disabled="" type="text" v-model="organizeInf.parentUmOrgId" placeholder="组织id" />
+                                                    </p>
+                                                </li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="addNewOrderBot addNewContactBot">
+                                        <div class="searchBtn" v-if="clickBtnType == 'add'">
+                                            <span class="saveNewOrderBtn" v-on:click="saveNewOrderInfo()">保存</span>
+                                        </div>
+                                        <div class="searchBtn" v-if="clickBtnType == 'edit'">
+                                            <span class="saveNewOrderBtn" v-on:click="editOrderInfo()">保存</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理 -新增   、-->
+			    </div>
+            </div>
+		</div>
+		<!-- adsContent end-->
+	</div>
+
+	<div class="maskLayer maskLayer1">
+		<div class="popup">
+			<div class="popupCon">
+				<h3 class="popupTitle">
+					<span>新增组织信息</span>
+					<a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+				</h3>
+				<div class="popupDpList">
+					<ul class="userModifyUl">
+						<li>
+							<label class="txt">组织代码</label>
+							<p class="inp">
+								<input type="text" class="newOrgCode" placeholder="组织代码" />
+							</p>
+						</li>
+                        <li>
+                            <label class="txt">组织名称</label>
+                            <p class="inp">
+                                <input type="text" class="newOrgName" placeholder="组织名称" />
+                            </p>
+                        </li>
+                        <li class="userModifyBtn">
+                            <span class="saveNewOrgInf">保存</span>
+                        </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery.ztree.exedit.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/ums/orgManage.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

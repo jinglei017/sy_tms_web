@@ -1,0 +1,370 @@
+
+/**reset css**/
+@font-face {
+	font-family: "myFont";
+    src: url('../font/fzlth.eot'); /* IE9*/
+    src: url('../font/fzlth.eot') format('embedded-opentype'),
+    url('../font/fzlth.woff') format('woff'),
+    url('../font/fzlth.TTF') format('truetype');
+}
+
+body{
+	margin:0;
+	padding:0;
+	font-family: "myFont";
+	font-size:14px;
+    overflow: hidden;
+}
+*{
+	font-family: "myFont";
+}
+dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+fieldset,input,button{
+	border:0 none;
+	text-shadow: 0px 0px 0px 2px rgba(0,0,0,0.3);
+}
+input:focus{
+	outline: none;
+}
+a{
+	text-decoration:none;
+}
+table{
+	border-collapse:collapse;
+}
+textarea{
+	resize:none; border:none;
+}
+img{
+	border-style:none;
+}
+input,button{
+	background:none;
+}
+input:disabled{
+	background: #f9f9f9;
+}
+select {
+	border: none;
+	box-sizing: border-box;
+}
+select:focus {
+	outline: none;
+}
+input[type="checkbox" i]{
+	width: 16px;
+	height: 16px;
+}
+
+
+.ajax-load-pupup{
+	width:100%;
+	height:100%;
+	position:absolute;
+	left:0;
+	top:0;
+	background:rgba(0,0,0,0.6);
+	z-index: 1010;
+}
+.ajax-load-hint{
+    max-width: 23%;
+    min-width: 360px;
+    /* height: 130px; */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-68%);
+    background: #fff;
+    border-radius: 12px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 17px;
+    letter-spacing: 2px;
+    color: #000;
+    padding: 1%;
+}
+.ajax-load-hint img{
+	width: 90px;
+	height: 90px;
+	display: block;
+	padding-top: 20px;
+	float: left;
+}
+.ajax-load-hint img.closeTip{
+	display: none;
+	width: 18px;
+	height: 18px;
+	padding-top: 0;
+	float: right;
+	cursor: pointer;
+}
+.ajax-load-hint span{
+	display: inline-block;
+	width: 72%;
+	float: left;
+	margin-top: 8%;
+}
+.ajax-load-hint span.alert {
+    width: 100%;
+    float: none;
+    margin: 8% 0;
+    max-height: 400px;
+    overflow: auto;
+}
+.ajax-load-button {
+    width: 100%;
+    text-align: right;
+}
+.ajax-load-button button {
+    width: 60px;
+    height: 26px;
+    border-radius: 3px;
+    margin: 0 10px;
+    background: #40b8e8;
+    color: #eee;
+    font-size: 16px;
+}
+.ajax-load-button button:nth-child(2) {
+    background: #ccc;
+    color: #000;
+}
+
+/* 页面顶部 */
+.header{
+	padding-bottom: 2vh;
+	background: url(../../../img/newBoard/h_bg.png) no-repeat;
+	background-size: 100% 8vh;
+	position: relative;
+}
+.header a{
+	height: 8vh;
+	display: block;
+	position: absolute;
+	left: 2%;
+	z-index: 12;
+}
+.header a .img{
+	position: absolute;
+	top: 4vh;
+	left: 0.2rem;
+	width: 0.2rem;
+	height: 0.2rem;
+	transform: rotate(-45deg);
+	border: solid 0.03rem #558ed5;
+	border-bottom: none;
+	border-right: none;
+}
+.header a .txt{
+	line-height: 10vh;
+	padding-left: 0.5rem;
+	color: #558ed5;
+	display: block;
+	font-size: 0.24rem;
+}
+.header .hTxt{
+	height: 8.2vh;
+	line-height: 7.8vh;
+	font-size: 0.3rem;
+	padding-left: 0.07rem;
+	letter-spacing: 0.07rem;
+	color: #fff;
+	text-align: center;
+	position: relative;
+	font-family: "黑体";
+	font-weight: bold;
+	z-index: 9;
+}
+
+.curHrefImg{
+	margin-top: 0.1rem;
+	margin-left: 0.05rem;
+}
+
+
+/* 页面中心数据展示 伸缩 */
+.platformStatsCon .mcTitle{
+	z-index: 900;
+}
+.platformStatsCon .mcTitleShowHide{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 901;
+	width:0.4rem;
+	height:0.4rem;
+	cursor: pointer;
+}
+.platformStatsCon .mcTitleShowHide.mcTitleShowHideImg_l{
+	background:url(../../../img/newBoard/jiantou-l1.png) 0 0 no-repeat;
+	background-size: 0.4rem 0.4rem;
+}
+.platformStatsCon .mcTitleShowHide.mcTitleShowHideImg_r{
+	background:url(../../../img/newBoard/jiantou-r1.png) 0 0 no-repeat;
+	background-size: 0.4rem 0.4rem;
+}
+
+/*地图*/
+.allMap{
+    height: 100%;
+    width: 100%;
+}
+.mapPoints {width: 30px;height: 30px;position: relative;background-size: 100% 100%;}
+.mapNumDiv{width: 20px;height: 20px;font-size: 14px;line-height: 20px;text-align: center;border-radius: 3px;color: #fff;position: absolute;top: -13px;left: 8px;}
+.pointInfoColor1{color: #666;}
+.pointInfoColor2{color: #00C2B1;}
+.pointInfoColor3{color: #558ed5;}
+.pointInfoColor4{width: 18px;display: inline-block;height: 18px;line-height: 18px;font-size: 12px;text-align: center;border-radius: 3px;background: rgba(0,0,0,.4);color: #fff;}
+/*标记点导向*/
+.markerGuide{
+    position: absolute;
+    bottom: 2vh;
+    right: 4vh;
+    background: #fff;
+    border-radius: 3px;
+    display: none;
+    z-index: 100;
+}
+.markerGuideChild{
+    padding: 9px 15px;
+}
+.markerGuideChild p{
+    color: #666;
+    font-size: 13px;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+.input-item,.p-item {
+    display: flex;
+}
+.input-item button{
+    font-size: 13px;
+    line-height: 18px;
+    color: #25A5F7;
+    border: 1px solid #25A5F7;
+    border-radius: 20px;
+    padding: 3px 10px;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+}
+.input-item button:first-child{
+    background: #25A5F7;
+    color: #fff;
+}
+.p-item p{
+    display: flex;
+    align-items: center;
+}
+.p-item .item-text{
+    color: #888;
+    padding-right: 3px;
+    padding-left: 10px;
+}
+.p-item .item-circle{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+.p-item p:nth-child(1) .item-circle{
+    background: #00b050;
+}
+.p-item p:nth-child(2) .item-circle{
+    background: #ffff00;
+}
+.p-item p:nth-child(3) .item-circle{
+    background: #8160cb;
+}
+.p-item p:nth-child(4) .item-circle{
+    background: #ed7d31;
+}
+.amap-info-content{
+    font-size: 13px;
+    line-height: 22px;
+    padding: 0.12rem;
+    border-radius: 0.06rem;
+    width: auto;
+    min-width: 150px;
+    max-width: 400px;
+    max-height: 500px;
+}
+.amap-info-close{
+    width: 0.3rem;
+    height: 0.3rem;
+    text-align: right;
+    font-size: 0.26rem;
+    font-weight: normal;
+    display: block;
+    top: 0.12rem;
+    right: 0.12rem !important;
+}
+.amap-info-content p a{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.amap-info-content h3{
+    font-size: 0.16rem;
+    padding-bottom: 0.06rem;
+    color: #333;
+}
+
+
+.color_white{
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+/* 时间选择器 */
+.dateQuery{
+    position: absolute;
+    top: 27px;
+    left: 1%;
+    height: 30px;
+    background: #fff;
+    border-radius: 4px;
+    z-index: 910;
+    display: flex;
+}
+.dateQuery input{
+    line-height: 30px;
+    padding: 0 10px;
+    border: none;
+    cursor: pointer;
+    width: 180px;
+    text-align: center;
+}
+.dateQuery .dateChangeBtn{
+    line-height: 30px;
+    display: inline-block;
+    background: #558ed5;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    color: #fff;
+    padding: 0 10px;
+    cursor: pointer;
+}
+.boxshaw{
+    color: #999;
+}
+#startTime,#endTime{
+    width: 200px;
+    margin-top: 1px;
+}
+.ul-box{
+    background: #fff;
+}
+.ul-box>li{
+    float: left;
+    width: 14.28%;
+    text-align: center;
+    line-height:34px;
+    border: none;
+    margin-left: 0;
+}

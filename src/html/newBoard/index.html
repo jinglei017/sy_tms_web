@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title class="myfont"></title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <link rel="stylesheet" type="text/css" href="../../css/plugIn/schedule.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/newBoard/style/common.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/newBoard/style/index.css" />
+	<link rel="stylesheet" type="text/css" href="https://webapi.amap.com/ui/1.0/ui/geo/DistrictExplorer/examples/area.css">
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+
+	<script type="text/javascript" src="../../js/newBoard/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/public.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/echarts.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/scroll.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/indexMapData.js"></script>
+    <style>
+        .font_14{color: #333;}
+        .mapNumDiv{width:auto;padding:0 3px;position:absolute;top:-22px;left:50%;transform: translateX(-50%);background:rgba(255,255,255,0.4);white-space: nowrap;}
+    </style>
+</head>
+<body>
+
+<div id="overall" class="overall">
+    <div class="allMap">
+        <div id="container"></div>
+    </div>
+	<div class="header">
+		<p class="line1"></p>
+		<p class="line2"></p>
+		<div class="hTxt myfont"></div>
+		<p class="line3"></p>
+	</div>
+    <!--<div class="dateQuery">
+        <div>
+            <input class="startTimeSpan" type="text" placeholder="当前查询日期">
+            <div class="boxshaw" id="startTime">
+
+            </div>
+        </div>
+        <div>
+            <input class="endTimeSpan" type="text" placeholder="当前查询日期">
+            <div class="boxshaw" id="endTime">
+
+            </div>
+        </div>
+        <span class="dateChangeBtn">切换日期</span>
+    </div>-->
+	<div class="main">
+		<div class="mLeft">
+			<div class="warehousesItem mlItem">
+				<a href="warehouseInfo.html" title="前往平台仓库资源看板">
+					<div class="mliTitle">
+						<h3 class="txt">仓库汇总</h3><img src="../../img/newBoard/cur.png" class="curHrefImg" alt=""/>
+						<p class="num"><b></b> 个</p>
+					</div>
+					<div class="warehousesCon">
+						<p class="txt1"><b></b>平米 <b>/</b> <b></b>平米</p>
+						<p class="txt2">可用面积/仓库面积</p>
+					</div>
+				</a>
+			</div>
+			<div class="usableWarehouseItem mlItem">
+				<a class="mliTitle" href="warehouseInfo.html" title="前往平台仓库资源看板">
+					<h3 class="txt">仓库资源</h3><img src="../../img/newBoard/cur.png" class="curHrefImg" alt=""/>
+					<!--<span class="num"><b></b> 平米</span>-->
+				</a>
+				<div class="usableWareCon">
+					<div class="usableWareList">
+						<div class="title">
+							<ul>
+								<li>仓库</li>
+								<li>面积</li>
+							</ul>
+						</div>
+						<div class="usableWareListcon">
+							<div class="list">
+								<!--<ul>
+									<li>上海（常）</li>
+									<li>153000</li>
+									<li>78%</li>
+								</ul>-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="carLocation mlItem">
+				<a class="mliTitle" href="vehicleInfo.html" title="前往平台车辆资源看板">
+					<h3 class="txt">区域分布</h3><img src="../../img/newBoard/cur.png" class="curHrefImg" alt=""/>
+				</a>
+				<div class="carLocationCon">
+					<div class="carLocationList">
+						<div class="title">
+							<ul>
+								<li>城市</li>
+								<li>车辆</li>
+								<li>运营</li>
+							</ul>
+						</div>
+						<div class="carList">
+							<div class="list">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mCon">
+			<div class="platformStatsCon">
+				<div class="platformStatsMap" id="platformStatsMap">
+
+				</div>
+				<div class="mcTitle">
+					<ul class="totalStatistics">
+
+					</ul>
+					<ul class="monthStatistics">
+
+					</ul>
+					<div class="todayStatistics">
+
+					</div>
+				</div>
+				<div class="mcTitleShowHide mcTitleShowHideImg_l" title="点击伸缩"></div>
+			</div>
+
+			<div class="mcBottom" style="opacity: 1; height: auto;">
+				<div class="mcbLeft">
+					<div class="mcbTitle">30日运营车次</div>
+					<div class="classNumberCon">
+						<div class="classNumberCharts" id="classNumberCharts">
+
+						</div>
+					</div>
+				</div>
+				<div class="mcbRight">
+					<div class="mcbTitle">每月运营车次<!--区域仓库统计（面积m³）--></div>
+					<div class="rangeStatisticsCon">
+						<div class="rangeStatisticsCharts" id="rangeStatisticsCharts">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="rangeStatistics" style="opacity: 0; height: 0;">
+				<div class="orderNum statisticsItem">
+					<div class="rsTitle">7日订单数量</div>
+					<div class="orderNumCon statisticsCon">
+						<div class="orderNumCharts" id="orderNumCharts">
+
+						</div>
+					</div>
+				</div>
+				<div class="orderFillRate statisticsItem">
+                    <div class="dailySales">
+                        <div class="rsTitle">7日销售额
+                            <span class="num" style="float: right;font-size: 14px;font-weight: 500;"><b></b> 元</span>
+                        </div>
+                        <div class="dailySalesCon statisticsCon">
+                            <div class="dailySalesCharts" id="dailySalesCharts1">
+
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				<div class="vehiclesCarry statisticsItem">
+					<div class="rsTitle">7日车辆满载率（%）</div>
+					<div class="vehiclesCarryCon statisticsCon">
+						<div class="vehiclesCarryConCharts" id="vehiclesCarryConCharts">
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="mRight">
+			<div class="dailySales mrItem">
+                <div class="todayVehicle1">
+                    <div class="mriTitle">
+                        <h3 class="txt">7日销售额</h3>
+                        <p class="num"><b></b> 元</p>
+                    </div>
+                    <div class="dailySalesCon">
+                        <div class="dailySalesCharts" id="dailySalesCharts">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="todayOrder1">
+                    <div class="mriTitle">
+                        <h3 class="txt">今日订单完成率</h3>
+                    </div>
+                    <div class="orderFillRateCon">
+                        <div class="orderFillRateCharts" id="orderFillRateCharts" style="height: 100%;">
+
+                        </div>
+                    </div>
+                </div>
+			</div>
+
+			<div class="todayVehicle mrItem">
+                <a class="mriTitle" href="operationInfo.html">
+                    <h3 class="txt">今日运营车辆</h3><img src="../../img/newBoard/cur.png" class="curHrefImg" alt=""/>
+                    <p class="num"></p>
+                </a>
+				<div class="todayVehicleCon">
+					<div class="todayVehicleList">
+						<div class="list">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="todayOrder mrItem">
+				<a class="mriTitle" href="orderInfo.html" title="前往平台订单看板">
+					<h3 class="txt">今日客户订单数</h3><img src="../../img/newBoard/cur.png" class="curHrefImg" alt=""/>
+					<p class="num"></p>
+				</a>
+				<div class="todayOrderCon">
+					<div class="todayOrderList">
+						<div class="list">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/common/env_config.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.11&key=" + AmapQdKey + "'></s" + "cript>");
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript" src="../../js/newBoard/indexMap.js"></script>
+<script type="text/javascript" src="../../js/newBoard/indexData.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+	<head>
+		<meta charset="UTF-8" />
+		<title>
+			A date range picker for Bootstrap
+		</title>
+		<link href="bootstrap.css"rel="stylesheet">
+		<link href="font-awesome.4.6.0.css" rel="stylesheet">
+		<link href="daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all" >
+		<script type="text/javascript" src="../js/lib/jquery-1.11.0.js">
+		</script>
+		<script type="text/javascript" src="bootstrap.min.js">
+		</script>
+		<script type="text/javascript" src="moment.js">
+		</script>
+		<script type="text/javascript" src="daterangepicker.js">
+		</script>
+	</head>
+	<body>
+		<div class="container">
+         <div class="span12">
+          <h1>Usage Examples</h1>
+          <hr />
+            <h4>Basic Date Range Picker</h4>
+            <div class="well">
+
+               <form class="form-horizontal">
+                 <fieldset>
+                  <div class="control-group">
+                    <div class="controls">
+                     <div class="input-prepend input-group">
+                       <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" readonly style="width: 200px" name="reservation" id="reservation" class="form-control" value="2014-5-21 - 2014-6-21" /> 
+                     </div>
+                    </div>
+                  </div>
+                 </fieldset>
+               </form>
+
+               <script type="text/javascript">
+               $(document).ready(function() {
+                  $('#reservation').daterangepicker(null, function(start, end, label) {
+                      console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+                  });
+               });
+               </script>
+
+            </div>
+
+            <h4>Basic Single Date Picker</h4>
+            <div class="well">
+
+               <form class="form-horizontal">
+                 <fieldset>
+                  <div class="control-group">
+                    <div class="controls">
+                     <div class="input-prepend input-group">
+                       <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span><input type="text" readonly style="width: 200px" name="birthday" id="birthday" class="form-control" value="2020/03/20" />
+                     </div>
+                    </div>
+                  </div>
+                 </fieldset>
+               </form>
+
+               <script type="text/javascript">
+               $(document).ready(function() {
+                  $('#birthday').daterangepicker({ singleDatePicker: true }, function(start, end, label) {
+                      console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+                  });
+               });
+               </script>
+
+            </div>
+
+            <h4>Date Range &amp; Time Picker with 30 Minute Increments</h4>
+            <div class="well">
+
+               <form class="form-horizontal">
+                 <fieldset>
+                  <div class="control-group">
+                    <label class="control-label" for="reservationtime">Choose your check-in and check-out times:</label>
+                    <div class="controls">
+                     <div class="input-prepend input-group">
+                       <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                       <input type="text" style="width: 400px" name="reservation" id="reservationtime" class="form-control" value="08/01/2013 1:00 PM - 08/01/2013 1:30 PM"  class="span4"/>
+                     </div>
+                    </div>
+                  </div>
+                 </fieldset>
+               </form>
+
+               <script type="text/javascript">
+               $(document).ready(function() {
+                  $('#reservationtime').daterangepicker({
+                    timePicker: true,
+                    timePickerIncrement: 30,
+                    format: 'MM/DD/YYYY h:mm A'
+                  }, function(start, end, label) {
+                      console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+                  });
+               });
+               </script>
+
+            </div>
+
+            <h4>Plays nicely with Bootstrap dropdowns</h4>
+            <div class="well">
+
+                 <div class="dropdown" style="display: inline-block;">
+                     <a data-toggle="dropdown" class="btn btn-primary" href="#">Regular dropdown</a>
+                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                         <li><a href="#">item</a></li>
+                     </ul>
+                 </div>
+
+                 <div id="reportrange2" class="btn" style="display: inline-block; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                     <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                     <span></span> <b class="caret"></b>
+                 </div>
+
+                 <script type="text/javascript">
+                     $(document).ready(function() {
+                         $('#reportrange2 span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+                         $('#reportrange2').daterangepicker();
+                     });
+                 </script>
+
+             </div>
+         </div>
+      </div>
+	</body>
+</html>

@@ -1,0 +1,533 @@
+.overall{
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	background: #040823;
+}
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.main{
+    position: absolute;
+    width: 100%;
+    bottom: 2vh;
+    left: 0;
+    transition: all 0.3s;
+}
+
+.main .mLeft{
+	width: 19%;
+	padding-left: 1%;
+	height: 90vh;
+	float: left;
+	color: #fff;
+	font-size: 0.16rem;
+	box-sizing: border-box;
+}
+.main .mLeft .mlItem{
+	margin-bottom: 1.8vh;
+	background: rgba(27,54,109,0.5);
+}
+.main .mLeft .mlItem a{
+	color: #fff;
+}
+.mLeft .mlItem .mliTitle{
+	display: block;
+	width: 100%;
+	background: #1b366d;
+	height: 4.2vh;
+	line-height: 4.2vh;
+	box-sizing: border-box;
+	padding-left: 0.12rem;
+	padding-right: 0.12rem;
+}
+.mLeft .mlItem .mliTitle .txt{
+	letter-spacing: 0.01rem;
+	font-size: 0.18rem;
+	float: left;
+}
+.mLeft .mlItem .mliTitle .num{
+	float: right;
+	font-size: 0.14rem;
+}
+.mLeft .mlItem .mliTitle .num b{
+	font-size: 0.2rem;
+}
+.mLeft .mlItem .warehousesCon{
+	padding-top: 2.2vh;
+	padding-bottom: 2.2vh;
+	height: 7vh;
+	text-align: center;
+}
+.mLeft .mlItem .warehousesCon .txt1{
+	height: 4.2vh;
+	font-size: 0.18rem;
+	letter-spacing: 0.01rem;
+}
+.mLeft .mlItem .warehousesCon .txt1 b{
+	font-weight: normal;
+	font-size: 0.22rem;
+}
+.mLeft .mlItem .warehousesCon .txt2{
+	font-size: 0.16rem;
+	letter-spacing: 0.01rem;
+	color: #f7f7f7;
+}
+.mlItem .usableWareCon,.mlItem .carLocationCon{
+	width: 100%;
+	height: 31.2vh;
+	padding-bottom: 1.2vh;
+	overflow: hidden;
+}
+.mlItem .usableWareCon .usableWareList,.mlItem .carLocationCon .carLocationList{
+	width: 100%;
+	height: 31.2vh;
+	overflow: hidden;
+	position:relative; 
+}
+.mlItem .usableWareCon .usableWareList .list a,.mlItem .carLocationCon .carLocationList .list a{
+	overflow: hidden;
+	color: #fff;
+}
+.mlItem .carLocationCon{
+	height: 25.2vh;
+}
+.mlItem .carLocationCon .carLocationList{
+	height: 25.2vh;
+}
+.mlItem .carLocationCon .carLocationList .list a{
+	overflow: hidden;
+	color: #fff;
+}
+.mlItem .carLocationCon .carLocationList .list a:hover{
+	text-decoration: underline;
+}
+.carLocationList .title{
+	width: 100%;
+	padding-left: 0.23rem;
+	padding-right: 0.23rem;
+	box-sizing: border-box;
+	padding-top: 0.6vh;
+}
+.carLocationList .title ul{
+	overflow: hidden;
+}
+.carLocationList .title ul li{
+	height: 3vh;
+	line-height: 3vh;
+	font-size: 0.16rem;
+	float: left;
+}
+.carLocationList .title ul li:nth-child(1){
+	width: 46%;
+}
+.carLocationList .title ul li:nth-child(2){
+	width: 32%;
+	text-align: center;
+}
+.carLocationList .title ul li:nth-child(3){
+	width: 22%;
+	text-align: right;
+}
+.usableWareList .title{
+	width: 100%;
+	padding-left: 0.23rem;
+	padding-right: 0.23rem;
+	box-sizing: border-box;
+	padding-top: 0.6vh;
+}
+.usableWareList .usableWareListcon{
+	position: relative;
+	overflow: hidden;
+	height: 28vh;
+}
+.usableWareList .list,.carLocationList .list{
+	width: 100%;
+	padding-left: 0.23rem;
+	padding-right: 0.23rem;
+	box-sizing: border-box;
+	padding-top: 0.6vh;
+	position: absolute;
+	overflow: hidden;
+}
+.usableWareList ul,.carLocationList .list ul{
+	height: 3.3vh;
+	overflow: hidden;
+}
+.usableWareList ul li{
+	height: 3.3vh;
+	line-height: 3.3vh;
+	font-size: 0.16rem;
+	float: left;
+}
+.usableWareList ul li:nth-child(1){
+	width: 42%;
+}
+.usableWareList ul li:nth-child(2){
+	width: 58%;
+	text-align: center;
+}
+.carLocationList ul li{
+	height: 3vh;
+	line-height: 3vh;
+	font-size: 0.16rem;
+	float: left;
+}
+.carLocationList .list ul li:nth-child(1){
+	width: 46%;
+}
+.carLocationList .list ul li:nth-child(2){
+	width: 32%;
+	text-align: center;
+}
+.carLocationList .list ul li:nth-child(3){
+	width: 22%;
+	text-align: right;
+}
+
+.main .mCon{
+	width: 62%;
+	float: left;
+	padding-left: 1%;
+	padding-right: 1%;
+	box-sizing: border-box;
+	color: #fff;
+}
+ .platformStatsCon{
+	width: 100%;
+	box-sizing: border-box;
+	height: 60vh;
+	background: rgba(27,54,109,0.5);
+	margin-bottom: 1.8vh;
+	position: relative;
+}
+.platformStatsCon .platformStatsMap{
+	width: 100%;
+	height: 60vh;
+}
+.platformStatsCon .mcTitle{
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-bottom: 0.2rem;
+	background: rgba(0,0,0,0.2);
+}
+.platformStatsCon .mcTitle .totalStatistics{
+	width: 85%;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-top: 5.6vh;
+}
+.platformStatsCon .mcTitle .totalStatistics li{
+	width: 25%;
+	text-align: center;
+	float: left;
+	letter-spacing: 1px;
+}
+.totalStatistics li .num{
+	font-size: 0.22rem;
+}
+.totalStatistics li .num b{
+	font-size: 0.36rem;
+	font-weight: normal;
+}
+.totalStatistics li .txt{
+	padding-top: 0.6vh;
+	font-size: 0.2rem;	
+}
+.monthStatistics{
+	display: table;
+	height: 6.6vh;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-top: 6.6vh;
+}
+.monthStatistics li{
+	padding-left: 0.22rem;
+	padding-right: 0.22rem;
+	float: left;
+	font-size: 0.24rem;
+	text-align: center;
+	height: 7vh;
+	line-height: 8vh;
+	letter-spacing: 0.02rem;
+}
+.monthStatistics li:first-child{
+	text-align: center;
+}
+.monthStatistics li:last-child{
+	width: auto;
+	display: table;
+	float: right;
+}
+.monthStatistics li .txt{
+	float: left;
+}
+.monthStatistics li .num{
+	float: left;
+}
+.monthStatistics li .num span{
+	display: block;
+	float: left;
+	width: 0.4rem;
+	font-size: 0.4rem;
+	margin-right: 0.03rem;
+	height: 6.2vh;
+	line-height: 6.2vh;
+	text-align: center;
+	background: #1b366d;
+	border-radius: 0.03rem;
+}
+
+.todayStatistics{
+	display: table;
+	font-size: 0.24rem;
+	text-align: center;
+	padding-left: 0.5rem;
+	padding-right: 0.12rem;
+	padding-top: 5vh;
+	line-height: 6.6vh;
+	height: 3.6vh;
+	letter-spacing: 0.01rem;
+	margin: 0rem auto 0rem;
+}
+.todayStatistics .txt{
+	float: left;
+}
+.todayStatistics .num{
+	float: left;
+}
+.todayStatistics .num span{
+	display: block;
+	float: left;
+	font-size: 0.5rem;
+	margin-left: 0.3rem;
+	margin-right: 0.2rem;
+	height: 6.2vh;
+	line-height: 6.2vh;
+	text-align: center;
+	border-radius: 0.03rem;
+	font-weight: bold;
+	color: #f4ff52;
+}
+.todayStatistics .num em{
+	font-style: normal;
+	float: left;
+}
+
+.main .mCon .mcBottom{
+	overflow: hidden;	
+}
+.main .mCon .mcBottom .mcbLeft{
+	width: 62%;
+	float: left;
+	background: rgba(27,54,109,0.5);
+}
+.main .mCon .mcBottom .mcbTitle{
+	width: 100%;
+    background: #1b366d;
+    height: 4.2vh;
+    line-height: 4.2vh;
+    box-sizing: border-box;
+    padding-left: 0.12rem;
+    padding-right: 0.12rem;
+    letter-spacing: 0.01rem;
+    font-size: 0.18rem;
+    font-weight: bold;
+}
+.main .mCon .mcBottom .mcbRight{
+	width: 36%;
+	margin-left: 2%;
+	float: left;
+	background: rgba(27,54,109,0.5);
+}
+.main .mCon .mcBottom .rangeStatisticsCon{
+	padding-top: 0.9vh;
+	padding-bottom: 0.9vh;
+	height: 18.78vh;
+}
+.rangeStatisticsCon .rangeStatisticsCharts{
+	height: 18.78vh;
+}
+.main .mCon .mcBottom .classNumberCon{
+	padding-top: 0.9vh;
+	padding-bottom: 0.9vh;
+	height: 18.78vh;
+}
+.main .mCon .mcBottom .classNumberCharts{
+	height: 18.78vh;
+}
+
+
+
+.main .mCon .rangeStatistics{
+	overflow: hidden;	
+}
+.main .mCon .rangeStatistics .statisticsItem{
+	width: 32.5%;
+	float: left;
+	background: rgba(27,54,109,0.5);
+}
+.main .mCon .rangeStatistics .orderFillRate{
+	width: 31%;
+	margin-right: 2%;
+	margin-left: 2%;
+	box-sizing: border-box;
+}
+.main .mCon .rangeStatistics .rsTitle{
+	width: 100%;
+    background: #1b366d;
+    height: 4.2vh;
+    line-height: 4.2vh;
+    box-sizing: border-box;
+    padding-left: 0.12rem;
+    padding-right: 0.12rem;
+    font-weight: bold;
+    letter-spacing: 0.01rem;
+    font-size: 0.18rem;
+}
+.main .mCon .rangeStatistics .statisticsItem .statisticsCon{
+	padding-top: 0.9vh;
+	padding-bottom: 0.9vh;
+	height: 18.78vh;
+}
+.main .mCon .rangeStatistics .statisticsItem .statisticsCon>div{
+	height: 18.78vh;
+}
+
+
+
+.main .mRight{
+	width: 18%;
+	float: left;
+	color: #fff;
+}
+.main .mRight .mrItem{
+	margin-bottom: 1.8vh;
+	background: rgba(27,54,109,0.5);
+}
+.main .mRight .mrItem a{
+	color: #fff;
+}
+.mRight .mrItem .mriTitle{
+	display: block;
+	width: 100%;
+	background: #1b366d;
+	height: 4.2vh;
+	line-height: 4.2vh;
+	box-sizing: border-box;
+	padding-left: 0.12rem;
+	padding-right: 0.12rem;
+}
+.mRight .mrItem .mriTitle .txt{
+	letter-spacing: 0.01rem;
+	font-size: 0.18rem;
+	float: left;
+}
+.mRight .mrItem .mriTitle .num{
+	float: right;
+	font-size: 0.14rem;
+}
+.mRight .mrItem .mriTitle .num a{
+	color: #fff;
+}
+.mRight .mrItem .mriTitle .num b{
+	font-size: 0.2rem;
+}
+.mRight .mrItem .dailySalesCon{
+	height: 32vh;
+}
+.dailySalesCon .dailySalesCharts{
+	height: 32vh;
+}
+.mRight .todayOrder,.mRight .todayOrder1{
+    display: none;
+}
+.mRight .todayOrder .todayOrderList,.mRight .todayOrder1 .orderFillRateCon{
+	height: 43vh;
+	position: relative;
+	overflow: hidden;
+    width: 100%;
+    padding-bottom: 1.2vh;
+}
+.mRight .todayOrder1 .orderFillRateCon{
+    height: 32vh;
+}
+.mRight .todayOrder .todayOrderList .list{
+	width: 100%;
+	padding-left: 0.23rem;
+	padding-right: 0.23rem;
+	box-sizing: border-box;
+	padding-top: 1.2vh;
+	position: absolute;
+}
+.todayOrder .todayOrderList .list ul{
+	overflow: hidden;
+}
+.todayOrder .todayOrderList .list ul li{
+	float: left;
+	height: 3.6vh;
+    line-height: 3.6vh;
+    font-size: 0.16rem;
+}
+.todayOrder .todayOrderList .list ul li:nth-child(1){
+	width: 70%;
+}
+.todayOrder .todayOrderList .list ul li:nth-child(2){
+	width: 30%;
+	text-align: right;
+}
+
+
+
+.mRight .todayVehicle .todayVehicleList {
+	height: 43vh;
+	position: relative;
+	overflow: hidden;
+    width: 100%;
+    padding-bottom: 1.2vh;
+}
+.mRight .todayVehicle .todayVehicleList .list{
+	width: 100%;
+	padding-left: 0.23rem;
+	padding-right: 0.23rem;
+	box-sizing: border-box;
+	padding-top: 1.2vh;
+	position: absolute;
+}
+.todayVehicle .todayVehicleList .list ul{
+	overflow: hidden;
+}
+.todayVehicle .todayVehicleList .list ul li{
+	float: left;
+	height: 3.6vh;
+    line-height: 3.6vh;
+    font-size: 0.16rem;
+}
+.todayVehicle .todayVehicleList .list ul li:nth-child(1){
+	width: 30%;
+}
+.todayVehicle .todayVehicleList .list ul li:nth-child(2){
+	 width: 40%;
+	 text-align: right;
+	 overflow: hidden;
+	 text-overflow:ellipsis;
+	 white-space: nowrap;
+	 cursor: pointer;
+ }
+.todayVehicle .todayVehicleList .list ul li:nth-child(3){
+	width: 30%;
+	text-align: right;
+}
+
+
+.carList{
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+}
+

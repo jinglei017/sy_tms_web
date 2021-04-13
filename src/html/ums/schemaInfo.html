@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>租户管理-OMS订单管理系统</title>
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="../../js/common/env_config.js"></script>
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+	</script>
+	<style>
+		#popupDp{
+			height: auto;
+			padding: 25px 15px  0;
+		}
+		.popupDpList{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.popupDpList>p{
+			margin-bottom: 5px;
+		}
+		.popupDpList>p>span{
+			padding: 5px;
+			height: 30px;
+			font-size: 15px;
+			color: #333;
+			font-weight: 600;
+		}
+		.popupDpList>p>input{
+			width: 350px;
+			margin: 5px;
+			padding-left:10px;
+			height: 30px;
+			font-size: 14px;
+			border: 1px solid #ccc;
+			outline: none;
+		}
+		.popuplast{
+			float: right;
+		}
+		.popuplast span{
+			height: 34px;
+			width: 110px;
+			background: #00528b;
+			line-height: 34px;
+			text-align: center;
+			color: #fff;
+			display: inline-block;
+			cursor: pointer;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+	<div class="myOverall">
+		<!-- header start-->
+		<div class="adsLeft">
+
+		</div>
+		<!-- header end-->
+
+		<!-- adsContent start-->
+		<div class="adsContent">
+			<div class="header">
+
+			</div>
+			<div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">租户管理</a></span></li>
+                    </ul>
+                    <ul class="pageHeaderBack">
+                        <li class="visible">
+                            <img src="../../img/back_2.png" alt="返回上一步">
+                            <span>返回上一步</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="adsRightPackage">
+                    <!-- 订单管理   -->
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <ul class="textBoxTitle">
+                                    <li>
+                                        <label>租户编码</label>
+                                        <input type="hidden" v-model="queryParam.umTenantId" />
+                                        <input type="text" v-model="queryParam.tenantCode" placeholder="租户编码" />
+                                    </li>
+                                    <li>
+                                        <label>租户名称</label>
+                                        <input type="text" v-model="queryParam.tenantName" placeholder="租户名称" />
+                                    </li>
+                                    <li>
+                                        <label>租户号</label>
+                                        <input type="text" v-model="queryParam.tenantNo" placeholder="租户号" />
+                                    </li>
+                                    <li>
+                                        <label>商户号</label>
+                                        <input type="text" v-model="queryParam.partyNo" placeholder="商户号" />
+                                    </li>
+                                    <li>
+                                        <label>上级租户编码</label>
+                                        <input type="text" v-model="queryParam.upperTenantNo" placeholder="上级租户编码" />
+                                    </li>
+                                    <li class="searchBtn">
+                                        <span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+                                    </li>
+                                </ul>
+                                <div class="reportMessages">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <input class="checkInp" type="checkbox" v-bind:value="allChecked" v-on:change="textboxAllSelectionFun(allChecked)"/>
+                                            </th>
+                                            <th>序号</th>
+                                            <th>租户编码</th>
+                                            <th>操作</th>
+                                            <th>租户名</th>
+                                            <th>租户号</th>
+                                            <th>商户号</th>
+                                            <th>租户编码[上级]</th>
+                                            <th>租户号[上级]</th>
+                                            <th>租户名称[上级]</th>
+                                            <th>创建时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(tableOrderItem,index) in tableOrderList" orderid="'+orderListData[i].omOrderId+'" class="see">
+                                            <td>
+                                                <input class="checkInp" type="checkbox" v-bind:value="tableOrderItem.omOrderId" v-on:change="textboxSelectionFun($event,tableOrderItem)"/>
+                                            </td>
+                                            <td v-if="currentPage == 1"><p>{{index+1}}</p></td>
+                                            <td v-if="currentPage != 1"><p>{{(index+1)+((currentPage-1)*multipleNum)}}</p></td>
+                                            <td>
+                                                <div class="foldBotton">
+                                                    <span class="handleIcon"></span>
+                                                    <p>
+                                                        <span class="btn btn-logistics visible butOperatePermission orderDeteleBtn"  buttonCode="DELETE" btn="logisticsInfoBtn" v-on:click="syncBaseMenuOneFun(tableOrderItem)">同步菜单</span>
+                                                        <span class="btn btn-details visible butOperatePermission orderDetailBtn"  buttonCode="DETAIL" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('租户详情',tableOrderItem)">详情</span>
+                                                        <span class="btn btn-edit visible butOperatePermission orderEditBtn"  buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeOrderDetails('修改租户信息',tableOrderItem)">修改</span>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantCode}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.partyNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.upperTenantCode}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.upperTenantNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.upperTenantName}}</p>
+                                            </td>
+                                            <td><p>{{tableOrderItem.createTime | timestampToTime}}</p></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--<div class="paging">
+                                        <p class="totalPages">共{{pageList.length}}页/{{totalList.length}}条</p>
+                                        <div class="pagingBox">
+                                            <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                            <div class="pagingCon">
+                                                <ul class="pagination">
+                                                    <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                                </ul>
+                                            </div>
+                                            <span v-if="pageList.length != 0 && currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="adsRightFooter">
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageList.length}}页/{{totalList.length}}条
+                                        <select v-model="queryPageSize">
+                                            <option value="20">20条/页</option>
+                                            <option value="30">30条/页</option>
+                                            <option value="40">40条/页</option>
+                                            <option value="50">50条/页</option>
+                                            <option value="80">80条/页</option>
+                                            <option value="100">100条/页</option>
+                                        </select>
+                                    </p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="pageList.length != 0 && currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理   、-->
+
+                    <!-- 订单管理-新增   -->
+                    <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <!--货点基本信息-->
+                                    <div class="deliveryPointInf">
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">租户详情</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">租户id</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="schemaInfo.umTenantId" placeholder="租户id" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">租户编码</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="schemaInfo.tenantCode" placeholder="租户编码" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">租户名</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="schemaInfo.tenantName" placeholder="租户名" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">商户号</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="schemaInfo.partyNo" placeholder="商户号" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">租户号</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="schemaInfo.tenantNo" placeholder="租户号" />
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                            <div class="addNewOrderBot">
+                                                <div class="searchBtn" v-if="clickBtnType == 'edit'">
+                                                    <span v-on:click="editOrderInfo()">保存</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理 -新增   、-->
+                </div>
+			</div>
+		</div>
+		<!-- adsContent end-->
+	</div>
+	<div class="maskLayer maskLayer1">
+		<div class="popup">
+			<div class="popupCon popupType5" v-if="popupType == 'orderAudit'">
+				<h3 class="popupTitle">
+					<span>同步菜单</span>
+					<a href="javascript:;" v-on:click="closeMaskLayer();qxInput()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+				</h3>
+                <div class="shareCarInfosDiv">
+                    <div class="carInfosCont">
+                        <ul class="adsRightConInp">
+                            <li>
+                                <span class="txt">角色编码：</span>
+                                <input id="roleName" ref="clearCode" type="text" placeholder="角色编码" v-model="roleCode">
+                            </li>
+                            <li class="searchBtn">
+                                <span v-on:click="judgeInput()" v-if="judge != 1">确定</span>
+                                <span v-on:click="judgeInput1()" v-if="judge == 1">确定</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/ums/schemaInfo.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title class="myfont"></title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <link rel="stylesheet" type="text/css" href="../../css/plugIn/schedule.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/newBoard/style/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/newBoard/style/customerBoard.css" />
+    <link rel="stylesheet" type="text/css" href="https://webapi.amap.com/ui/1.0/ui/geo/DistrictExplorer/examples/area.css">
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+
+    <script type="text/javascript" src="../../js/newBoard/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="../../js/newBoard/public.js"></script>
+    <script type="text/javascript" src="../../js/newBoard/echarts.js"></script>
+    <script type="text/javascript" src="../../js/newBoard/scroll.js"></script>
+    <script type="text/javascript" src="../../js/newBoard/indexMapData.js"></script>
+    <script type="text/javascript" src="../../js/board/boardParam.js"></script>
+</head>
+<body>
+
+<div id="overall" class="overall">
+    <div class="allMap">
+        <div id="container"></div>
+    </div>
+
+    <!--<div class="dateQuery">
+        <div>
+            <input class="startTimeSpan" type="text" placeholder="当前查询日期">
+            <div class="boxshaw" id="startTime">
+
+            </div>
+        </div>
+        <span class="dateChangeBtn">切换日期</span>
+    </div>-->
+
+    <div class="header">
+        <p class="line1"></p>
+        <p class="line2"></p>
+        <div class="hTxt myfont"></div>
+        <p class="line3"></p>
+    </div>
+
+    <!--mLeft-->
+    <div class="mLeft">
+        <div class="mlItem">
+            <div class="mliTitle">
+                <h4 class="txt">今日订单：</h4>
+                <p class="num"><b id="todayOrderAll">108</b> 单</p>
+            </div>
+            <div class="todayOrderCon">
+                <div class="todayOrderList">
+                    <div class="title">
+                        <ul>
+                            <li>订单号 / 收货商</li>
+                            <li>完成状态</li>
+                        </ul>
+                    </div>
+                    <div class="orderList">
+                        <div class="list" id="orderListt">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--mRight-->
+    <div class="mRight">
+        <div class="mlItem">
+            <div class="mliTitle">
+                <h4 class="txt">订单图表统计：</h4>
+            </div>
+            <div class="echartsDiv echartsDiv_1" id="thisDayOrder"></div>
+        </div>
+        <div class="mlItem">
+            <div class="echartsDiv echartsDiv_2" id="thisMonthOrder"></div>
+        </div>
+        <div class="mlItem">
+            <div class="echartsDiv echartsDiv_3" id="inventoryChart"></div>
+        </div>
+    </div>
+</div>
+
+<div class="maskLayer">
+    <div class="popup">
+        <div class="popupTitle">订单详情<a class="cursor_p" title="点击关闭"></a></div>
+        <div class="popupCon1">
+            <div class="orderDetailHeader">
+
+            </div>
+            <div class="orderDetailCont">
+                <table>
+                    <thead>
+                    <tr style="font-weight: 600;font-size: 14px;">
+                        <td>商品</td>
+                        <td>批次号</td>
+                        <td>单价</td>
+                        <td>总价值</td>
+                        <td>金额单位</td>
+                        <td>数量</td>
+                        <td>体积</td>
+                        <td>重量</td>
+                        <td>商品描述</td>
+                    </tr>
+                    </thead>
+                    <tbody id="orderDetailItem">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/common/env_config.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.11&key=" + AmapQdKey + "'></s" + "cript>");
+</script>
+<script type="text/javascript" src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<script type="text/javascript" src="../../js/newBoard/customerBoard.js"></script>
+</body>
+</html>

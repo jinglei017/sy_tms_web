@@ -1,0 +1,71 @@
+html, body, #container {width: 100%;height: 100%;margin: 0;font-size:62.5%;}
+body{font-size:0.15rem;overflow: hidden;}
+ul,li{list-style:none;display:block;}
+
+.boardContainer{width: 100%;height: 100%;}
+.boardContainer .boardContainer-left{float: left;width: 75%;height: 100%;position: relative;}
+.boardContainer .boardContainer-right{float: right;width: 25%;height: 100%;}
+
+.boardContainer .boardContainer-left .boardContainer-left1{float: left;width: 4.3rem;height: 100%;position: relative;}
+.boardContainer .boardContainer-left .boardContainer-left2{float: left;width:calc(75vw - 4.3rem);height: 100%;position: relative;}
+
+.boardContainer-left .scalingTip{position: absolute;left: 0;top: 0;width: 0.4rem;height: 0.4rem;line-height: 0.4rem;z-index: 1001;text-align: center;}
+.boardContainer-left .infoTip {position: absolute;left: 0;right: 0;width: 4.3rem;height: 0.4rem;line-height: 0.4rem;z-index: 1000;text-align: center;background-color: #000;}
+.boardContainer-left #panel{position: absolute;left: 0;right: 0;width: 4.3rem;background-color: rgba(255,255,255,0.4)}
+.boardContainer-left #panel .orderContainer{position: relative;padding-top: 0.4rem;width: 4.3rem;}
+.boardContainer-left #panel .orderContainer .orderTitle{position: fixed;top: 0.4rem;left: 0;width: 4.2rem;height: 0.4rem;line-height: 0.4rem;color:#fff;}
+.boardContainer-left #panel .orderContainer .orderContent{width: 4.2rem;margin-top: 0.4rem;padding-bottom: 0.65rem;}
+.boardContainer-left #panel .orderContainer .orderItem{width:100%;/*height:0.63rem;*/height:0.75rem;border-bottom: 0.01rem dashed #c3c3c3;color:#fff;}
+
+.boardContainer-left #panel .orderContainer .orderItem .textPoints{display:inline-block;/*height:0.43rem;*/height:0.44rem;overflow: hidden;word-break: break-all;text-overflow: ellipsis;
+    display: -webkit-box;display: -moz-box;-webkit-box-orient: vertical;-moz-box-orient: vertical;-webkit-line-clamp: 2;-moz-line-clamp: 2;}
+
+.boardContainer-left .button-group{z-index: 1000;position: absolute;left: 0;bottom: 0;right:0;width: 4.3rem;padding: 0.1rem 0;color: #fff;}
+
+.ic_scalingTip_l{display:block;width:0.3rem;height:0.3rem;margin:0.05rem auto;background:url(../../img/icon_leftright.png) 0 0 no-repeat;background-size: 0.6rem 0.3rem;}
+.ic_scalingTip_r{display:block;width:0.3rem;height:0.3rem;margin:0.05rem auto;background:url(../../img/icon_leftright.png) -0.3rem 0 no-repeat;background-size: 0.6rem 0.3rem;}
+
+.float_l{float: left;}
+.padding_l_5{padding-left: 0.05rem;}
+.marginB_15{margin-bottom: 0.15rem;}
+.width_100{width: 100%;}
+.width_60{width: 60%;}
+.width_40{width: 40%;}
+.width_25{width: 25%;}
+.width_20{width: 20%;}
+.height_100{height: 100%;}
+.height_25{height: 25%;}
+.height_50{height: 50%;}
+.height_33{height: 33%;}
+.height30{height: 0.3rem;}
+.bgColor{background-color: #171717;}
+.font_12{font-size: 0.12rem;}
+.font_13{font-size: 0.13rem;}
+.font_14{font-size: 0.14rem;}
+.font_15{font-size: 0.15rem;}
+.font_18{font-size: 0.18rem;}
+.text_c{text-align: center;}
+.color_white{color: #fff;}
+.color_white2{color: #e2e0e0; /*color: #fff;*/}
+.color_text{color:#53f105;}
+.color_lan{color: #0d9bf2;}
+.done{color: #00ff97;}
+.done2{color: #237df3;}
+.no_done{color: #ff0000;}
+.cursor_p{cursor: pointer;}
+
+/*地图订单线*/
+.orderLinesDiv{font-size: 0.15rem;}
+
+/*订单详情*/
+.maskLayer{width: 100%;height: 100%;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.5);z-index: 1002;display: none;}
+.maskLayer .popup1{width: 60%;height: 80%;position: absolute;left: 20%;top: 7%;background: #fff;border-radius: 0.05rem;z-index: 1003;}
+.maskLayer .popup1 .popupTitle{width:100%;height:0.33rem;line-height:0.33rem;text-align: center;border-bottom: 0.01rem solid #e5e5e5;color: #333;}
+.maskLayer .popup1 .popupTitle a{display: block;position: absolute;top: 0.07rem;right: 0.1rem;width: 0.13rem;height: 0.13rem;background: url('../../img/closeBtn2.png') no-repeat center center;background-size: 0.13rem 0.13rem;}
+.maskLayer .popup1 .popupCon1{width: 100%;margin: 0 auto;height:calc(80vh - 0.5rem);overflow-y: scroll;}
+.maskLayer .popup1 .popupCon1>div{width: 98%;margin: 1%;}
+
+/* 预加载、提示框 */
+.loading{position: fixed;top:0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.2);z-index: 1005;display: none;}
+.loading .fixed_content{position: fixed;top: 40%;width: 70%;height: 0.35rem;line-height: 3.5rem;margin-left: 15%;background: #1c1c1c;text-align: center;color: #fff;}
+.ajax-loder-wrap{text-align: center;line-height: 0.056rem;color: #666;font-size: 0.028rem;}

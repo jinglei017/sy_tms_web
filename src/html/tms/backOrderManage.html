@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>回单管理-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+    </script>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/plugIn/schedule.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <!-- header start-->
+        <div class="adsLeft">
+
+        </div>
+        <!-- header end-->
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header">
+
+            </div>
+            <div class="adsRight">
+                <!-- 订单管理   -->
+                <div class="activityDshBoard template" id="activityDshBoard">
+                    <div class="adsRightCon">
+                        <div class="adsRightConMain scheduleModule">
+                            <!--班次-->
+                            <div class="waitScheduleList">
+                                <div class="scheduleTitle">
+                                    <div class="titleTxt">
+                                        <span v-if="activeTxt == '当日'">当日班次列表</span>
+                                        <span v-if="activeTxt == '历史'">历史回单司机列表</span>
+                                        <div class="toggleKey">
+                                            <span v-bind:class="{'active': activeTxt == '当日' }" v-on:click="changeActiveNum('当日')">当日</span>
+                                            <span v-bind:class="{'active': activeTxt == '历史' }" v-on:click="changeActiveNum('历史')">历史</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="textBoxTitle">
+                                    <li class="data">
+                                        <input type="text" class="startTimeSpan" placeholder="发货时间--开始时间" />
+                                        <div class="boxshaw" id="startTime">
+
+                                        </div>
+                                    </li>
+                                    <li class="data">
+                                        <input type="text" class="endTimeSpan" placeholder="发货时间--结束时间" />
+                                        <div class="boxshaw" id="endTime">
+
+                                        </div>
+                                    </li>
+                                    <li class="searchBtn" style="width: 80px;">
+                                        <span style="width: 80px;" class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+                                    </li>
+                                </ul>
+                                <div class="reportMessages" v-if="activeTxt == '当日'">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>班次号</th>
+                                            <th>车牌号</th>
+                                            <th>司机</th>
+                                            <th>手机号</th>
+                                            <th>完成进度</th>
+                                            <th>是否满载</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(tableOrderItem,index) in classesTableList" v-on:click="getOrderDetails(tableOrderItem,index)" class="see">
+                                            <td>
+                                                <p>{{tableOrderItem.str1}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.eqpNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.contactName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.contactTel}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.completeCount}} / {{tableOrderItem.totalCount}}</p>
+                                            </td>
+                                            <td v-if="tableOrderItem.int1 == 1">
+                                                <p>是</p>
+                                            </td>
+                                            <td v-if="tableOrderItem.int1 == 0">
+                                                <p>否</p>
+                                            </td>
+                                            <td v-if="tableOrderItem.int1 == null">
+                                                <p>未确定</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="paging">
+                                        <p class="totalPages">共{{pageList.length}}页/{{totalPagesNum}}条</p>
+                                        <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a
+                                                href="javascript:;">«</a></span>
+                                            <div class="pagingCon">
+                                                <ul class="pagination">
+                                                    <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')">
+                                                        <a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <span v-if="pageList.length != 0 && currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="reportMessages" v-if="activeTxt == '历史'">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>司机</th>
+                                            <th>手机号</th>
+                                            <th>车牌号</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(historyOrderItem,index) in historyTableList" v-on:click="getHisOrderDetails(historyOrderItem,index)" class="see">
+                                            <td>
+                                                <p>{{historyOrderItem.carDrvContactName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{historyOrderItem.carDrvContactTel}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{historyOrderItem.carDrvEqpNo}}</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="paging">
+                                        <p class="totalPages">共{{pageList.length}}页/{{totalPagesNum}}条</p>
+                                        <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a
+                                                href="javascript:;">«</a></span>
+                                            <div class="pagingCon">
+                                                <ul class="pagination">
+                                                    <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')">
+                                                        <a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <span v-if="pageList.length != 0 && currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--订单-->
+                            <div class="finishScheduleList">
+                                <div class="scheduleTitle">
+                                    <div class="titleTxt">
+                                        <span>订单列表</span>
+                                        <p style="float: right;padding-right: 20px;">
+                                            <span v-if="activeTxt == '当日'">班次号</span><span v-if="activeTxt == '历史'">司机</span>
+                                            ：{{classesNo.str1}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <ul class="textBoxTitle">
+                                    <div style="float: left;" v-show="activeTxt == '历史'">
+                                        <li class="data">
+                                            <input class="crcdStartTimeSpan" type="text" placeholder="创建时间--开始时间" />
+                                            <div class="boxshaw" id="crcdStartTime">
+
+                                            </div>
+                                        </li>
+                                        <li class="data">
+                                            <input class="crcdEndTimeSpan" type="text" placeholder="创建时间--结束时间"/>
+                                            <div class="boxshaw" id="crcdEndTime">
+
+                                            </div>
+                                        </li>
+                                        <li class="searchBtn" style="width: 80px;">
+                                            <span class="butOperatePermission" buttonCode="QUERY" v-on:click="getHisOrderDetails()">查询</span>
+                                        </li>
+                                    </div>
+                                    <li class="searchBtn" style="width: 80px;">
+                                        <span style="width: 80px;" class="butOperatePermission" buttonCode="BATCH_CONFIRM" v-on:click="batchConfirmBackOrder()">批量确认</span>
+                                    </li>
+                                </ul>
+                                <div v-if="activeTxt == '当日'" class="reportMessages currentOrderTable">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th><input type="checkbox" v-on:click="textboxAllSelectionFun2('1')" /></th>
+                                            <th>序号</th>
+                                            <th>订单号&nbsp;/&nbsp;原单号</th>
+                                            <th>收货商</th>
+                                            <th>件毛体</th>
+                                            <th>状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(driverOrderItem,index) in driverOrderList" class="see" v-if="alive">
+                                            <td>
+                                                <input type="checkbox"  v-on:click="textboxSelectionFun2($event,driverOrderItem,index)" />
+                                            </td>
+                                            <td>
+                                                <p>{{driverOrderItem.seq}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{driverOrderItem.orderNo}}</p>
+                                                <p>{{driverOrderItem.customerOriginalNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{driverOrderItem.stoPartyName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{driverOrderItem.totalQty}} * {{driverOrderItem.totalWeight}} * {{driverOrderItem.totalVolume}}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p v-for="completeStatusItem in selectListData.completeStatusList" v-if="completeStatusItem.code == driverOrderItem.completeStatus">
+                                                    {{completeStatusItem.text}}</p>
+                                            </td>
+                                            <td>
+                                                <span v-if="!driverOrderItem.isState" class="btn btn-confirm see" btn="driverOrderDetailsBtn" buttonCode="CONFIRM" v-on:click="confirmBackOrder(driverOrderItem,index)">回单确认</span>
+                                                <span v-if="driverOrderItem.isState" class="btn btn-confirmed see" btn="driverOrderDetailsBtn">已确认</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div v-if="activeTxt == '历史'" class="reportMessages currentOrderTable">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th><input type="checkbox" v-on:click="textboxAllSelectionFun2('2')" /></th>
+                                            <th>序号</th>
+                                            <th>订单号&nbsp;/&nbsp;原单号</th>
+                                            <th>收货商</th>
+                                            <th>件毛体</th>
+                                            <th>当前动作</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(driverHisOrderItem,index) in driverHisOrderList" class="see" v-if="alive">
+                                            <td>
+                                                <input type="checkbox"  v-on:click="textboxSelectionFun2($event,driverHisOrderItem,index)" />
+                                            </td>
+                                            <td>
+                                                <p>{{driverHisOrderItem.seq}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{driverHisOrderItem.orderNo}}</p>
+                                                <p>{{driverHisOrderItem.customerOriginalNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{driverHisOrderItem.stoPartyName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{driverHisOrderItem.totalQty}} * {{driverHisOrderItem.totalWeight}} * {{driverHisOrderItem.totalVolume}}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p v-for="actItem in selectListData.actLists" v-if="driverHisOrderItem.actCode == actItem.actCode">{{actItem.actName}}</p>
+                                            </td>
+                                            <td>
+                                                <span v-if="!driverHisOrderItem.isState" class="btn btn-confirm see" btn="driverOrderDetailsBtn" buttonCode="CONFIRM" v-on:click="confirmBackOrder(driverHisOrderItem,index)">回单确认</span>
+                                                <span v-if="driverHisOrderItem.isState" class="btn btn-confirmed see" btn="driverOrderDetailsBtn">已确认</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="paging">
+                                        <p class="totalPages">共{{pageList1.length}}页 /{{totalPagesNum1}}条</p>
+                                        <div class="pagingBox">
+                                            <span v-if="currentPage1 != 1" v-on:click="changePage1(currentPage1-1,'up')"><a href="javascript:;">«</a></span>
+                                            <div class="pagingCon">
+                                                <ul class="pagination">
+                                                    <li v-for="pageItem in pageList1" v-on:click="changePage1(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage1 }" href="javascript:;">{{pageItem}}</a></li>
+                                                </ul>
+                                            </div>
+                                            <span v-if="currentPage1 != pageList1.length" v-on:click="changePage1(currentPage1+1,'down')"><a href="javascript:;">»</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 订单管理   、-->
+            </div>
+        </div>
+        <!-- adsContent end-->
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/Sortable.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/tms/backOrderManage.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

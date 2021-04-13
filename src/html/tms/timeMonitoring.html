@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>运输时效监控-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <link href="../../dateRangePicker/font-awesome.4.6.0.css" rel="stylesheet">
+    <link href="../../dateRangePicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+    </script>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/plugIn/schedule.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <div class="adsLeft"></div>
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header"></div>
+            <div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">时效监控</a></span></li>
+                    </ul>
+                    <ul class="pageHeaderR">
+
+                    </ul>
+                    <ul class="pageHeaderBack">
+                        <li class="visible">
+                            <img src="../../img/back_2.png" alt="返回上一步">
+                            <span>返回上一步</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="adsRightPackage">
+                    <!-- 订单管理   -->
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <ul class="textBoxTitle">
+                                    <li>
+                                        <label>发货时间：</label>
+                                        <input type="text" readonly class="timePlugIn" id="timeRange"  v-model="timeHorizon"  placeholder="发货时间范围"/>
+                                    </li>
+                                    <li class="searchBtn">
+                                        <span  class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+                                    </li>
+                                </ul>
+                                <ul class="textBoxTitle textBoxTitleSecond">
+                                    <li style="width: auto;margin-left: 0;">
+                                        <p style="display: flex;align-items: center;">
+                                            <img src="../../img/total.png" alt="" style="width: 17px;height: 17px;padding-right: 7px;">月度运输成本汇总：
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>总运费：<span>{{generalInfo.totalAmount}}</span>元</p>
+                                    </li>
+                                    <li>
+                                        <p>总件数：<span>{{generalInfo.totalQty}}</span>件</p>
+                                    </li>
+                                    <li>
+                                        <p>总重量：<span>{{generalInfo.totalWeight}}</span>kg</p>
+                                    </li>
+                                    <li>
+                                        <p>总体积：<span>{{generalInfo.totalVolume}}</span>m³</p>
+                                    </li>
+                                    <li>
+                                        <p>运费/件：<span>{{generalInfo.qtyAmount}}</span>元</p>
+                                    </li>
+                                    <li>
+                                        <p>运费/kg：<span>{{generalInfo.weightAmount}}</span>元</p>
+                                    </li>
+                                    <li>
+                                        <p>运费/m³：<span>{{generalInfo.volumeAmount}}</span>元</p>
+                                    </li>
+                                </ul>
+                                <div class="reportMessages">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>司机</th>
+                                            <th>手机号</th>
+                                            <th>总时长</th>
+                                            <th>总天数</th>
+                                            <th>月时长</th>
+                                            <th>月天数</th>
+                                            <th>日平均时长</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="tableOrderItem in tableOrderList" class="see">
+                                            <td>
+                                                <p>{{tableOrderItem.collectName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.collectCode}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.totalTime | formatSeconds}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.totalDay}}天</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.monthTime | formatSeconds}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.monthDay}}天</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.monthAvgTime | formatSeconds}}</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="adsRightFooter">
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageList.length}}页 /{{totalPagesNum}}条
+                                        <select v-model="queryPageSize">
+                                            <option value="20">20条/页</option>
+                                            <option value="30">30条/页</option>
+                                            <option value="40">40条/页</option>
+                                            <option value="50">50条/页</option>
+                                            <option value="80">80条/页</option>
+                                            <option value="100">100条/页</option>
+                                        </select>
+                                    </p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 订单管理   、-->
+                </div>
+
+            </div>
+        </div>
+        <!-- adsContent end-->
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/Sortable.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/moment.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/daterangepicker.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/tms/timeMonitoring.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

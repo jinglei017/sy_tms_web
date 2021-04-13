@@ -1,0 +1,296 @@
+.overall{
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #040823;
+}
+.main{
+    position: relative;
+    color: #fff;
+}
+.main,.allMap{
+    height: 100%;
+    width: 100%;
+}
+#container{
+    height: 100%;
+    width: 100%;
+}
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.left,.right{
+    height: 85%;
+    width: 36%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-45%);
+    border: 1px solid #20558b;
+    background: rgba(59, 182, 230, 0.2);
+}
+.left{
+    left: 2%;
+}
+.right{
+    right: 2%;
+}
+.leftMain,.rightMain{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.littleBor{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+}
+.littleBor:nth-child(1){
+    top: 0;
+    left: 0;
+    border-left: 3px solid #0089ff;
+    border-top: 3px solid #0089ff;
+}
+.littleBor:nth-child(2){
+    top: 0;
+    right: 0;
+    border-right: 3px solid #0089ff;
+    border-top: 3px solid #0089ff;
+}
+.littleBor:nth-child(3){
+    bottom: 0;
+    left: 0;
+    border-left: 3px solid #0089ff;
+    border-bottom: 3px solid #0089ff;
+}
+.littleBor:nth-child(4){
+    right: 0;
+    bottom: 0;
+    border-right: 3px solid #0089ff;
+    border-bottom: 3px solid #0089ff;
+}
+
+.orderHeader{
+    display: flex;
+    padding: 10px 5px;
+    justify-content: space-between;
+}
+.orderHeader span{
+    color: #fff;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
+    padding: 0 15px;
+    text-decoration: underline;
+}
+.orderHeader p{
+    font-size: 20px;
+    color: #fff;
+    line-height: 30px;
+    padding: 0 15px;
+}
+.orderBody{
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.orderBody ul{
+    padding: 3px 10px;
+    margin-bottom: 5px;
+}
+.orderBody ul li{
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    line-height: 22px;
+    display: inline-block;
+    padding: 0 5px;
+}
+.orderBody .title ul{
+    font-size: 16px;
+    display: flex;
+}
+.includeList{
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+.includeList .list{
+    position: absolute;
+    width: 100%;
+}
+.includeList .list ul{
+    font-size: 14px;
+    background: rgba(0,0,0,0.5);
+    overflow: hidden;
+    display: flex;
+    cursor: pointer;
+}
+.includelistLi{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.includeList .list ul li{
+    position: relative;
+}
+.includeList .list ul li button{
+    color: #fff;
+    background: #4298f1;
+    padding: 4px 8px;
+    line-height: 1;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+}
+.getOrderT{
+    position: absolute;
+    top: 26px;
+    left: 0;
+}
+.includeList .list ul .includeAdd{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.includeList .list ul .includeAdd div{
+    width: 90%;
+    display: flex;
+    padding: 6px 0;
+    align-items: center;
+}
+.includeList .list ul .includeAdd div.includeAddBtn{
+    width: 7%;
+}
+.includeList .list ul .includeAdd p{
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.includeList .list ul .includeAdd p:first-child{
+    padding-left: 0;
+}
+.includeList .list ul .includeAdd p span{
+    font-size: 13px;
+}
+.includeList .list ul .includeAdd img{
+    width: 48px;
+    height: 6px;
+}
+.showDivPoint{
+    position: absolute;
+    top: 40%;
+    width: 30px;
+    height: 40px;
+    padding: 12px 0;
+    cursor: pointer;
+}
+.showLeftPoint{
+    left: 100%;
+    background: url(../../../img/windowicon/jtRight.png) center center no-repeat;
+    background-color: #00528b;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.showRightPoint{
+    right: 100%;
+    background: url(../../../img/windowicon/jtLeft.png) center center no-repeat;
+    background-color: #00528b;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+
+/*detailOrderDiv*/
+.detailOrderDiv{
+    width: 50%;
+    background: #fff;
+    border-radius: 4px;
+    position: absolute;
+    top: 20%;
+    left: 43%;
+    transform: scale(0);
+    color: #333;
+    transition: all 0.3s;
+}
+.detailOrhead{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    font-size: 18px;
+    border-bottom: 1px dashed #ddd;
+}
+.detailOrhead span{
+    font-size: 24px;
+    cursor: pointer;
+}
+.detailOrBody{
+    padding: 15px;
+    padding-bottom: 45px;
+}
+.detailOrBody .reportMessagesOrder{
+    font-size: 14px;
+    color: #333;
+}
+.reportMessagesOrder .messagesOrderParent{
+    max-height: 520px;
+    overflow-y: auto;
+}
+.reportMessagesOrder .messagesOrderTable{
+    display: flex;
+}
+.reportMessagesOrder .messagesOrderTable li{
+    line-height: 26px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.reportMessagesOrder .messagesOrderTable li:first-child{
+    width: 25%;
+}
+.reportMessagesOrder .messagesOrderTable li:nth-child(2),.reportMessagesOrder .messagesOrderTable li:nth-child(3){
+    width: 37.5%;
+}
+.messagesOrderList{
+    background: #eee;
+    color: #666;
+    margin-bottom: 2px;
+}
+.reportMessagesOrder .messagesOrderList li{
+    line-height: 36px;
+    cursor: pointer;
+}
+
+
+.footer{
+    width: 100%;
+    position: absolute;
+    height: 36px;
+    bottom: 0;
+    background: url(../../../img/newBoard/h_bg_02.png) center no-repeat;
+    background-size: 178% 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.footer p{
+    color: #fff;
+    font-size: 16px;
+    line-height: 36px;
+    text-align: center;
+    margin: 0 auto;
+}

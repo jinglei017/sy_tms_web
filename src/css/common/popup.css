@@ -1,0 +1,947 @@
+.maskLayer, .maskLayer1 {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.maskLayer#someSelectModel2 {
+    z-index: 1000;
+}
+
+.maskLayer .popup {
+    width: 60%;
+    min-height: 400px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.3);
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+
+.popup .popupCon {
+    overflow: hidden;
+}
+
+.maskLayer2 .popupType7 {
+    width: 40%;
+    height: 80%;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+.maskLayer2 .popupType7 .showImgBigger {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.maskLayer2 .popupType7 .showImgBigger p {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.maskLayer2 .popupType7 .showImgBigger p img {
+    display: none;
+    height: 100%;
+    width: auto;
+    max-width: 98%;
+}
+
+.maskLayer2 .popupType7 .showImgBigger .closeImage {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    display: inline-block;
+    font-size: 28px;
+    line-height: 32px;
+    color: #000;
+}
+
+.maskLayer2 .popupType7 .showImgBigger .leftImage {
+    width: 95px;
+    height: 95px;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url(../../img/arrow.png) no-repeat 0 5px;
+    display: none;
+}
+
+.maskLayer2 .popupType7 .showImgBigger .rightImage {
+    width: 95px;
+    height: 95px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url(../../img/arrow.png) no-repeat 0 5px;
+    background-position: -108px 5px;
+    display: none;
+}
+
+.maskLayer2 .popupType7 .showImgBigger:hover .leftImage {
+    display: inline-block;
+}
+
+.maskLayer2 .popupType7 .showImgBigger:hover .rightImage {
+    display: inline-block;
+}
+
+.maskLayer .popup .popupCon .table_Scroll {
+    width: 100%;
+    min-height: 300px;
+    max-height: 650px;
+    overflow: auto;
+}
+
+.maskLayer .popup .popupCon table tr th, .maskLayer .popup .popupCon table tr td {
+    font-size: 13px;
+    font-weight: 400;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    min-height: 20px;
+    line-height: 20px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.maskLayer .popup .popupCon table tr td .open{
+    width: 16px;
+    line-height: 16px;
+    height: 16px;
+    text-align: center;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    color: #666;
+    cursor: pointer;
+}
+
+.maskLayer .popup .popupCon table tr th {
+    color: #fff;
+    background: #686c74;
+}
+
+.maskLayer .popup .table_Scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.maskLayer .popup .popupCon table tr th.filtersTh {
+    padding: 0;
+}
+
+.maskLayer .popup .popupCon table tr th.filtersTh select {
+    padding: 9px 17px 9px 3px;
+    margin-top: -2px;
+    color: #fff;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url(../../img/close_2.png) no-repeat scroll right center transparent;
+}
+
+.maskLayer .popup .popupCon table tr th.filtersTh select option {
+    color: #666;
+}
+
+.maskLayer .popup .popupCon table tbody tr:nth-child(2n) td {
+    background-color: #f8f8f8;
+}
+
+.maskLayer .popup .popupCon table tbody tr:hover td {
+    background: #f0f0f0;
+}
+
+.maskLayer .popup .popupCon table.hoverNoneStyle .hoverNoneStyleBtn {
+    border-radius: 2px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 6px;
+}
+
+.maskLayer .popup .popupCon table.hoverNoneStyle .hoverNoneStyleBtn0 {
+    background: #ffc76d;
+}
+
+.maskLayer .popup .popupCon table.hoverNoneStyle .hoverNoneStyleBtn1 {
+    background: #ee9200;
+}
+
+.maskLayer .popup .popupCon table.hoverNoneStyle .hoverNoneStyleBtn2 {
+    background: #056db3;
+}
+
+.maskLayer .popup .popupCon table.hoverNoneStyle .hoverNoneStyleBtn3 {
+    background: #999;
+}
+
+.maskLayer .popup .popupCon table.hoverNoneStyle tbody tr:hover {
+    background: #f3f3f3;
+    color: #333;
+    cursor: default;
+}
+
+.maskLayer .popup .popupCon table.hoverNoneStyle0 tbody tr:hover {
+    background: none;
+    color: #333;
+    cursor: default;
+}
+
+.popup .popupCon .popupTitle {
+    height: 42px;
+    line-height: 42px;
+    position: relative;
+    color: #333;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 0 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.popupCon .popupTitle a {
+    position: absolute;
+    right: 0;
+    padding: 0 20px;
+}
+
+.popup .popupCon .popupDpList {
+    display: inline-block;
+    /*margin-bottom: 15px;*/
+    width: 100%;
+}
+
+.popup .popupCon .popupDpList .adsRightCon .adsRightConList {
+    width: 100%;
+    min-height: 300px;
+    max-height: 700px;
+    overflow: auto;
+}
+
+
+/* 验证*/
+.maskLayer.maskLayer3 .popup .popupCon .popupDpList {
+    padding: 20px 0;
+    height: auto;
+}
+
+.popupDpListCont > ul > li {
+    border-bottom: 1px dashed #e5e5e5;
+    padding: 0 20px 10px;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.popupDpListCont > ul > li h5 {
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 40px;
+    color: #333;
+}
+
+.poDpContent .basicDppp li {
+    color: #666;
+    font-size: 14px;
+    line-height: 34px;
+    display: inline-block;
+    width: 22%;
+}
+
+.poDpContent .basicDppp li span {
+    color: #333;
+    padding-right: 8px;
+}
+
+.poDpContent .radddio label {
+    font-size: 15px;
+    color: #333;
+    line-height: 26px;
+    height: 26px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 15%;
+}
+
+.poDpContent .radddio label input {
+    margin-right: 8px;
+}
+
+.poDpContent .alrImgList .alrImgItem {
+    margin-right: 10px;
+    display: inline-block;
+    position: relative;
+}
+
+.poDpContent .alrImgList .alrImgItem:nth-child(n+4) {
+    margin-top: 10px;
+}
+
+.poDpContent .alrImgList .alrImgItem .pic img {
+    height: 120px;
+    width: 120px;
+}
+
+.poDpContent .alrImgList .alrImgItem .delete {
+    width: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    height: 30px;
+    overflow: hidden;
+    transition: all 0.6s;
+}
+
+.poDpContent .alrImgList .alrImgItem .delete em {
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: url(../../img/windowicon/bar_icon_close.png) no-repeat;
+    background-size: 100% 100%;
+    float: right;
+    margin-top: 7px;
+    margin-right: 8px;
+}
+
+.poDpContent .leftAddPopp {
+    width: 120px;
+    height: 120px;
+    float: left;
+    cursor: pointer;
+}
+
+.poDpContent .leftAddPopp img {
+    width: 120px;
+    height: 120px;
+}
+
+.poDpContent .imageDesc {
+    padding-left: 20px;
+    color: #999;
+    font-size: 14px;
+    line-height: 34px;
+    float: left;
+}
+
+.poDpContent .imageDesc:nth-child(2) {
+    font-size: 12px;
+    color: #888;
+}
+
+.buttonsPopupp {
+    text-align: center;
+    padding-top: 15px;
+}
+
+.buttonsPopupp button {
+    font-size: 16px;
+    line-height: 32px;
+    padding: 0 18px;
+    color: #fff;
+    background: #22bcee;
+    border-radius: 6px;
+    outline: none;
+}
+
+.buttonsPopupp button:nth-child(2) {
+    color: #22bcee;
+    border: 1px solid #22bcee;
+    background: transparent;
+    margin-left: 15px;
+}
+
+/*异常信息*/
+.poDpContent .fillInfos p {
+    color: #333;
+    font-size: 15px;
+    line-height: 34px;
+    width: 30%;
+    display: inline-block;
+}
+
+.poDpContent .fillInfos p input[type=text] {
+    font-size: 14px;
+    width: 90px;
+    border-bottom: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    padding-left: 15px;
+    line-height: 26px;
+}
+
+.poDpContent .fillInfos p label {
+    padding-right: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.poDpContent .fillInfos p label input {
+    margin-right: 5px;
+}
+
+.poDpContent .fillIdea {
+    display: inline-block;
+    width: 48%;
+}
+
+.poDpContent .fillIdea textarea {
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+}
+
+.popupCon .popupDpList .userModifyUl {
+    margin-top: 12px;
+    height: auto;
+    display: table;
+    width: 100%;
+}
+
+.popupCon .popupDpList .userModifyUl li {
+    display: flex;
+    width: auto;
+    height: auto;
+    line-height: 1;
+    color: #666;
+    float: left;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea {
+    min-height: 286px;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li label {
+    width: 96px;
+    box-sizing: border-box;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li p input[type = "text"] {
+    width: 290px;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li p select {
+    width: 145px;
+    float: left;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li p select:first-child {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li p select:last-child {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li .selectGroup {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 32px;
+    position: relative;
+    width: 290px;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li .selectGroup > span {
+    color: #22bcee;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li .selectGroup .optionGItem {
+    color: #666;
+    padding: 0 5px;
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+    margin-right: 10px;
+    line-height: 30px;
+    margin-bottom: 5px;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li .selectGroup .optionGItem img {
+    width: 12px;
+    height: 12px;
+    margin-left: 6px;
+    border: 1px solid #bfbfbf;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li .selectGroup .toolBodyDiv {
+    position: absolute;
+    top: 100%;
+    border: 1px solid #22bcee;
+    border-radius: 3px;
+    padding: 0 6px 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 5px;
+    z-index: 99;
+    background: #fff;
+    display: none;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li .selectGroup .toolBodyDiv .cliseTitle {
+    text-align: right;
+    line-height: 24px;
+}
+
+.popupCon .popupDpList .userModifyUl.formListArea li .selectGroup .toolBodyDiv .cliseTitle img {
+    width: 18px;
+    height: 18px;
+}
+
+.popupCon .popupDpList .userModifyUl.userModifyUlRows li {
+    float: none;
+}
+
+.popupCon .popupDpList .userModifyUl li.rowLi {
+    line-height: 32px;
+}
+
+.popupCon .popupDpList .userModifyUl li input[type="radio"], .popupCon .popupDpList .userModifyUl li input[type="checkbox"] {
+    margin-left: 8px;
+}
+
+.popup .popupCon .popupDpList li label {
+    line-height: 32px;
+    padding: 0 5px 0 15px;
+    color: #666;
+}
+
+.popup .popupCon .popupDpList li label span {
+    color: red;
+}
+
+.popup .popupCon .popupDpList li select,
+.popup .popupCon .popupDpList li input[type=text] {
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    border: 1px solid #bfbfbf;
+    width: 164px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.popupCon .popupDpList .userModifyUl li.userModifyBtn span {
+    width: auto;
+    background: #22bcee;
+    color: #fff;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    white-space: nowrap;
+    padding: 0 16px;
+    margin-right: 8px;
+    cursor: pointer;
+    border: 1px solid #22bcee;
+    display: inline-block;
+}
+
+.maskLayer .popup .popupCon .stationCon, .maskLayer1 .popup .popupCon .stationCon {
+    overflow: hidden;
+    padding: 20px;
+}
+
+.maskLayer .popup .popupCon .stationCon .txt, .maskLayer1 .popup .popupCon .stationCon .txt {
+    width: 80px;
+    padding-right: 12px;
+    text-align: right;
+    color: #333;
+    font-size: 15px;
+    display: block;
+    float: left;
+    height: 34px;
+    line-height: 34px;
+}
+
+.maskLayer .popup .popupCon .stationCon .inp, .maskLayer1 .popup .popupCon .stationCon .inp {
+    width: 720px;
+}
+
+.maskLayer .popup .popupCon .stationCon .inp select {
+    width: 160px;
+    height: 34px;
+    line-height: 34px;
+    padding-left: 6px;
+    box-sizing: border-box;
+    border: 1px solid #aaa;
+    color: #333;
+    display: block;
+    background: #fff;
+    float: left;
+    border-right: none;
+
+}
+
+.maskLayer .popup .popupCon .stationCon .inp select:last-child {
+    border-right: 1px solid #aaa;
+}
+
+.maskLayer .popup .popupCon .newClassesCon {
+    height: 500px;
+}
+
+.maskLayer .popup .popupCon .newClassesCon.newClassesAdjust {
+    height: auto;
+    max-height: 750px;
+    overflow-y: auto;
+}
+
+.newClassesAdjust .allDragDiv1 {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.newClassesAdjust .allDragDiv1 .dragItemDiv {
+    width: 33.3%;
+}
+
+.newClassesAdjust .allDragDiv1 .dragItemDiv:nth-child(3n) {
+    border-right: 0;
+}
+
+.newClassesAdjust .allDragDiv1 .dragItemDiv:nth-child(2n) {
+    border-right: 1px solid #ddd;
+}
+
+.allDragDiv1 .dragTotalInfos li .dragTextBlue {
+    color: #0d92ef;
+}
+
+.maskLayer1 .popup .popupCon .stationCon .inp {
+    border: 1px solid #e5e5e5;
+}
+
+.maskLayer1 .popup .popupCon .stationCon .inp textarea {
+    width: 90%;
+    font-size: 14px;
+    line-height: 26px;
+    font-family: "微软雅黑";
+    color: #333;
+    padding-left: 12px;
+    padding-top: 6px;
+    height: 96px;
+}
+
+.maskLayer1 .popup .popupCon .stationCon .inp textarea:focus {
+    border: none;
+    outline: none;
+}
+
+.popup .popupCon .popupTxt {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #333;
+    z-index: 3;
+    top: 100px;
+    display: none;
+}
+
+.permissionsLayer .popup .permissList {
+    width: 100%;
+}
+
+.permissionsLayer .reportMessages {
+    box-sizing: border-box;
+}
+
+.permissionsLayer .addPermiss {
+    padding: 30px 0;
+}
+
+.permissionsLayer .addPermiss .permissTitle {
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 30px;
+    padding-bottom: 12px;
+    padding-top: 60px;
+    color: #333;
+    text-align: center;
+}
+
+/*品类级别选择*/
+.color_w {
+    color: #fff;
+}
+
+.maskLayer#someSelectModel .popup#popup {
+    width: 80%;
+    background-color: #f9f9f9;
+}
+
+.maskLayer#someSelectModel .popup .popupCon {
+    padding: 0 20px 0 20px;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupTitle {
+    text-align: center;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListDiv {
+    width: 100%;
+    height: 40px;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListDiv > li {
+    width: 182px;
+    height: 34px;
+    line-height: 34px;
+    box-sizing: border-box;
+    padding-left: 8px;
+    color: #808080;
+    float: left;
+    border: 1px solid #c1c1c1;
+    margin-left: 20px;
+    margin-top: 6px;
+    background-color: #fff;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListDiv > li.smallLis1 {
+    width: 25px;
+    margin-left: 0;
+    border: none;
+    background-color: #f9f9f9;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListDiv > li.smallLis2 {
+    width: 85px;
+    margin-left: 0;
+    border: none;
+    background-color: #f9f9f9;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListDiv > li input {
+    height: 32px;
+    line-height: 32px;
+    display: block;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListDiv > li.searchBtn1 {
+    width: 80px;
+    height: 34px;
+    padding-left: 0;
+    border: none;
+    background: #00528b;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+    display: block;
+    cursor: pointer;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListUl {
+    width: 100%;
+    height: calc(100vh - 340px);
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListUl > li {
+    float: left;
+    width: 18.2%;
+    height: 98%;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+    margin: 10px 1% 0 1%;
+    overflow-y: auto; /*display: none;*/
+    background-color: #fff;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListUl > li:nth-child(1) {
+    margin: 10px 1% 0 0;
+    display: block;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListUl > li:last-child {
+    margin: 10px 0 0 1%;
+}
+
+.maskLayer#someSelectModel .popup .popupCon > .searchBtn {
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+}
+
+.maskLayer#someSelectModel .popup .popupCon > .searchBtn span {
+    display: inline-block;
+    margin: 0 auto;
+    width: 110px;
+    height: 38px;
+    line-height: 38px;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    background: #00365b;
+    cursor: pointer;
+}
+
+.maskLayer#someSelectModel .popup .popupCon table {
+    border-bottom: none;
+}
+
+.maskLayer#someSelectModel .popup .popupCon table thead tr {
+    border-top: none;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListUl table tbody tr:hover {
+    background: #00568F;
+    color: #fff;
+    cursor: pointer;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListUl table tbody tr.active:hover {
+    background: #0071c0;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListUl table tbody tr.active {
+    background: #0071c0;
+}
+
+.maskLayer#someSelectModel .popup .popupCon .popupDpList .popupDpListUl table tbody tr.active td {
+    color: #fff;
+}
+
+.maskLayer#someSelectModel2 .popup .popupCon .popupDpList .itemSingleLi {
+    padding: 10px 10%;
+}
+
+.maskLayer#someSelectModel2 .popup .popupCon .popupDpList .itemSingleLi > li {
+    margin-bottom: 12px;
+}
+
+.maskLayer#someSelectModel2 .popup .popupCon .popupDpList .itemSingleLi .txt {
+    display: inline-block !important;
+    width: 30%;
+    margin-left: 2%;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    line-height: 34px;
+}
+
+.maskLayer#someSelectModel2 .popup .popupCon .popupDpList .itemSingleLi .txt > span:nth-child(2) {
+    display: inline-block;
+    width: 100px;
+    color: #808080;
+}
+
+.maskLayer#someSelectModel2 .popup .popupCon .popupDpList .itemSingleLi input, .maskLayer#someSelectModel2 .popup .popupCon .popupDpList .itemSingleLi select {
+    display: inline-block !important;
+    float: right;
+    width: 65%;
+    margin-right: 2%;
+    border: none;
+    border-bottom: 1px solid #c1c1c1;
+    box-sizing: border-box;
+    padding-left: 9px;
+    height: 34px;
+    display: block;
+    color: #333;
+}
+
+.maskLayer#someSelectModel2 .popup .popupCon > .searchBtn {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.maskLayer#someSelectModel2 .popup .popupCon > .searchBtn span {
+    display: inline-block;
+    margin: 0 auto;
+    width: 110px;
+    height: 38px;
+    line-height: 38px;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    background: #00365b;
+    cursor: pointer;
+}
+
+/*修改密码*/
+.maskLayer.changePassword .popup {
+    width: 380px;
+    height: auto;
+}
+
+.maskLayer.changePassword .popup .popupCon .popupDpList {
+    height: 100%;
+}
+
+.maskLayer.changePassword .popup .userModifyUl {
+    padding: 0 10%;
+    width: 100%;
+    box-sizing: border-box;
+    height: 290px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.maskLayer.changePassword .popup .userModifyUl li {
+    clear: both;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+}
+
+.maskLayer.changePassword .popup .userModifyUl li.passwordMethods {
+    margin-top: 0;
+}
+
+.maskLayer.changePassword .popup .userModifyUl li input {
+    border: 1px solid #e5e5e5;
+    padding-left: 15px;
+    height: 34px;
+    line-height: 34px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.maskLayer.changePassword .popup .userModifyUl li.userModifyBtn {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.maskLayer.changePassword .popup .userModifyUl li.userModifyBtn span {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin: 0;
+}
+
+.changePasswordP {
+    color: #333;
+    font-size: 13px;
+    padding: 0 15px;
+    line-height: 24px;
+    margin-top: 20px;
+}

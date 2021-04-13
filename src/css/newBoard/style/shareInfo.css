@@ -1,0 +1,322 @@
+.overall{
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #040823;
+}
+button{
+    outline: none;
+}
+.main{
+    position: relative;
+    color: #fff;
+}
+.main,.allMap{
+    height: 100%;
+    width: 100%;
+}
+#container{
+    height: 100%;
+    width: 100%;
+}
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.left,.right{
+    height: 70%;
+    width: 48%;
+    position: absolute;
+    bottom: 15%;
+    border: 1px solid #22bcee;
+    background: #22bcee78;
+}
+.left{
+    left: 20px;
+}
+.right{
+    right: 20px;
+}
+.leftMain,.rightMain{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.littleBor{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+}
+.littleBor:nth-child(1){
+    top: 0;
+    left: 0;
+    border-left: 3px solid #22bcee;
+    border-top: 3px solid #22bcee;
+}
+.littleBor:nth-child(2){
+    top: 0;
+    right: 0;
+    border-right: 3px solid #22bcee;
+    border-top: 3px solid #22bcee;
+}
+.littleBor:nth-child(3){
+    bottom: 0;
+    left: 0;
+    border-left: 3px solid #22bcee;
+    border-bottom: 3px solid #22bcee;
+}
+.littleBor:nth-child(4){
+    right: 0;
+    bottom: 0;
+    border-right: 3px solid #22bcee;
+    border-bottom: 3px solid #22bcee;
+}
+
+.orderHeader{
+    display: flex;
+    padding: 10px 5px;
+    justify-content: space-between;
+}
+.orderHeader span{
+    color: #fff;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
+    padding: 0 15px;
+    text-decoration: underline;
+}
+.orderHeader p{
+    font-size: 20px;
+    color: #fff;
+    line-height: 30px;
+    padding: 0 15px;
+}
+.orderBody{
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.orderBody ul{
+    padding: 3px 15px;
+    margin-bottom: 5px;
+}
+.orderBody ul li{
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    line-height: 22px;
+    display: inline-block;
+    padding: 0 5px;
+}
+.orderBody .title ul{
+    font-size: 16px;
+    display: flex;
+}
+.includeList{
+    position: relative;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.includeList::-webkit-scrollbar {width: 2px;height: 1px;}
+.includeList::-webkit-scrollbar-thumb {border-radius: 10px;-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);background: #3c8dbc;}
+.includeList::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);border-radius: 10px;background: #EDEDED;}
+
+.includeList .list{
+    position: absolute;
+    width: 100%;
+}
+.includeList .list ul{
+    font-size: 14px;
+    background: rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+.includelistLi{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.includeList .list ul li button{
+    color: #fff;
+    background: #4298f1;
+    padding: 4px 8px;
+    line-height: 1;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+}
+.includeList .list ul .includeAdd{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3px;
+}
+.includeList .list ul .includeAdd div{
+    width: 95%;
+    display: flex;
+    padding: 6px 0;
+    align-items: center;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.includeList .list ul .includeAdd div.includeAddBtn{
+    width: 7%;
+}
+.includeList .list ul .includeAdd p{
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.includeList .list ul .includeAdd p:first-child{
+    padding-left: 0;
+}
+.includeList .list ul .includeAdd p span{
+    color: #aaa;
+    font-size: 13px;
+}
+.includeList .list ul .includeAdd img{
+    width: 48px;
+    height: 6px;
+}
+.showDivPoint{
+    position: absolute;
+    top: 40%;
+    width: 30px;
+    height: 40px;
+    padding: 12px 0;
+    cursor: pointer;
+}
+.showLeftPoint{
+    left: 100%;
+    background: url(../../../img/windowicon/jtRight.png) center center no-repeat;
+    background-color: #00528b;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.showRightPoint{
+    right: 100%;
+    background: url(../../../img/windowicon/jtLeft.png) center center no-repeat;
+    background-color: #00528b;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+
+/*detailOrderDiv*/
+.detailConDiv{
+    width: 50%;
+    background: #fff;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    color: #333;
+    transition: all 0.3s;
+    z-index: 2000;
+    box-shadow: 5px 5px 10px #5e5075;
+}
+.detailConhead{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    font-size: 18px;
+    border-bottom: 1px dashed #ddd;
+}
+.detailConhead span{
+    font-size: 24px;
+    cursor: pointer;
+}
+.detailConBody{
+    padding: 15px;
+}
+.detailConBody .reportMessagesCon{
+    margin-bottom: 15px;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 14px;
+}
+.detailConBody .reportMessagesCon:last-child{
+    border: 0;
+}
+.detailConBody .reportMessagesCon>p{
+    color: #000;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+.detailConBody .reportMessagesCon ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+.detailConBody .reportMessagesCon ul li{
+    width: 33%;
+    box-sizing: border-box;
+    padding-right: 16px;
+    text-align: left;
+    margin-bottom: 8px;
+    color: #666;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+.detailConBody .reportMessagesCon ul li span{
+    color: #4298f1;
+}
+.detailConBody .reportMessagesCon .reportMesBut{
+    background: #4298f1;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 3px;
+    margin: 10px 8px 0;
+}
+.detailConBody .reportMessagesCon .reportMesUl{
+    padding: 0 25px;
+    color: #000;
+}
+.detailConBody .reportMessagesCon .reportMesUl li{
+    width: 25%;
+}
+.detailConBody .reportMessagesCon .reportMesUl li:nth-child(1){
+    width: 15%;
+}
+
+
+
+pre{
+    white-space: pre-wrap;
+    color: #333;
+}
+.footer{
+    width: 100%;
+    position: absolute;
+    height: 36px;
+    bottom: 0;
+    background: url(../../../img/newBoard/h_bg_02.png) center no-repeat;
+    background-size: 178% 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.footer p{
+    color: #fff;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    margin: 0 auto;
+}

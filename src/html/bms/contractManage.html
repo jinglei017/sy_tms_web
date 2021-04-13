@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>合同管理-BMS费用管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <link href="../../dateRangePicker/font-awesome.4.6.0.css" rel="stylesheet">
+    <link href="../../dateRangePicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../css/plugIn/zTreeStyle.css" />
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+    </script>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/plugIn/schedule.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+    <style>
+        .showBtn2{display: none;}
+        .adsRightConInp.adsRightConInp72 li .txt, .userModifyUl.adsRightConInp72 li label{
+            width: 90px;
+        }
+
+        #tableMain .ztree li a{
+            width: 100%;
+            display: flex;
+            padding: 0;
+            height: auto;
+        }
+        #tableMain .ztree .head{
+            border-bottom: 1px solid #888;
+            overflow: hidden;
+        }
+        #tableMain .ztree li a.curSelectedNode{
+            background-color: #fff;
+            opacity: 1;
+            border: none;
+        }
+        #tableMain .ztree .head a .diy{
+            width: 5%;
+            float: left;
+            height: auto;
+            line-height: 24px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: none;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        #tableMain .ztree li a .diy{
+            width: 5%;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-bottom: 1px solid #cfcfcf;
+            font-size: 13px;
+        }
+        #tableMain .ztree li a .diy,#tableMain .ztree .head a .diy{
+            padding: 5px 0;
+        }
+        #tableMain .ztree li a .diy:nth-child(1){
+            width: 10%;
+        }
+        #tableMain .ztree li a .diy:nth-child(2),#tableMain .ztree li a .diy:nth-child(3){
+            width: 6%;
+        }
+        #tableMain .ztree li a .diy:nth-child(4),#tableMain .ztree li a .diy:nth-child(5),
+        #tableMain .ztree li a .diy:nth-child(8),#tableMain .ztree li a .diy:nth-child(9){
+            width: 4%;
+        }
+        #tableMain .ztree li a .diy:nth-child(17){
+            width: 13%;
+        }
+
+        #tableMain .ztree li{
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <!-- header start-->
+        <div class="adsLeft">
+
+        </div>
+        <!-- header end-->
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header">
+
+            </div>
+            <div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">合同管理</a></span></li>
+                    </ul>
+                    <ul class="pageHeaderR">
+                        <li class="searchBtn">
+                            <span class="butOperatePermission visible" buttonCode="ADD"  btn="newActivityDshBoardBtn"  v-on:click="addContractInfos('新增合同')">新增合同</span>
+                        </li>
+                    </ul>
+                    <ul class="pageHeaderBack">
+                        <li class="visible">
+                            <img src="../../img/back_2.png" alt="返回上一步">
+                            <span>返回上一步</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="adsRightPackage">
+                    <!-- 合同管理   -->
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <ul class="textBoxTitle">
+                                    <li>
+                                        <label>甲方</label>
+                                        <input type="text" v-model="queryParam.fPartyName" placeholder="甲方" />
+                                    </li>
+                                    <li>
+                                        <label>乙方</label>
+                                        <input type="text" v-model="queryParam.tPartyName" placeholder="乙方" />
+                                    </li>
+                                    <li>
+                                        <label>合同</label>
+                                        <select v-model="queryParam.contractType">
+                                            <option value="通用合同">通用合同</option>
+                                            <option value="司机应付">司机应付</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <label>合同号</label>
+                                        <input type="text" v-model="queryParam.contractNo" placeholder="合同号" />
+                                    </li>
+                                    <li class="searchBtn">
+                                        <span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+                                    </li>
+                                </ul>
+
+                                <div class="reportMessages">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>操作</th>
+                                            <th>甲方</th>
+                                            <th>乙方</th>
+                                            <th>合同类型</th>
+                                            <th>合同号</th>
+                                            <th>合同版本号</th>
+                                            <th>有效期开始时间</th>
+                                            <th>有效期结束时间</th>
+                                            <th>创建时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(tableContract,index) in tableContractList" class="see">
+                                            <td>
+                                                <p>{{index + 1}}</p>
+                                            </td>
+                                            <td>
+                                                <div class="foldBotton">
+                                                    <span class="handleIcon"></span>
+                                                    <p>
+                                                        <span class="btn btn-details visible butOperatePermission orderDetailBtn" buttonCode="DETAIL"  btn="newActivityDshBoardBtn" v-on:click="getContractInfos('合同详情',tableContract)">详情</span>
+                                                        <span class="btn btn-edit visible butOperatePermission orderEditBtn" buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeContractInfos('合同修改',tableContract)">修改</span>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>{{tableContract.fPartyName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableContract.tPartyName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableContract.contractType}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableContract.contractNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableContract.amendmentNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableContract.effectDate | timestampToTime}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableContract.expiredDate | timestampToTime}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableContract.createTime | timestampToTime}}</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="adsRightFooter">
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageAllList.length}}页 /{{totalPagesNum}}条
+                                        <select v-model="queryPageSize">
+                                            <option value="20">20条/页</option>
+                                            <option value="30">30条/页</option>
+                                            <option value="40">40条/页</option>
+                                            <option value="50">50条/页</option>
+                                            <option value="80">80条/页</option>
+                                            <option value="100">100条/页</option>
+                                        </select>
+                                    </p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageAllList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="currentPage != pageAllList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 合同管理-新增   -->
+                    <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                        <div class="adsRightCon" id="adsRightCon0103">
+                            <div class="adsRightConList">
+
+                                <div class="adsRightConMatter">
+
+                                    <!--合同头部信息-->
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle">合同头部信息</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">甲方名称</span>
+                                                <input v-bind:disabled="isDisable" type="text" placeholder="甲方名称" v-model="contractHeader.fPartyName">
+                                            </li>
+                                            <li>
+                                                <span class="txt">甲方编码</span>
+                                                <input v-bind:disabled="isDisable" type="text" placeholder="甲方编码" v-model="contractHeader.fPartyCode">
+                                            </li>
+                                            <li>
+                                                <span class="txt">乙方名称</span>
+                                                <input v-bind:disabled="isDisable" type="text" placeholder="乙方名称" v-model="contractHeader.tPartyName">
+                                            </li>
+                                            <li>
+                                                <span class="txt">乙方编码</span>
+                                                <input v-bind:disabled="isDisable" type="text" placeholder="乙方编码" v-model="contractHeader.tPartyCode">
+                                            </li>
+                                            <li>
+                                                <span class="txt">合同类型</span>
+                                                <select v-bind:disabled="isDisable" v-model="contractHeader.contractType">
+                                                    <option value="通用合同">通用合同</option>
+                                                    <option value="司机应付">司机应付</option>
+                                                </select>
+                                            </li>
+                                            <li>
+                                                <span class="txt">合同号</span>
+                                                <input v-bind:disabled="isDisable" type="text" placeholder="合同号" v-model="contractHeader.contractNo">
+                                            </li>
+                                            <li>
+                                                <span class="txt">合同版本号</span>
+                                                <input v-bind:disabled="isDisable" type="text" placeholder="合同版本号" v-model="contractHeader.amendmentNo">
+                                            </li>
+                                            <li class="data">
+                                                <span class="txt">有效开始时间</span>
+                                                <input v-bind:disabled="isDisable" type="text" readonly  name="effectDate" class="form-control" v-model="contractHeader.effectDate"/>
+                                            </li>
+                                            <li class="data">
+                                                <span class="txt">有效结束时间</span>
+                                                <input v-bind:disabled="isDisable" type="text" readonly  name="expiredDate" class="form-control" v-model="contractHeader.expiredDate"/>
+                                            </li>
+                                        </ul>
+                                        <div class="addNewOrderBot" v-if="clickBtnType != 'detail'">
+                                            <div class="searchBtn">
+                                                <span v-if="clickBtnType == 'add'" buttonCode="HEADERINSERT" v-on:click="saveContractHeader()">确认添加</span>
+                                                <span v-if="clickBtnType == 'edit'" buttonCode="HEADERUPDATE" v-on:click="editContractHeader()">确认修改</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--合同明细-->
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle" v-if="clickBtnType == 'detail'">合同明细</p>
+                                        <div style="margin-bottom: 20px;" v-if="clickBtnType != 'detail'">
+                                            <div class="searchBtn">
+                                                <span class="butOperateShow" v-on:click="addContractItem()">+添加合同项</span>
+                                            </div>
+                                        </div>
+                                        <div class="adsRightContractList" id="tableMain">
+                                            <div class="adsRightConPart" v-for="(contractItemBasic,index) in contractBasicList">
+                                                <div>
+                                                    <ul class="adsRightConInp" style="border-bottom:none;">
+                                                        <li>
+                                                            <span class="txt">合同项类型</span>
+                                                            <p class="adsRightConRadiosP">
+                                                                <input v-bind:disabled="isDisable" type="radio" :name="partDivList[index].dataTreeItem" value="AR" v-model="contractItemBasic.itemType"><label style="margin-right: 30px;">应收</label>
+                                                                <input v-bind:disabled="isDisable" type="radio" :name="partDivList[index].dataTreeItem" value="AD" v-model="contractItemBasic.itemType"><label>应付</label>
+                                                            </p>
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">业务名称</span>
+                                                            <input v-bind:disabled="isDisable" type="text" placeholder="业务名称" v-model="contractItemBasic.itemName">
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">业务编码</span>
+                                                            <input v-bind:disabled="isDisable" type="text" placeholder="业务编码" v-model="contractItemBasic.itemCode">
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">业务备注</span>
+                                                            <input v-bind:disabled="isDisable" type="text" placeholder="业务备注" v-model="contractItemBasic.remark">
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">保底金额</span>
+                                                            <input v-bind:disabled="isDisable" type="text" placeholder="保底金额" v-model="contractItemBasic.minAmount">
+                                                        </li>
+                                                        <li>
+                                                            <span class="txt">上限金额</span>
+                                                            <input v-bind:disabled="isDisable" type="text" placeholder="上限金额" v-model="contractItemBasic.maxAmount">
+                                                        </li>
+                                                        <li v-if="clickBtnType != 'detail'" class="searchBtn addconBtnsLi">
+                                                            <span class="showBtn1" buttonCode="PARTINSERT" @click="saveAccountRules(partDivList[index])">保存</span>
+                                                            <span class="whiteBtn showBtn2" buttonCode="PARTUPDATE" @click="editAccountRules(partDivList[index])">修改</span>
+                                                            <span class="whiteBtn" buttonCode="PARTDELETE" @click="removeAccountRules(partDivList[index])">删除</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="ztree" :id=partDivList[index].dataTreeItem></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 合同管理 -新增   、-->
+                </div>
+            </div>
+        </div>
+        <!-- adsContent end-->
+    </div>
+
+    <div class="maskLayer maskLayer1">
+        <div class="popup">
+            <div class="popupCon">
+                <h3 class="popupTitle">
+                    <span>{{opeMeauTitle}}</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+                </h3>
+                <div class="popupDpList">
+                    <ul class="userModifyUl adsRightConInp72">
+                        <li>
+                            <label>费用名称</label>
+                            <select v-model="chargeRule.varCode" class="chargeNameee"
+                                    v-bind:disabled="copyDisabled">
+                                <option value="">请选择</option>
+                                <option v-for="chargeTypeItem in selectListData.chargeTypeList"
+                                        :value="chargeTypeItem.code">{{chargeTypeItem.text}}
+                                </option>
+                                <option value="OTHER">其它</option>
+                            </select>
+                        </li>
+                        <li v-if="chargeRule.varCode == 'OTHER'">
+                            <label>自定义名称</label>
+                            <input type="text" placeholder="请填写" v-model="chargeRule.varName">
+                        </li>
+                        <li>
+                            <label>规则编码</label>
+                            <select v-model="chargeRule.itemCode" v-bind:disabled="copyDisabled"
+                                    v-on:change="changeVarCode(chargeRule.itemCode)">
+                                <option value="">请选择</option>
+                                <option v-for="chargeGroupItem in selectListData.chargeStrategyList"
+                                        :value="chargeGroupItem.code">{{chargeGroupItem.text}}
+                                </option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>规则名称</label>
+                            <input type="text" placeholder="请填写" v-model="chargeRule.itemName">
+                        </li>
+                    </ul>
+                    <ul class="userModifyUl adsRightConInp72">
+                        <li>
+                            <label>运算域</label>
+                            <select v-model="chargeRule.actDom">
+                                <option value="0">当前域</option>
+                                <option value="1">非本域</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>值类型</label>
+                            <select v-model="chargeRule.varValueType" v-bind:disabled="copyDisabled">
+                                <option value="0">数值</option>
+                                <option value="1">字符</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>开始值</label>
+                            <input type="text" placeholder="请填写" v-model="chargeRule.varMin">
+                        </li>
+                        <li>
+                            <label>结束值</label>
+                            <input type="text" placeholder="请填写" v-model="chargeRule.varMax">
+                        </li>
+                        <li>
+                            <label>值抹平</label>
+                            <input type="text" placeholder="请填写" v-model="chargeRule.varSmo">
+                        </li>
+                        <li>
+                            <label>价格类型</label>
+                            <select v-model="chargeRule.priceType">
+                                <option value="0">基础价</option>
+                                <option value="1">阶梯价</option>
+                            </select>
+                        </li>
+                        <li v-if="chargeRule.priceType == '1'">
+                            <label>阶梯单价</label>
+                            <input type="text" placeholder="请填写" v-model="chargeRule.staPrice">
+                        </li>
+                        <li v-if="chargeRule.priceType == '1'">
+                            <label>阶梯步长</label>
+                            <input type="text" placeholder="请填写" v-model="chargeRule.staUnitValue">
+                        </li>
+
+                        <li>
+                            <label>最大金额</label>
+                            <input type="text" placeholder="最大金额" v-model="chargeRule.basePrice">
+                        </li>
+                        <li>
+                            <label>金额上限</label>
+                            <input type="text" placeholder="金额上限" v-model="chargeRule.maxAmount">
+                        </li>
+                        <li>
+                            <label>子级重复类型</label>
+                            <select v-model="chargeRule.repeatType">
+                                <option value="0">运算符</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>子级重复运算</label>
+                            <select v-model="chargeRule.repeatValue">
+                                <option value="4">取大</option>
+                                <option value="5">取小</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>是否存在下级</label>
+                            <select v-model="chargeRule.isUnderl">
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>与下级的运算</label>
+                            <select v-model="chargeRule.underlAct">
+                                <option value="0">加</option>
+                                <option value="1">减</option>
+                                <option value="2">乘</option>
+                                <option value="3">除</option>
+                                <option value="4">取大</option>
+                                <option value="5">取小</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <div class="addNewOrderBot">
+                        <div class="searchBtn">
+                            <span v-if="btnPathway == '1'" @click="saveChargeRule()">保存</span>
+                            <span v-if="btnPathway == '4'" @click="editChargeRule()">保存</span>
+                            <span v-if="btnPathway == '5'" @click="copyChargeRule()">保存</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/moment.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/daterangepicker.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/bms/contractManage.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

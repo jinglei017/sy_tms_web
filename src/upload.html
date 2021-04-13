@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script type="text/javascript" src="/js/lib/ajaxFileUpload.js"></script>
+</head>
+<body>
+	<input type="file" name="excelFile" id="excelFile" />
+	<button class="upload">上传</button>
+	<script type="text/javascript">
+		$(function(){
+			var logininf = JSON.parse(localStorage.getItem("logininf"));
+			console.log(logininf);
+			$(".upload").click(function(){
+				var url = '/icdp-tms-app-1.0.0/orderInfo/uploadExcelFile.json?token='+logininf.token+'&timeStamp='+logininf.timeStamp;
+                $.ajaxFileUpload({
+                    url: url, //用于文件上传的服务器端请求地址
+                    type: 'post',
+                    secureuri: false, //是否需要安全协议，一般设置为false
+                    fileElementId: 'excelFile', //文件上传域的ID
+                    dataType: 'json', //返回值类型一般设置为json
+                    success: function (data, status)  //服务器成功响应处理函数
+                    {
+                        imitatePopup(data.result.resultMsg,"alert");
+                        //document.getElementById('excelFile').value = null;
+                    }, error: function (data, status, e) {  //提交失败自动执行的处理函数。
+                        console.error(e);
+                       //document.getElementById('excelFile').value = null;
+                    }
+                });
+			})
+			
+//			$("#ImportPicInput").change(function(){
+//				$.ajaxFileUpload({
+//					url: "/icdp-oms-app-1.0.0/orderInfo/uploadExcelFile.json?token=Q0Y3NTlGQ0JBMDM0MDZCQzQ0NDMzQjYwMjM2OTAzNzIxNTM2MTA2MzE1MDAw&timeStamp=1536106315000",
+//					type: 'post',
+//                  secureuri: false, //是否需要安全协议，一般设置为false
+//                  fileElementId: 'ImportPicInput', //文件上传域的ID
+//                  dataType: 'json', //返回值类型一般设置为json
+//                  success: function (data, status)  //服务器成功响应处理函数
+//                  {
+//                      alert(data.result.resultMsg);
+//                  }, error: function (data, status, e) {  //提交失败自动执行的处理函数。
+//                      console.log(e);
+//                  }
+//				});
+//			})
+		})
+	</script>
+	<!--<script type="text/javascript">
+		$('#file').change(function(ee) {
+			var files = ee.target.files;
+			var file = new FileReader();
+			file.readAsBinaryString(files[0]);
+			file.onload = function(e) {
+				try {
+					var data = e.target.result;
+					var pp = XLSX.read(data, {
+						type: 'binary'
+					});
+
+					var bb = pp.Sheets[pp.SheetNames[0]];
+					var ce = XLSX.utils.sheet_to_row_object_array(bb);
+					console.log(ce);
+//					for(var i in ce) {
+//						var itemNum = ce[i]['序号'];
+//						var mlname = ce[i]['文件（目录）名称'];
+//						var qsy = ce[i]['起始页'];
+//						var zzy = ce[i]['终止页'];
+//						var bz = ce[i]['备注'];
+//						if(bz == undefined) {
+//							bz = "";
+//						}
+//						//  alert(mlname+qsy+zzy+bz);
+//						var html = "";
+//
+//						html += "<tr id='temtr2" + itemNum + "' >";
+//						html += "<td class='center'>" + itemNum + "</td>";
+//						html += "<td class='center'>" + mlname + "</td>";
+//						html += "<td class='center'>" + qsy + "</td>";
+//						html += "<td>" + zzy + "</td>";
+//
+//						html += "<td class='center'>" + bz + "</td>";
+//						html += "<td>";
+//						html += "<div class='inline position-relative'>";
+//						html += "<button class='btn btn-minier btn-primary dropdown-toggle' data-toggle='dropdown'><i class='icon-cog icon-only bigger-110'></i></button>";
+//						html += "<ul class='dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close'>";
+//						html += "<li><a class='aBtnNoTD' onclick='editmlItem(&apos;" + itemNum + "&apos;)' title='修改' href='#'><i class='icon-edit color-blue bigger-120'></i></a></li>";
+//						html += "<li><a class='aBtnNoTD' onclick='delMLItem(&apos;" + itemNum + "&apos;)' title='删除' href='#'><i class='icon-remove-sign color-red bigger-120'></i></a></li>";
+//						html += "</ul></div>";
+//						html += "<input type='hidden' name='items'id='item" + itemNum + "' value='" + itemNum + "' mlname='" + mlname + "' qsy='" + qsy + "' zzy='" + zzy + "' >";
+//						html += "</td>";
+//						html += "</tr>";
+//						itemNum++;
+//						$("#itemsTable2").append(html);
+//
+//					}
+				} catch(e) {
+					console.log("error");
+					return;
+				}
+
+			}
+
+		})
+	</script>-->
+</body>
+</html>

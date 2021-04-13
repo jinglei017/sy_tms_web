@@ -1,0 +1,87 @@
+html, body, #container {width: 100%;height: 100%;margin: 0;font-size:62.5%;}
+body{font-size:0.15rem;overflow: hidden;}
+ul,li{list-style:none;display:block;}
+
+.boardContainer{width: 100%;height: 100%;}
+.boardContainer .boardContainer-left{float: left;width: 75%;height: 100%;}
+.boardContainer .boardContainer-right{float: right;width: 25%;height: 100%;}
+
+.boardContainer .boardContainer-left .scalingTip{position: absolute;left: 0;top: 0;width: 0.4rem;height: 0.4rem;line-height: 0.4rem;z-index: 10000;text-align: center;}
+
+.boardContainer .boardContainer-left .boardContainer-left1{float: left;width: 4.3rem;height: 100%;position: relative;}
+.boardContainer .boardContainer-left .boardContainer-left2{float: left;width:calc(75vw - 4.3rem);height: 100%;position: relative;}
+.boardContainer .boardContainer-left .boardContainer-left2 .switchDivBtn{position: absolute;top:1.5rem;right: 0;width: 2rem;height: 0.4rem;line-height:0.4rem;text-align: center;background-color: #000;color: #ffa001;z-index: 1000;cursor: pointer;font-weight: bolder;}
+.boardContainer .boardContainer-left .boardContainer-left21{width: calc(75vw - 4.7rem);height:1.5rem;padding-left:0.4rem;position: relative;}
+.boardContainer .boardContainer-left .boardContainer-left22{width: 100%;height: calc(100vh - 1.5rem);position: relative;}
+.boardContainer .boardContainer-left .boardContainer-left22 #serviceMap{width: 100%;height: 100%;}
+
+.boardContainer-left #scrollBox{float: left;width: 50%;height:1.5rem;overflow:hidden;}
+.boardContainer-left #scrollBox #text1,#text2{width:100%;float:left;}
+.boardContainer-left #scrollBox li{height:0.3rem;line-height:0.3rem;text-align:left;color:#fff;padding-left: 0.1rem;}
+.boardContainer-left #scrollBox2{float: left;width: 50%;height:1.5rem;overflow:hidden;}
+.boardContainer-left #scrollBox2 #text11,#text22{width:100%;float:left;}
+.boardContainer-left #scrollBox2 li{height:0.3rem;line-height:0.3rem;text-align:left;color:#fff;padding-left: 0.1rem;}
+.boardContainer-left #PigeTip{position: absolute;left: 0;right: 0;background-color: #000;}
+.boardContainer-left .infoTip {width: 4.3rem;height: 0.4rem;line-height: 0.4rem;z-index: 9999;text-align: center;}
+.boardContainer-left #panel{position: absolute;left: 0;right: 0;width: 4.3rem;}
+.boardContainer-left #panel .orderContainer{position: relative;padding-top: 0.4rem;width: 4.3rem;}
+.boardContainer-left #panel .orderContainer .orderTitle{position: fixed;top: 0.4rem;left: 0;width: 4.3rem;height: 0.4rem;line-height: 0.4rem;color:#fff;}
+.boardContainer-left #panel .orderContainer .orderContent{width: 4.3rem;margin-top: 0.4rem;padding-bottom: 0.65rem;}
+.boardContainer-left #panel .orderContainer .orderItem{width:100%;height:0.5rem;border-bottom: 0.01rem dashed #6d6c6c;}
+
+.boardContainer-left #panel .orderContainer .orderItem .textPoints{display:inline-block;height:0.22rem;overflow: hidden;word-break: break-all;text-overflow: ellipsis;
+    display: -webkit-box;display: -moz-box;-webkit-box-orient: vertical;-moz-box-orient: vertical;-webkit-line-clamp: 1;-moz-line-clamp: 1;}
+
+.boardContainer-left #panel .orderContainer .orderItem .textPoints2{display:block;width:1.23rem;height:0.2rem;overflow: hidden;word-break: break-all;text-overflow: ellipsis;
+    display: -webkit-box;display: -moz-box;-webkit-box-orient: vertical;-moz-box-orient: vertical;-webkit-line-clamp: 1;-moz-line-clamp: 1;  text-align: left;}
+
+.boardContainer-left .button-group{z-index: 1000;position: absolute;left: 0;bottom: 0;right:0;width: 4.3rem;padding: 0.1rem 0;color: #fff;}
+
+.ic_scalingTip_l{display:block;width:0.3rem;height:0.3rem;margin:0.05rem auto;background:url(../../img/icon_leftright.png) 0 0 no-repeat;background-size: 0.6rem 0.3rem;}
+.ic_scalingTip_r{display:block;width:0.3rem;height:0.3rem;margin:0.05rem auto;background:url(../../img/icon_leftright.png) -0.3rem 0 no-repeat;background-size: 0.6rem 0.3rem;}
+
+.display_n{display: none;}
+.float_l{float: left;}
+.padding_l_5{padding-left: 0.05rem;}
+.width_100{width: 100%;}
+.width_60{width: 60%;}
+.width_25{width: 25%;}
+.height_100{height: 100%;}
+.height_50{height: 50%;}
+.height_33{height: 33%;}
+.height_20{height: 20%;}
+.height_60{height: 60%;}
+.bgColor{background-color: #171717;}
+.font_12{font-size: 0.12rem;}
+.font_13{font-size: 0.13rem;}
+.font_14{font-size: 0.14rem;}
+.font_15{font-size: 0.15rem;}
+.font_16{font-size: 0.16rem;}
+.font_18{font-size: 0.18rem;}
+.text_c{text-align: center;}
+.color_white{color: #fff;}
+.color_white2{color: #e2e0e0; /*color: #fff;*/}
+.color_all{color:#01cbee;}
+.color_tu{color:orange;}
+.color_jindu{color:#53f105;}
+.color_text{color:#f19f05;}
+.done{color: #00ff97;}
+.done2{color: #237df3;}
+.no_done{color: #ff0000;}
+.cursor_p{cursor: pointer;}
+
+/*地图订单数量标记*/
+.provincePosDiv{width:1.4rem; height: 0.26rem;border-radius: 0.05rem;font-size: 0.12rem;}
+.provincePosDiv:before{width: 0;height: 0;content: '';position: absolute;
+    border-top: 0.1rem solid #8e8e8e;border-left: 0.1rem solid transparent;border-right: 0.1rem solid transparent;border-bottom: 0.1rem solid transparent;top: 0.27rem;left: 0.2rem;}
+.provincePosDiv:after{width: 0;height: 0;content: '';position: absolute;
+    border-top: 0.09rem solid #fffeef;border-left: 0.09rem solid transparent;border-right: 0.09rem solid transparent;border-bottom: 0.09rem solid transparent;top: 0.27rem;left: 0.21rem;}
+.provincePosDiv .provincePosDiv_l{display:inline-block;word-break:keep-all;white-space:nowrap;border: 0.01rem solid #8e8e8e;border-right:none;background-color: #fffeef; height: 0.26rem;line-height:0.26rem;text-align:center;
+    border-top-left-radius: 0.05rem;border-bottom-left-radius: 0.05rem;padding: 0 0.02rem;}
+.provincePosDiv .provincePosDiv_r{display:inline-block;border: 0.01rem solid #8e8e8e;border-left:none;background-color: #dc3912; height: 0.26rem;line-height:0.26rem;color: #ffffff;text-align:center;border-top-right-radius: 0.05rem;border-bottom-right-radius: 0.05rem;padding: 0 0.02rem;}
+
+
+/* 预加载、提示框 */
+.loading{position: fixed;top:0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.2);z-index: 1005;display: none;}
+.loading .fixed_content{position: fixed;top: 40%;width: 70%;height: 0.35rem;line-height: 0.35rem;margin-left: 15%;background: #1c1c1c;text-align: center;color: #fff;}
+.ajax-loder-wrap{text-align: center;line-height: 0.056rem;color: #666;font-size: 0.028rem;}

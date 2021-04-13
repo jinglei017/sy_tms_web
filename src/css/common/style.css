@@ -1,0 +1,7598 @@
+.overall {
+    width: 100%;
+    height: 100%;
+    min-width: 959px;
+    position: absolute;
+}
+
+.myOverall {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/*****header*****/
+.header {
+    border-bottom: 1px solid #f6f6f6;
+    box-sizing: border-box;
+    background-color: #fff;
+    width: 100%;
+    height: 50px;
+    color: rgba(0, 0, 0, .65);
+    line-height: 50px;
+    z-index: 1000;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+}
+
+.header .hLeft {
+    float: left;
+    padding: 0 10px;
+}
+
+.header ul li {
+    display: inline-block;
+    padding: 0 18px;
+    vertical-align: middle;
+    height: 50px;
+}
+
+.header ul li a img {
+    width: 16px;
+    height: 16px;
+    transition: all .2s;
+}
+
+.header .hRight {
+    float: right;
+    padding: 0 10px;
+}
+
+.header .hRight .userShow {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header .hRight .userShow img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #002e58;
+    margin: 12px 0;
+}
+
+.header .hRight .userShow span {
+    font-size: 13px;
+    padding-left: 8px;
+}
+
+.header .hRight .userShow .userInfo_show {
+    position: absolute;
+    right: 6px;
+    top: 49px;
+    padding-top: 6px;
+    display: none;
+    z-index: 999;
+}
+
+.header .hRight .userShow:hover .userInfo_show {
+    display: block;
+}
+
+.header .hRight .user_logout {
+    background: #fff;
+    width: 146px;
+    cursor: pointer;
+    border: 1px solid #d2d2d2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+    border-radius: 4px;
+}
+
+.header .hRight .user_logoutDiv {
+    height: 36px;
+    line-height: 36px;
+}
+
+.header .hRight .user_logoutDiv .txt {
+    float: left;
+    color: #555555;
+    padding-left: 14px;
+}
+
+.header .hRight .user_logoutDiv .btn {
+    display: block;
+    width: 36px;
+    height: 36px;
+    float: right;
+}
+
+.header .hRight .user_logoutDiv .btn.btn-userModify {
+    background: url(../../img/modifyPsd_0.png) no-repeat center center #fff;
+    background-size: 15px 15px;
+}
+
+.header .hRight .user_logoutDiv .btn.btn-userLogout {
+    background: url(../../img/logout_0.png) no-repeat center center #fff;
+    background-size: 15px 15px;
+}
+
+.header .hRight .user_logoutDiv.userModify:hover .btn {
+    background: url(../../img/modifyPsd_1.png) no-repeat center center;
+    background-size: 15px 15px;
+}
+
+.header .hRight .user_logoutDiv.userInfoModify:hover .btn {
+    background: url(../../img/modifyPsd_1.png) no-repeat center center;
+    background-size: 15px 15px;
+}
+
+.header .hRight .user_logoutDiv.userLogout:hover .btn {
+    background: url(../../img/logout_1.png) no-repeat center center;
+    background-size: 15px 15px;
+}
+
+.header .hRight .user_logoutDiv:hover {
+    background: #22bcee;
+}
+
+.header .hRight .user_logoutDiv:hover .txt {
+    color: #fff;
+}
+
+
+/*adsLeft*/
+.adsLeft {
+    width: 220px;
+    height: 100%;
+    min-height: 100vh;
+    min-width: 168px;
+    background: #2b303c;
+    transition: all .4s;
+    position: relative;
+    z-index: 10;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+    display: flex;
+    flex-direction: column;
+}
+
+.adsLeft .product_logo a {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adsLeft .product_logo img {
+    width: 50%;
+    min-width: 56px;
+    height: auto;
+}
+
+.adsLeft .adsLeftList {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.adsLeft .adsLeftList::-webkit-scrollbar {
+    display: none;
+}
+
+.adsLeft .adsLeftList .adsLeftItem > a {
+    width: 100%;
+    min-height: 48px;
+    line-height: 48px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, .7);
+    background: #393d49;
+    border-bottom: 1px solid #0a0a0a;
+}
+
+.adsLeft .adsLeftList .adsLeftItem:hover .titleItem {
+    color: #fff;
+    border-left: 4px solid #22bcee;
+    padding: 0 20px 0 16px;
+}
+
+.adsLeft .adsLeftList .adsLeftItem > a.white {
+    color: #fff;
+}
+
+.adsLeft .adsLeftList .adsLeftItem > a p {
+    display: flex;
+    align-items: center;
+}
+
+.adsLeft .adsLeftList .adsLeftItem .icon {
+    display: inherit;
+    padding-right: 10px;
+}
+
+.adsLeft .adsLeftList .adsLeftItem .icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.adsLeft .adsLeftList .adsLeftItem .dirIcon img {
+    width: 10px;
+    height: 5px;
+}
+
+.adsLeft .adsLeftList .adsLeftItem .dirIcon img:last-child {
+    display: none;
+}
+
+.adsLeft .adsLeftList .adsLeftItem .subMenu {
+    display: none;
+}
+
+.subMenu li a {
+    display: block;
+    width: 100%;
+    height: 46px;
+    color: rgba(255, 255, 255, .7);
+    font-size: 14px;
+    line-height: 46px;
+    box-sizing: border-box;
+    text-align: center;
+    border-bottom: 1px solid #363b46;
+    background: #2b303c;
+}
+
+.subMenu li a.active {
+    background: #22bcee;
+    color: #fff
+}
+
+.subMenu li a:hover {
+    color: #fff;
+}
+
+
+/*****adsContent*****/
+.adsContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
+    min-width: 900px;
+    overflow: hidden;
+    background: #f0f2f5;
+    box-sizing: border-box;
+}
+
+.adsContent .adsRight {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    position: relative;
+}
+
+.adsRightPackage {
+    flex: 1;
+    position: relative;
+}
+
+.adsContent .adsRight .applicontroller {
+    height: 62px;
+}
+
+.adsContent .adsRight .applicontroller .commandbarList {
+    height: 62px;
+    overflow: hidden;
+}
+
+.adsContent .adsRight .applicontroller .commandbarList li {
+    float: left;
+}
+
+.adsContent .adsRight .applicontroller .commandbarList li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.adsContent .adsRight .applicontroller .commandbarList li a:hover {
+    background: #335e7c;
+}
+
+.adsContent .adsRight .applicontroller .commandbarList .resetIcon {
+    width: 100%;
+    height: 16px;
+    display: block;
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.adsContent .adsRight .applicontroller .commandbarList .resetIcon img {
+    /*padding-left: 25px;*/
+    width: 18px;
+    height: auto;
+}
+
+.adsContent .adsRight .applicontroller .commandbarList .text {
+    color: #ccc;
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    height: 22px;
+    line-height: 13px;
+    letter-spacing: 1px;
+}
+
+.adsContent .adsRight .adsRightCon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConTitle {
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, .85);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5715;
+}
+
+.adsContent .adsRight .adsRightCon .logisticsItemTitle {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    padding-bottom: 12px;
+}
+
+.openDetailButtonDiv {
+    position: relative;
+    display: inline-block;
+    padding: 30px 0;
+}
+
+.openDetailButton {
+    font-size: 15px;
+    color: #fff;
+    line-height: 30px;
+    padding: 0 9px;
+    cursor: pointer;
+    background: #aaa;
+    display: inline-block;
+    border-radius: 3px;
+    margin-left: 19px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConTitle.marginBot10 {
+    margin-bottom: 10px;
+}
+
+.adsContent .adsRight .adsRightCon .driverOrderListRowDrop.marginBot20 {
+    margin-bottom: 20px;
+}
+
+.marginBot20 {
+    margin-bottom: 20px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConTitle .adsRightConTitleSpan1 {
+    float: right;
+    font-size: 13px;
+    color: #66fb65;
+    margin-right: 10px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConTitle .adsRightConTitleSpan2 {
+    float: right;
+    font-size: 13px;
+    color: #fbeb05;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp {
+    padding-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp > div {
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInpOnlyText {
+    padding-bottom: 10px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInpOnlyText li {
+    width: 25%;
+    line-height: 32px;
+    box-sizing: border-box;
+    margin-right: 0;
+    padding-right: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInpOnlyText li .txt {
+    color: #333;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInpOnlyText li .inp {
+    color: #666;
+}
+
+/*拆单明细列表*/
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInpBorder {
+    border-radius: 3px;
+}
+
+.adsRightConInpBorder p {
+    padding-left: 10px;
+    font-size: 18px;
+    line-height: 34px;
+    float: left;
+}
+
+.orderDetailSplitList {
+    width: 60%;
+    display: inline-block;
+}
+
+.orderDetailSplitList ul {
+    width: 100%;
+    display: table;
+}
+
+.orderDetailSplitList .orderUlTitle {
+    background: #5c9fba;
+}
+
+.orderDetailSplitList .orderUlTitle li {
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    padding: 12px 0;
+    font-weight: 600;
+}
+
+.orderDetailSplitList ul li table {
+    width: 100%;
+}
+
+.orderDetailSplitList ul li table th, .orderDetailSplitList ul li table td {
+    width: 20%;
+    text-align: center;
+    display: inline-block;
+    float: left;
+}
+
+.orderDetailSplitList .orderUlContent {
+    border: 1px solid #ccc;
+    border-top: 0;
+    box-sizing: border-box;
+}
+
+.orderDetailSplitList .orderUlContent li {
+    color: #333;
+    display: inline-block;
+    text-align: center;
+    padding: 12px 0;
+    vertical-align: middle;
+}
+
+.orderDetailSplitList .orderUlContent li a {
+    color: blue;
+    text-decoration: underline;
+}
+
+.orderDetailSplitList .orderUlContent li tbody {
+    padding: 10px 0;
+    display: table-caption;
+}
+
+.orderDetailSplitList .orderUlContent li tbody tr {
+    display: inline-block;
+    width: 100%;
+}
+
+.orderDetailSplitList .orderUlContent li table td input {
+    border: 1px solid #ddd;
+    padding-left: 8px;
+    box-sizing: border-box;
+}
+
+/*地址信息*/
+.orderDetailAddressItem {
+    width: 38%;
+    height: 290px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    display: inline-block;
+    float: right;
+}
+
+.addressItemShipper {
+    width: 100%;
+    height: 125px;
+    box-sizing: border-box;
+    padding: 10px 10px 10px 30px;
+}
+
+.addressItemShipper > p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDetailAddressItem .addressItemShipper ul {
+    padding: 5px 0;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDetailAddressItem .addressItemShipper ul li {
+    width: 47%;
+    display: inline-block;
+    padding-right: 1%;
+    margin: 3px 0;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDetailAddressItem .addressItemShipper ul li:nth-child(2n) {
+    margin-left: 10%;
+    width: 35%;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDetailAddressItem .addressItemShipper ul li p {
+    display: inline-block;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDetailAddressItem .addressItemShipper ul li input {
+    border-bottom: 1px solid #ddd;
+    width: 130px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    margin-left: 5px;
+}
+
+.addressItemEdit span {
+    float: right;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 50px;
+    background: #00528b;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInpDingUl {
+    padding: 12px 45px;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 0;
+}
+
+.adsContent .adsRight .adsRightConLogistics {
+    overflow: hidden;
+}
+
+.adsContent .adsRight .adsRightConLogistics .logisticsItem ul {
+    overflow: hidden;
+}
+
+.adsContent .adsRight .adsRightCon .logisticsItem .adsRightConInp.adsRightConInpOnlyText li {
+    width: 50%;
+}
+
+.adsContent .adsRight .adsRightConLogistics .logisticsItem ul li .txt {
+    font-size: 14px;
+    color: #555;
+}
+
+.adsContent .adsRight .adsRightConLogistics .logisticsItem .adsRightConInp li .inp {
+    font-size: 14px;
+    color: #666;
+    line-height: 32px;
+}
+
+.adsContent .adsRight .adsRightConLogistics .logisticsItem .adsRightConInp li {
+    width: 30%;
+}
+
+.adsContent .adsRight .adsRightConLogistics .adsRightConRight {
+    width: 60%;
+    float: left;
+}
+
+.adsContent .adsRight .adsRightConLogistics .adsRightConRight #container {
+    width: 100%;
+    height: calc(100vh - 360px);
+}
+
+.adsContent .adsRight .adsRightConLogistics.truckDriveCont .logisticsInf {
+    width: 45%;
+    float: left;
+}
+
+.adsContent .adsRight .adsRightConLogistics.truckDriveCont .adsRightConRight {
+    width: 54%;
+    float: right;
+}
+
+.adsContent .adsRight .adsRightConRight .truckDriveContMap {
+    width: 100%;
+    height: 100%;
+}
+
+.adsContent .adsRight .deliveryPointInf {
+    position: relative;
+    overflow: hidden;
+}
+
+.adsContent .adsRight .deliveryPointInf .deliveryPointItem {
+    width: 47%;
+    padding-right: 3%;
+    float: left;
+}
+
+.adsContent .adsRight .deliveryPointInf .deliveryPointItem .adsRightConItem {
+    width: 100%;
+}
+
+.adsContent .adsRightConList .adsRightConMatter .deliveryPointInf {
+    width: 100%;
+    height: 100%;
+}
+
+.adsContent .adsRightConList .adsRightConMatter .adsRightConItem.adsRightConHaveMap {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.adsContent .adsRightConList .adsRightConMatter .adsRightConItem .deliveryPointInf {
+
+}
+
+.adsContent .adsRightConList .adsRightConMatter .deliveryPointInf.spaceBetween .adsRightConItem {
+    width: 40%;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    float: left;
+}
+
+.adsContent .adsRightConList .adsRightConMatter .deliveryPointInf.spaceWhole .adsRightConItem {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.adsContent .adsRight .template .adsRightCon.adsRightConBulk .adsRightConList {
+    background: transparent;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem.adsRightConItemSplit {
+    width: 100%;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem.adsRightConItemSplit .adsRightConItemTabConLe {
+    width: 43.5%;
+    float: left;
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 3px 3px 8px #dfdfdf;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem.adsRightConItemSplit .adsRightConInp {
+    width: 100%;
+    border: none;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem.adsRightConItemSplit .adsRightConInp .adsRightConInpBtn1,
+.adsContent .adsRight .deliveryPointInf .adsRightConItem.adsRightConItemSplit .adsRightConInp .adsRightConInpBtn2 {
+    text-align: center;
+    padding-top: 25px;
+}
+
+.adsRightConItem.adsRightConItemSplit .adsRightRight {
+    width: 55%;
+    height: 616px;
+    float: left;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-left: 1.5%;
+    box-shadow: 3px 3px 8px #dfdfdf;
+}
+
+.adsRightConItem.adsRightConItemSplit:nth-child(3) .adsRightRight {
+    height: 760px;
+}
+
+.adsRightConItem.adsRightConItemSplit .adsRightRight .adsRightShow {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.adsRightShow h3 {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.adsRightShow h3 span {
+    font-size: 12px;
+    font-weight: 500;
+    color: #888;
+}
+
+.adsRightShow .certificatesShow {
+    padding: 10px 0;
+    height: 180px;
+    position: relative;
+}
+
+.adsRightShow .certificatesShow .addCersAlready {
+    float: left;
+}
+
+.adsRightShow .certificatesShow .addCersAlready p {
+    font-size: 13px;
+    color: #666;
+    padding-left: 15px;
+    line-height: 30px;
+}
+
+.adsRightShow .certificatesShow .addCersAlready li {
+    float: left;
+    position: relative;
+}
+
+.adsRightShow .certificatesShow .addCersAlready li .cooperClose {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 5px;
+    top: -5px;
+}
+
+.adsRightShow .certificatesShow .addCersAlready li:nth-child(1) {
+    padding-left: 0;
+}
+
+.adsRightShow .certificatesShow .addCers {
+    float: left;
+}
+
+.adsRightShow .certificatesShow .cooperMagnify {
+    position: absolute;
+    top: 10px;
+    display: none;
+}
+
+.cooperMagnify div {
+    position: relative;
+}
+
+.cooperMagnify p {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 30px;
+    line-height: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.cooperMagnify img {
+    width: auto;
+    max-width: 600px;
+    height: auto;
+    max-height: 386px;
+}
+
+.adsRightShow .certificatesShow li img, .adsRightShow .certificatesShow a img {
+    width: 180px;
+    height: 180px;
+    cursor: pointer;
+}
+
+.searchSplit {
+    padding: 20px 20px;
+    height: 32px;
+}
+
+.searchSplit li {
+    float: left;
+}
+
+.searchSplit li input {
+    height: 30px;
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    margin-right: 20px;
+}
+
+.searchSplit li button {
+    width: 72px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #00365b;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 1px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.adsContent .adsRight .deliveryPointInf.spaceBetween .adsRightConItem .adsRightConInp {
+    display: inline-block;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.adsContent .adsRight .deliveryPointInf.spaceBetween .adsRightConItem .adsRightConInp li {
+    float: none;
+    margin-bottom: 16px;
+}
+
+.adsContent .adsRight .deliveryPointInf.spaceBetween .adsRightConItem .adsRightConInp li .txt {
+    width: 86px;
+    text-align: right;
+}
+
+.adsContent .adsRight .adsRightConHaveMap .deliveryPointInf.spaceBetween .adsRightConItem .adsRightConInp li {
+    float: left;
+    width: 33%;
+    line-height: 32px;
+    box-sizing: border-box;
+    margin-right: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.adsContent .adsRight .adsRightConHaveMap .deliveryPointInf.spaceBetween .adsRightConItem .adsRightConInp li .txt {
+    width: auto;
+    text-align: left;
+}
+
+.adsContent .adsRight .deliveryPointInf.spaceBetween .adsRightConItem .adsRightConInp li.totaoUlconBtn {
+    padding-left: 91px;
+}
+
+.adsContent .adsRight .deliveryPointInf.spaceWhole .adsRightConItem .reportMessages {
+    height: calc(100% - 45px);
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem .adsRightConInp li.adsRightConInpBtn1, .adsContent .adsRight .deliveryPointInf .adsRightConItem .adsRightConInp li.adsRightConInpBtn2 {
+    width: 100%;
+    cursor: default;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem .adsRightConInp li.adsRightConInpBtn1 > span,
+.adsContent .adsRight .deliveryPointInf .adsRightConItem .adsRightRight .adsRightShow .saveUploadImage span {
+    display: inline-block;
+    width: 110px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    background: #00365b;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem .adsRightConInp li.adsRightConInpBtn2 > span {
+    display: inline-block;
+    /*float: right;*/
+    width: 72px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    background: #00365b;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 1px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.adsContent .adsRight .adsRightConMatter .adsRightConItem .adsRightConInp li .zzDiv {
+    padding: 8px 0 8px 15px;
+}
+
+.adsContent .adsRight .adsRightConMatter .adsRightConItem .adsRightConInp li .zzDiv input {
+    float: left;
+}
+
+.adsContent .adsRight .adsRightConMatter .adsRightConItem .adsRightConInp li.zzDivLi .zzDiv span,
+.adsContent .adsRight .adsRightConMatter .adsRightConItem .adsRightConInp li.roleDivLi .zzDiv span{
+    font-size: 13px;
+    color: #000;
+    float: left;
+    line-height: 16px;
+    padding-left: 4px;
+    font-weight: 100;
+    position: relative;
+    border: 0;
+}
+
+/* --- cd Tab ---- start ----- */
+.adsContent .adsRight .deliveryPointInf .adsRightConItemTab {
+    width: 100%;
+    height: 100%;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItemTab .adsRightConItemTabTit {
+    width: 100%;
+    height: 42px;
+    border-bottom: 2px solid #00365b;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItemTab .adsRightConItemTabTit > li {
+    float: left;
+    width: 20%;
+    height: 42px;
+    line-height: 42px;
+    background: #5c9fba;
+    font-size: 15px;
+    color: #fff;
+    padding-left: 14px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItemTab .adsRightConItemTabTit > li.active {
+    background: #00365b;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItemTabCon .adsRightConItem.adsRightConItemTabConItem {
+    width: 100%;
+    height: calc(100% - 42px);
+    overflow-y: auto;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItemTabCon .adsRightConItem.adsRightConItemTabConItem .adsRightConItemTabConLe {
+    /*display: inline-block;
+    float: left;
+    width: 42%;*/
+    /*max-height: calc(100vh - 330px);
+    overflow-y: auto;*/
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .chooseLi {
+    width: auto;
+    margin-left: 0;
+    margin-bottom: 12px;
+    float: none;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .chooseLi span {
+    height: 32px;
+    line-height: 32px;
+    background: #c6c6c6;
+    color: #fff;
+    font-size: 14px;
+    display: block;
+    padding-left: 12px;
+    padding-right: 12px;
+    float: left;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .chooseLi .packageGoodsBtn {
+    height: 32px;
+    line-height: 32px;
+    background: #003d66;
+    color: #fff;
+    font-size: 14px;
+    display: block;
+    padding-left: 12px;
+    padding-right: 12px;
+    float: none;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem .adsRightConInp .addBtnLi .inp input {
+    float: left;
+}
+
+.adsContent .adsRight .deliveryPointInf .adsRightConItem .adsRightConInp .addBtnLi .inp span {
+    width: 72px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    background: #f7a700;
+    float: left;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 1px;
+    margin-left: 12px;
+}
+
+.adsContent .adsRightConList .adsRightConMatter .deliveryPointInf.spaceBetween .adsRightConRight {
+    width: 60%;
+    height: 100%;
+    padding: 20px 24px;
+    box-sizing: border-box;
+    float: right;
+    background: #fff;
+}
+
+.adsContent .adsRightConList .deliveryPointInf.spaceBetween .adsRightConRight #container {
+    width: 100%;
+    height: 100%;
+}
+
+.adsContent .adsRight .commodityInf .adsRightConItem {
+    width: 100%;
+}
+
+.adsContent .adsRight .commodityInf .adsRightConItem .adsRightConInp {
+    overflow: hidden;
+    padding-top: 20px;
+}
+
+.adsContent .adsRight .commodityInf .adsRightConItem .adsRightConInp li {
+    float: left;
+    padding-right: 18px;
+    margin-bottom: 20px;
+}
+
+.adsContent .adsRight .commodityInf .adsRightConItem .adsRightConInp li .txt {
+    width: 130px;
+    height: 36px;
+    line-height: 36px;
+}
+
+.adsContent .adsRight .commodityInf .adsRightConItem .adsRightConInp li .inp input {
+    width: 220px;
+    height: 36px;
+}
+
+.adsContent .adsRight .commodityInf .adsRightConItem .adsRightConInp li .inp input:disabled {
+    background: #fafafa;
+}
+
+.adsContent .adsRight .contactInf .adsRightConItem .adsRightConInp li .txt {
+    width: 85px;
+    text-align: right;
+    float: left;
+}
+
+.adsContent .adsRight .contactInf .adsRightConItem .adsRightConInp li .inp {
+    float: left;
+    padding-left: 9px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li {
+    position: relative;
+    cursor: pointer;
+    float: left;
+    margin-right: 32px;
+    margin-bottom: 12px;
+    display: flex;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.searchBtn {
+    margin-right: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.selectInfoBtn {
+    margin-right: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.conjointlyLi .overdueTime {
+    border-left: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.conjointlyLi {
+    margin-left: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.conjointlyLi input[type="text"] {
+    border-left: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .chooseInfoImage {
+    display: inline-block;
+    position: absolute;
+    right: 3px;
+    bottom: -1.5px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .chooseInfoImage .chooseContactBtn {
+    padding: 0;
+    margin: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.selectedProductList {
+    width: 100%;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.selectedProductList table {
+    width: 100%;
+}
+
+.selectedProductList th, .selectedProductList td {
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    color: #333;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.receiptCheckbox {
+    margin-left: 65px;
+    margin-top: 15px;
+}
+
+.receiptCheckbox .inp {
+    padding: 0 15px;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+    color: #333;
+    border: 1px dashed #bfbfbf;
+}
+
+.receiptCheckbox .inp input {
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+.selectedProductList tr {
+    border-bottom: 1px solid #ccc;
+}
+
+.selectedProductList thead tr {
+    border-top: 1px solid #ccc;
+}
+
+.selectedProductList td {
+    font-size: 13px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.selectedProductList td:nth-child(9) input {
+    width: 48px;
+    height: 28px;
+    float: left;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.selectedProductList td:nth-child(9) select {
+    width: 45px;
+    height: 28px;
+    border-left: 0;
+    float: left;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.selectedProductList input[type="text"] {
+    height: 28px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.selectedProductList .chooseContactBtn {
+    margin-top: 0;
+    width: auto;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 7px;
+    padding: 0 5px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .adsRightConInpLiDiv {
+    width: 100%;
+    height: 70px;
+}
+
+.adsContent .adsRight .adsRightCon .theOrderInfoTitle {
+    text-align: left;
+    margin-top: 15px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.adsContent .adsRight .adsRightCon .theOrderInfoTitle h3 {
+    width: 38px;
+    height: 38px;
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+    line-height: 38px;
+    font-weight: 500;
+    background: #00365b;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: inline-block;
+}
+
+.adsContent .adsRight .adsRightCon .theOrderInfoTitle p {
+    color: #333333;
+    font-size: 17px;
+    line-height: 38px;
+    font-weight: 500;
+    padding-left: 7px;
+    display: inline-block;
+}
+
+.adsContent .adsRight .adsRightCon .theOrderInfoTitle div {
+    height: 1px;
+    width: 83%;
+    border-bottom: 1px dashed #666;
+    position: absolute;
+    top: 50%;
+    left: 14%;
+    display: inline-block;
+}
+
+
+.adsContent .adsRight .adsRightCon .deliveryPointInf .adsRightConInp li .chooseContactBtn {
+    height: 32px;
+    line-height: 32px;
+    background: #003d66;
+    color: #fff;
+    font-size: 14px;
+    display: block;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .chooseContactBtn {
+    height: 32px;
+    line-height: 32px;
+    background: #003d66;
+    color: #fff;
+    font-size: 14px;
+    display: block;
+    padding-left: 9px;
+    padding-right: 9px;
+    text-align: center;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li.selectInfoBtn .chooseContactBtn {
+    margin-top: 0;
+    padding-left: 0;
+    padding-right: 10px;
+}
+
+.selectInfoBtn .chooseContactBtn img {
+    width: 26px;
+    height: 26px;
+}
+
+.adsContent .adsRight .adsRightCon .deliveryPointInf .adsRightConInp li.deleteListItemLi {
+    width: 100%;
+}
+
+.adsContent .adsRight .adsRightCon .deliveryPointInf .adsRightConInp li.deleteListItemLi > span {
+    height: 32px;
+    line-height: 32px;
+    background: #003d66;
+    color: #fff;
+    font-size: 14px;
+    display: block;
+    padding-left: 9px;
+    padding-right: 9px;
+    float: right;
+    margin-right: 10px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .txt {
+    line-height: 32px;
+    padding-right: 5px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.adsRightConInp.adsRightConInp72 li .txt,
+.userModifyUl.adsRightConInp72 li label {
+    width: 72px;
+    text-align: right;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInp1 li,
+.popupType6 .adsRightCon .adsRightConInp.adsRightConInp1 li {
+    width: 110px;
+    padding-top: 12px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInp1 li .txt,
+.popupType6 .adsRightCon .adsRightConInp.adsRightConInp1 li .txt {
+    width: 110px;
+    height: 50px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInp1 li .txt img,
+.popupType6 .adsRightCon .adsRightConInp.adsRightConInp1 li .txt img {
+    padding: 0 25px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInp1 li .inp,
+.popupType6 .adsRightCon .adsRightConInp.adsRightConInp1 li .inp {
+    width: 110px;
+    height: 24px;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp.adsRightConInp1 li .downloadFileItem,
+.popupType6 .adsRightCon .adsRightConInp.adsRightConInp1 li .downloadFileItem {
+    font-size: 12px;
+    line-height: 19px;
+    color: #1798e7;
+    text-decoration: underline;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .chooseIsDefault {
+    line-height: 32px;
+    padding-left: 5px;
+    color: #888;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .anormalTxt {
+    width: 96%;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .anormalTxt .inp {
+    width: 100%;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .anormalTxt .inp textarea {
+    width: 30%;
+    height: 72px;
+    padding: 6px;
+    line-height: 30px;
+    font-size: 13px;
+    border: 1px solid #e5e5e5;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .anormalTxt .inp textarea:focus {
+    outline: none;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li input[type="text"],
+.adsContent .adsRight .adsRightCon .adsRightConInp li input[type="password"]{
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    border: 1px solid #bfbfbf;
+    background: #fff;
+    width: 164px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li input[type="text"]:disabled {
+    background: #f5f8fd;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .inp > span:nth-child(2) {
+    position: absolute;
+    right: 0;
+    top: 0;
+    line-height: 32px;
+    padding: 0 10px;
+    border-left: 1px solid #bfbfbf;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .inp.unit {
+    position: relative;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .inp.unit input[type="text"] {
+    padding-right: 32px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .inp.unit span {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 7px;
+    line-height: 32px;
+    font-size: 13px;
+    color: #666;
+    border-left: 1px solid #bfbfbf;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_select,
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_selectNo {
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    border: 1px solid #bfbfbf;
+    min-width: 164px;
+    max-width: 300px;
+    padding-left: 5px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    background: url("../../img/select_1.png") no-repeat right center transparent;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_select.active {
+    background: none;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_select .a_selectLi,
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_selectNo .a_selectLi {
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #e8e8e8;
+    color: rgba(0, 0, 0, .65);
+    background-color: #f5f8fd;
+    border-radius: 2px;
+    cursor: default;
+    display: inline-block;
+    margin-right: 4px;
+    padding: 0 5px 0 5px;
+    box-sizing: border-box;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_selectNo {
+    background: none;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_selectNo .a_selectLi {
+    background: none;
+    border: none;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_select .a_selectLi.a_selectLiDetail {
+    border: none;
+    background: transparent;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_select .a_selectLi img {
+    width: 10px;
+    height: 10px;
+    padding-left: 6px;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_selectOption {
+    position: absolute;
+    top: 100%;
+    width: 164px;
+    max-height: 240px;
+    background: #fff;
+    z-index: 20;
+    border: 1px solid #e5e5e5;
+    border-top: 0;
+    box-sizing: border-box;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 4px 8px #efefef;
+    overflow-y: auto;
+    display: none;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_selectOption p {
+    color: #000;
+    line-height: 22px;
+    padding: 0 8px;
+    background: transparent;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_selectOption p:hover {
+    background: #f2f2f2;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .a_selectOption p.active {
+    color: #fff;
+    background: url("../../img/select.png") no-repeat right 6px center;
+    background-color: #1e90ff;
+    background-size: 13px 16px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .completionTime,
+.adsContent .adsRight .adsRightCon .adsRightConInp .effectDate,
+.adsContent .adsRight .adsRightCon .adsRightConInp .expiredDate {
+    width: 164px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    color: #666;
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .overdueTime {
+    width: 180px;
+    box-sizing: border-box;
+    padding-left: 9px;
+    height: 34px;
+    line-height: 34px;
+    display: block;
+    color: #666;
+    border: 1px solid #bfbfbf;
+    border-radius: 3px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .data {
+    position: relative;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .data #completionTime,
+.adsContent .adsRight .adsRightCon .adsRightConInp .data #effectDate,
+.adsContent .adsRight .adsRightCon .adsRightConInp .data #expiredDate {
+    position: absolute;
+    left: 0;
+    top: 68px;
+    background: #fff;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .data #overdueTime {
+    position: absolute;
+    left: 0;
+    top: 68px;
+    background: #fff;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li select {
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    border: 1px solid #bfbfbf;
+    background-color: #fff;
+    width: 164px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li select:disabled {
+    background: #f5f8fd;
+    cursor: default;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li select.txtSmall {
+    width: 125px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .unitsLi .inp input {
+    float: left;
+    width: 60px;
+    border-right: none;
+    box-sizing: border-box;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .unitsLi .inp input.width85 {
+    width: 89px !important;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .unitsLi .inp select {
+    width: 120px;
+    float: left;
+    box-sizing: border-box;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .unitsLi .inp select.width85 {
+    width: 75px !important;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .adsRightConInpLiDiv .addressLi .inp {
+    width: 400px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .addressLi .inp select {
+    width: 104px;
+    float: left;
+    border-right: none;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .adsRightConInpLiDiv .addressLi .inp select {
+    width: 100px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .addressLi .inp select {
+    float: left;
+    border-right: none;
+    width: 100px;
+    border-radius: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .addressLi .inp select:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .addressLi .inp select:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-right: 1px solid #aaa;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .remarkLi {
+    width: 100%;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .remarkLi input {
+    width: calc(100% - 120px);
+}
+
+.adsContent .adsRight .adsRightCon .adsRightOrderInf {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightOrderInf ul {
+    overflow: hidden;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightOrderInf ul li {
+    width: 24.5%;
+    float: left;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightOrderInf ul li.indexShowImg {
+    width: 14%;
+    float: left;
+    padding-right: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightOrderInf ul li.indexShowImg .dataDisc {
+    color: #00365b;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightOrderInf ul li.indexShowImg > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightOrderInf ul li .ConTitleItem {
+    background: #fff;
+    padding-left: 20px;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightOrderInf ul li .ConTitleItem .showImg {
+    width: 35px;
+    height: auto;
+    margin: 15px 5px 7px 5px;
+}
+
+.adsRight .adsRightCon .adsRightOrderInf ul li .ConTitleItem .showData {
+    display: block;
+    line-height: 66px;
+    height: 66px;
+    font-size: 36px;
+    color: #22bcee;
+}
+
+.adsRight .adsRightCon .adsRightOrderInf ul li .ConTitleItem .dataDisc {
+    display: block;
+    height: 28px;
+    color: #888;
+}
+
+.adsRight .adsRightCon .adsRightConMain {
+    flex: 1;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.adsRight .adsRightCon .adsRightConMain.adsRightConMainBetween {
+    background: transparent;
+}
+
+.adsRight .adsRightCon .adsRightConMain.adsRightConHaveTree {
+    padding: 15px 0;
+}
+
+.adsRight .adsRightCon .adsRightConMain.adsRightConHaveTree #tableMain {
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+}
+
+.adsRight .pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+}
+
+.adsRight .pageHeader ul {
+    display: flex;
+    transition: all .5s;
+    min-width: 180px;
+}
+
+.adsRight .pageHeaderL li span {
+    color: #666;
+    display: inline-block;
+    margin: 0 20px;
+    font-size: 14px;
+    line-height: 46px;
+    height: 46px;
+    cursor: pointer;
+}
+
+.adsRight .pageHeaderL li span a {
+    color: #666;
+    display: inline-block;
+}
+
+.adsRight .pageHeaderL li span.active {
+    color: #22bcee;
+    border-bottom: 2px solid #22bcee;
+    box-sizing: border-box;
+}
+
+.adsRight .pageHeaderR {
+    justify-content: flex-end;
+}
+
+.adsRight .pageHeaderC li {
+    color: #666;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.adsRight .pageHeader .pageHeaderBack {
+    display: none;
+    padding-right: 16px;
+    line-height: 46px;
+    cursor: pointer;
+    text-align: right;
+}
+
+.adsRight .pageHeader .pageHeaderBack li {
+    padding: 0 4px;
+    border-radius: 4px;
+    color: #22bcee;
+}
+
+.adsRight .pageHeaderBack img {
+    width: 18px;
+    height: 13px;
+    padding-right: 2px;
+}
+
+.adsRight .adsRightCon .textBoxTitle, .adsRight .adsRightCon .adsRightConItem .textBoxTitle {
+    display: table;
+    padding-top: 13px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.textBoxTitle li {
+    cursor: pointer;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    line-height: 32px;
+}
+
+.textBoxTitle li label {
+    line-height: 32px;
+    padding: 0 5px 0 15px;
+    color: #666;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.textBoxTitle.textBoxTitle26 li label {
+    font-size: 13px;
+    line-height: 26px;
+}
+
+.textBoxTitle li input, .textBoxTitle li select {
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    border: 1px solid #bfbfbf;
+    width: 164px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.textBoxTitle li select.timeSelect {
+    width: 92px;
+    margin-right: 10px;
+}
+
+.textBoxTitle.textBoxTitle26 li input, .textBoxTitle.textBoxTitle26 li select {
+    height: 26px;
+    line-height: 26px;
+    font-size: 13px;
+}
+
+.textBoxTitle.textBoxTitle26 li.checkBtnAll input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 5px 40px 5px 8px;
+    display: none;
+}
+
+.textBoxTitle.textBoxTitle26 li.checkBtnAll label {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    line-height: 20px;
+    cursor: pointer;
+    border: 1px solid #22bcee;
+    border-radius: 3px;
+    padding: 0;
+    margin: 5px 26px 5px 8px;
+}
+
+.textBoxTitle.textBoxTitle26 li.checkBtnAll label.active {
+    background: url(../../img/checked2.png) no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.textBoxTitle li .batchBox {
+    display: none;
+    z-index: 200;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.textBoxTitle li:hover .batchBox {
+    display: block;
+}
+
+.textBoxTitle li .batchBox.batchBoxBottom {
+    bottom: 100%;
+    padding-bottom: 8px;
+}
+
+.textBoxTitle li .batchBox.batchBoxBottom:before,
+.textBoxTitle li .batchBox.batchBoxBottom:after {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -7px;
+    line-height: 0;
+    content: '';
+    position: absolute;
+    border: 8px solid transparent;
+    border-top: 8px solid #dcdcdc;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.textBoxTitle li .batchBox.batchBoxBottom:after {
+    bottom: -5px;
+    border-top: 6px solid #fff;
+}
+
+.textBoxTitle li .batchBox.batchBoxTop {
+    top: 100%;
+    padding-top: 8px;
+}
+
+.textBoxTitle li .batchBox.batchBoxTop:before,
+.textBoxTitle li .batchBox.batchBoxTop:after {
+    left: 50%;
+    transform: translateX(-50%);
+    top: -7px;
+    line-height: 0;
+    content: '';
+    position: absolute;
+    border: 8px solid transparent;
+    border-bottom: 8px solid #dcdcdc;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.textBoxTitle li .batchBox.batchBoxTop:after {
+    top: -5px;
+    border-bottom: 6px solid #fff;
+}
+
+.textBoxTitle li .batchBox .batchBoxUl {
+    padding: 0 5px 0 13px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 -2px 4px rgba(0, 21, 41, .08);
+    border-radius: 3px;
+}
+
+.textBoxTitle li .batchBox .batchBoxUl .searchBtn .suspend {
+    padding-top: 6px;
+}
+
+.textBoxTitle li .batchBox .batchBoxUl .searchBtn .suspend b a {
+    color: blue;
+    text-decoration: underline;
+}
+
+.adsRightCon .textBoxTitle li .batchBox .batchBoxUl .searchBtn .triangle {
+    position: absolute;
+    top: 100%;
+    right: 40%;
+    border-top: none;
+    border-bottom: 7px solid #efefef;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    display: none;
+}
+
+.adsRightCon .textBoxTitle li .batchBox .batchBoxUl .searchBtn:hover .triangle {
+    display: block;
+}
+
+.textBoxTitle li input.timePlugIn {
+    width: 190px;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle li select option {
+    height: 30px;
+    line-height: 30px;
+    display: block;
+}
+
+.adsRight .adsRightCon .awardTitle {
+    margin: 20px 20px 0 20px;
+    padding: 20px 0 20px 20px;
+    background: #fff;
+}
+
+.adsRight .adsRightCon .awardTitle .title {
+    height: 30px;
+    font-weight: normal;
+    font-size: 14px;
+    color: #333;
+}
+
+.adsRight .adsRightCon .awardTitle .con {
+    overflow: hidden;
+    padding-bottom: 35px;
+}
+
+.adsRight .adsRightCon .awardTitle .con .item {
+    float: left;
+    padding-left: 26px;
+    padding-right: 22px;
+    background: url(../../img/radiobutton_default.png) no-repeat left center;
+    cursor: pointer;
+}
+
+.adsRight .adsRightCon .awardTitle .con .item a {
+    color: #333;
+}
+
+.adsRight .adsRightCon .awardTitle .con .selected {
+    background: url(../../img/radiobutton_click.png) no-repeat left center;
+}
+
+.adsRight .adsRightCon .awardTitle .generate {
+    width: 120px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    background: #fafafa;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    color: #666666;
+}
+
+.adsRight .adsRightCon .awardTitle .shuffle {
+    height: 45px;
+    line-height: 45px;
+    color: #333;
+}
+
+.adsRight .adsRightCon .adsRightConMain .triangle {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    display: block;
+    border-top: 4px solid #888;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+
+.adsRight .adsRightCon .adsRightConMain .transAdsRightConMain .textBoxTitle {
+    position: relative;
+    width: 40%;
+    padding-top: 8px;
+    padding-bottom: 0;
+}
+
+.adsRight .adsRightCon .adsRightConMain .transAdsRightConMain .textBoxTitle li {
+    margin-bottom: 0;
+    border-radius: 3px;
+}
+
+.adsRight .adsRightCon .adsRightConMain .transAdsRightConMain .classBoxTitle {
+    position: relative;
+    width: 53%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 8px 0;
+
+}
+
+.adsRight .adsRightCon .adsRightConMain .transAdsRightConMain .classBoxTitle li {
+    width: 170px;
+    color: #999;
+}
+
+.adsRight .adsRightCon .adsRightConMain .transAdsRightConMain .classBoxTitle li .numColor {
+    color: #00C2B1;
+}
+
+.adsRight .adsRightCon .adsRightConMain .transAdsRightConMain .reportMessagesOrderBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #00528b;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.adsRight .adsRightCon .adsRightConMain .transAdsRightConMain .reportMessagesOrderBtnRight {
+    background-image: url(../../img/windowicon/jtRight.png);
+}
+
+.adsRight .adsRightCon .adsRightConMain .transAdsRightConMain .reportMessagesOrderBtnLeft {
+    background-image: url(../../img/windowicon/jtLeft.png);
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .data {
+    position: relative;
+    z-index: 3;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .data .reportrange {
+    height: 32px;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .searchBtn {
+    border: none;
+    width: auto;
+    margin-right: 0;
+}
+
+/*按钮*/
+.searchBtn {
+    position: relative;
+}
+
+.searchBtn > span, .searchBtn p {
+    background: #22bcee;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    white-space: nowrap;
+    padding: 0 16px;
+    margin-right: 8px;
+    cursor: pointer;
+    border: 1px solid #22bcee;
+}
+
+.textBoxTitle26 .searchBtn > span,
+.textBoxTitle26 .searchBtn p {
+    line-height: 26px;
+    height: 26px;
+    padding: 0 5px;
+    font-size: 13px;
+}
+
+.searchBtn > span .halfAndHalf {
+    display: inline-block;
+    box-shadow: none;
+}
+
+.searchBtn > span.halfAndHalf:first-child {
+    margin-right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+.searchBtn > span.halfAndHalf:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.searchBtn .whiteBtn {
+    background: transparent;
+    color: #22bcee;
+}
+
+/*按钮上有图标*/
+.searchBtn span i:before {
+    display: inline-block;
+    content: '';
+    width: 15px;
+    height: 15px;
+    margin: -3px 5px -3px 0;
+    background: url(../../img/fontIcon/function_icon_add.png) no-repeat left center;
+    background-size: 100% 100%;
+}
+
+.textBoxTitle26 .searchBtn span i:before {
+    display: inline-block;
+    content: '';
+    width: 13px;
+    height: 13px;
+    margin: -2px 5px -2px 0;
+}
+
+.searchBtn span b:after {
+    display: inline-block;
+    content: '';
+    width: 15px;
+    height: 15px;
+    margin: -2px 0 -2px 5px;
+    background: url(../../img/popselect_1.png) no-repeat left center;
+    background-size: 95% 95%;
+}
+
+.searchBtn span.mapShow b:after {
+    background: url(../../img/markerb_1.png) no-repeat right center;
+    background-size: 100% 100%;
+}
+
+/*路径*/
+.searchBtn span.line i:before {
+    background: url(../../img/line_1.png) no-repeat left center;
+    background-size: 100% 100%;
+}
+
+/*框选*/
+.searchBtn span.region i:before {
+    background: url(../../img/kuangX.png) no-repeat left center;
+    background-size: 100% 100%;
+}
+
+/*跳转*/
+.searchBtn span.skip i:before {
+    background: url(../../img/skip.png) no-repeat left center;
+    background-size: 100% 100%;
+}
+
+.searchBtn span.skip a {
+    color: #fff;
+    display: inline-block;
+}
+
+/*批量操作*/
+.searchBtn span.batch i:before {
+    background: url(../../img/batch.png) no-repeat left center;
+    background-size: 100% 100%;
+}
+
+/*筛选*/
+.searchBtn span.collSwitch i:before {
+    background: url(../../img/screen_1.png) no-repeat left center;
+    background-size: 100% 100%;
+}
+
+.searchBtn span.collSwitch1 i:before {
+    background: url(../../img/screen_2.png) no-repeat left center;
+    background-size: 100% 100%;
+}
+
+.searchBtn .collUnfold {
+    position: absolute;
+    top: 100%;
+    left: -12px;
+    padding: 8px 0;
+    display: none;
+}
+
+.searchBtn .collUnfold > div {
+    padding: 5px 10px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #d2d2d2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+    border-radius: 4px;
+}
+
+.searchBtn .collUnfold > div:before, .searchBtn .collUnfold > div:after {
+    left: 40px;
+    top: -15px;
+    line-height: 0;
+    margin-top: 4px;
+    content: '';
+    position: absolute;
+    border: 10px solid transparent;
+    border-bottom: 10px solid #dcdcdc;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.searchBtn .collUnfold > div:after {
+    top: -13px;
+    border-bottom: 10px solid #fff;
+}
+
+.searchBtn .collUnfold > div > p {
+    background: transparent;
+    border: none;
+    text-align: right;
+    padding: 0;
+    margin-right: 0;
+    line-height: 1
+}
+
+.searchBtn .collUnfold > div > p img {
+    width: 13px;
+}
+
+.searchBtn .collUnfold ul {
+    max-height: 560px;
+    max-width: 310px;
+    overflow: auto;
+}
+
+.searchBtn .collUnfold ul::-webkit-scrollbar {
+    width: 2px;
+}
+
+.searchBtn .collUnfold ul li {
+    float: right;
+}
+
+.searchBtn .collUnfold .collSearch {
+    text-align: center;
+    margin: 8px 0;
+}
+
+.searchBtn .collUnfold .collSearch span {
+    display: inline-block;
+    box-shadow: none;
+}
+
+.searchBtn .likeOption {
+    position: relative;
+}
+
+.searchBtn .likeOption input {
+    background: url(../../img/select_1.png) no-repeat right center transparent;
+    cursor: pointer;
+}
+
+.searchBtn .likeOption .hang {
+    position: fixed;
+    /*top: 100%;*/
+    /*right: 0;*/
+    width: 164px;
+    z-index: 3;
+    background: #fff;
+    box-sizing: border-box;
+    border: 1px solid #22bcee;
+}
+
+.searchBtn .likeOption .hang dd {
+    padding: 0 10px;
+    font-size: 13px;
+    color: #666;
+    line-height: 20px;
+}
+
+.searchBtn .likeOption .hang dd:hover {
+    background: #f4f4f4;
+}
+
+.searchBtn .likeOption .hang dd.active {
+    background: #22bcee url(../../img/select.png) no-repeat right 6px center;
+    background-size: 15px 15px;
+    color: #fff;
+}
+
+.searchBtn .likeOption .hang dd.active:hover {
+    background: #22bcee url(../../img/select.png) no-repeat right 6px center;
+    background-size: 15px 15px;
+}
+
+/*按钮上有悬浮*/
+.searchBtn .suspend {
+    position: absolute;
+    top: 100%;
+    right: 8px;
+    white-space: nowrap;
+    padding-top: 12px;
+    z-index: 999;
+    display: none;
+}
+
+.searchBtn .suspend b {
+    font-weight: 100;
+    background: #efefef;
+    padding: 8px 5px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #000;
+}
+
+.searchBtn .suspend b a {
+    color: blue;
+}
+
+.adsRight .searchBtn .triangle {
+    position: absolute;
+    top: 31px;
+    right: 40%;
+    border-top: none;
+    border-bottom: 7px solid #efefef;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    display: none;
+    z-index: 999;
+}
+
+.searchBtn:hover > .suspend {
+    display: block;
+}
+
+.searchBtn:hover > .triangle {
+    display: block;
+}
+
+.adsRight .adsRightCon .adsRightConMain .searchBtn:hover .triangle {
+    display: block;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .searchBtn.searchBtnModel {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .reportrange .img {
+    width: 16px;
+    float: left;
+    padding-left: 5px;
+    height: 29px;
+    padding-top: 3px;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .reportrange .img img {
+    width: 100%;
+    height: auto;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .reportrange span {
+    width: 190px;
+    height: 32px;
+    line-height: 32px;
+    float: left;
+    box-sizing: border-box;
+    color: #666;
+    padding-left: 12px;
+    font-size: 13.33333px;
+}
+
+.packageGoodsList .reportMessages {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.adsContent .adsRight .packageGoodsList .signStatusConInp {
+    width: 100%;
+}
+
+.adsContent .adsRight .packageGoodsList .adsRightConInp .signStatus {
+    width: 380px;
+}
+
+.adsContent .adsRight .packageGoodsList .adsRightConInp .signStatus .txt {
+    width: 72px;
+    float: left;
+}
+
+.adsContent .adsRight .packageGoodsList .adsRightConInp .signStatus .inp {
+    float: left;
+}
+
+.packageGoodsList .reportMessages table tr .rqty input {
+    width: 80px;
+    height: 30px;
+    border: 1px solid #aaa;
+    margin: 0 auto;
+    color: #333;
+    padding-left: 9px;
+}
+
+.packageGoodsList .reportMessages table tr .rcause input {
+    width: 220px;
+    height: 30px;
+    border: 1px solid #aaa;
+    margin: 0 auto;
+    color: #333;
+    padding-left: 9px;
+}
+
+.borderLeft3 {
+    border-left: 3px solid red;
+}
+
+.reportMessages {
+    flex: 1;
+    overflow: auto;
+    min-height: 100px;
+}
+
+.reportMessages table {
+    width: 100%;
+}
+
+.comAccessoryBut {
+    color: #fff;
+    background: #22bcee;
+    padding: 4px 5px;
+    border-radius: 4px;
+    outline: 0;
+    border: 0;
+}
+
+.reportMessages table tr th, .reportMessages table tr td {
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    min-height: 20px;
+    line-height: 20px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.reportMessages table tr th.filtersTh {
+    padding: 0;
+}
+
+.reportMessages table tr th.filtersTh select {
+    padding: 9px 17px 9px 3px;
+    margin-top: -2px;
+    color: #fff;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url(../../img/close_2.png) no-repeat scroll right center transparent;
+    background-size: 10% 18%;
+}
+
+.reportMessages table tr th.filtersTh select:focus {
+    border: none;
+}
+
+.reportMessages table tr th.filtersTh select option {
+    color: #666;
+}
+
+.reportMessages table tr td {
+    color: #666;
+    padding: 6px 15px;
+}
+
+.reportMessages table thead tr {
+    background: #686c74;
+}
+
+.reportMessages table tbody tr:nth-child(2n) td {
+    background-color: #f7f7f7;
+}
+
+.reportMessages table tbody tr:hover td {
+    background: #e6f7ff;
+}
+
+.reportMessages table .foldBotton {
+    position: relative;
+    cursor: pointer;
+}
+
+.reportMessages table .foldBotton p {
+    width: 75px;
+    position: absolute;
+    top: -2px;
+    left: 26px;
+    border-radius: 4px;
+    box-shadow: 0 0 3px #757575;
+    background-color: #fff;
+    box-sizing: border-box;
+    z-index: 999;
+    white-space: pre-wrap;
+    display: none;
+}
+
+.reportMessages table .foldBotton p.active {
+    top: auto;
+    bottom: -2px;
+}
+
+.reportMessages table .foldBotton p:before,
+.reportMessages table .foldBotton p:after {
+    left: -17px;
+    top: 0;
+    line-height: 0;
+    margin-top: 4px;
+    content: '';
+    position: absolute;
+    border: 8px solid transparent;
+    border-right: 8px solid #dcdcdc;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.reportMessages table .foldBotton p.active:before,
+.reportMessages table .foldBotton p.active:after {
+    top: auto;
+    bottom: 0;
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+.reportMessages table .foldBotton p:after {
+    left: -14px;
+    border-right: 6px solid #fff;
+}
+
+.reportMessages table .foldBotton p span {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 8px;
+    color: #333;
+}
+
+.reportMessages table .handleIcon {
+    display: inline-block;
+    width: 18px;
+    height: 19px;
+    background: url(../../img/handle_1.png) no-repeat center center;
+    background-size: 100%;
+}
+
+.reportMessages table tr th.repMesTh1 {
+    width: 420px;
+}
+
+.reportMessages table tr th.repMesTh2 {
+    width: 80px;
+}
+
+.reportMessages table tr th.repMesTh3 {
+    width: 160px;
+}
+
+.reportMessages table tr th.repMesTh4 {
+    width: 100px;
+}
+
+.reportMessages table tr td .repMesTh4_p {
+    text-align: center;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp li .reportMessages table tr td .repMesTh4_p input {
+    display: inline-block;
+}
+
+.reportMessages table tr td .btn {
+    display: inline-block;
+}
+
+.reportMessages table tr td .btn:hover {
+    background: #22bcee;
+    color: #fff;
+}
+
+.butOperatePermission {
+    display: none;
+}
+
+.butOperateShow {
+    display: inline-block;
+}
+
+.textBoxTitle li.fileUploadHint {
+    display: none;
+}
+
+.adsContent .adsRight .applicontroller .commandbarList li .butOperatePermission {
+    display: none;
+}
+
+.reportMessages table thead tr td .input input[type="text"] {
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    border: 1px solid #bfbfbf;
+    width: 164px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.reportMessages table tr th:nth-child(1), .reportMessages table tr td:nth-child(1) {
+    padding-left: 14px;
+}
+
+.reportMessages table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.reportMessages table tr th .select, .reportMessages table tr td .select {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #333;
+}
+
+.reportMessages table tr th .selected, .reportMessages table tr td .selected {
+    width: 18px;
+    height: 18px;
+    border: none;
+    background: url(../../img/checked1.png) no-repeat;
+    background-size: 18px 18px;
+}
+
+.reportMessages .paging {
+    overflow: hidden;
+}
+
+.reportMessages .paging .pageToolbar {
+    float: right;
+}
+
+.adsContent .adsLeft {
+    display: block;
+    position: absolute;
+    left: 0;
+    z-index: 5;
+}
+
+.adsContent .adsLeft .adsLeftList {
+    overflow: hidden;
+}
+
+.template {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 120%;
+    transition: all .5s;
+}
+
+.template.active {
+    left: 0;
+    top: 0;
+}
+
+.templateMin {
+    background: #00365b;
+    box-sizing: border-box;
+    border: 1px solid #00568f;
+    border-left: none;
+    border-bottom: none;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .templateMin .title h2 {
+    font-size: 14px;
+    width: 14px;
+    line-height: 26px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.adsContent .adsRight .templateMin .title .crumbs {
+    display: none;
+}
+
+.adsContent .adsRight .templateMin .applicontroller {
+    display: none;
+}
+
+.adsContent .adsRight .templateMin .adsRightCon {
+    display: none;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConRoleList {
+    width: 60%;
+    margin-bottom: 15px;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .roleitemLi {
+    width: 90%;
+    height: 36px;
+    line-height: 36px;
+    color: #333;
+    padding-left: 12px;
+    margin-bottom: 3px;
+    background: #f9fafa;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .roleitemLi:hover {
+    background: #f3f5f7;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .roleItemActive {
+    color: #fff;
+    background: #22bcee url('../../img/select.png') no-repeat right 10px center;
+    background-size: 20px 20px;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .roleItemActive:hover {
+    color: #fff;
+    background: #22bcee url('../../img/select.png') no-repeat right 10px center;
+    background-size: 20px 20px;
+}
+
+/*分单*/
+.adsRightCon .adsRightConList .adsRightConMatter .receiptTaskDivs {
+    width: 80%;
+}
+
+.splitOrderTitle, .splitOrderContent {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 2%;
+}
+
+.splitOrderContent {
+    height: auto;
+    padding: 10px 2%;
+    margin-bottom: 15px;
+    background: #efefef;
+    border-radius: 5px;
+}
+
+.splitOrderTitle li, .splitOrderContent li {
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 40px;
+}
+
+.splitOrderContent li {
+    font-weight: 500;
+}
+
+.splitOrderTitle li:nth-child(1), .splitOrderTitle li:nth-child(2),
+.splitOrderContent li:nth-child(1), .splitOrderContent li:nth-child(2) {
+    width: 10%;
+}
+
+.splitOrderTitle li:nth-child(4), .splitOrderContent li:nth-child(4) {
+    width: 36%;
+}
+
+.splitOrderTitle li:nth-child(3), .splitOrderContent li:nth-child(3) {
+    width: 30%;
+}
+
+.splitOrderTitle li:nth-child(5), .splitOrderContent li:nth-child(5) {
+    width: 7.5%;
+}
+
+.splitOrderContent li:nth-child(5) span {
+    font-size: 12px;
+    color: #fff;
+    background: #448ca9;
+    border-radius: 3px;
+    padding: 3px 5px;
+    cursor: pointer;
+}
+
+.splitOrderContent li:nth-child(2) select {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.splitOrderContent li:nth-child(3) input {
+    font-size: 14px;
+    padding: 5px 10px;
+    width: 70px;
+}
+
+.splitOrderContent li:nth-child(3) input:nth-child(2) {
+    margin-left: 11px;
+    width: 100px;
+}
+
+.splitOrderContent li:nth-child(4) select, .splitOrderContent li:nth-child(4) input {
+    width: 90px;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 5px 3px;
+    vertical-align: middle;
+}
+
+.splitOrderContent li:nth-child(4) input {
+    width: 100px;
+}
+
+.adsContent .adsRight .adsRightCon .receiptTaskDivs .adsRightConTitle span {
+    float: right;
+    width: 24px;
+    height: 24px;
+    font-size: 22px;
+    line-height: 22px;
+    margin: 7px 12px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+
+.addressSymbol {
+    line-height: 28px;
+    margin: 5px 0;
+    display: inline-block;
+    width: 28px;
+    color: orange;
+    border: 1px solid orange;
+    background: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList {
+    flex: 1;
+    overflow: hidden;
+}
+
+.adsRightCon .adsRightConList .adsRightConTab {
+    height: 49px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding-top: 8px;
+    margin-left: 20px;
+}
+
+.adsRightCon .adsRightConList .adsRightConTab li {
+    width: auto;
+    height: 38px;
+    line-height: 36px;
+    float: left;
+    box-sizing: border-box;
+    margin-right: 42px;
+    color: #333;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .dropCon {
+    width: 298px;
+    background: #fff;
+    top: 33px;
+    position: absolute;
+    display: none;
+    border: 1px solid #aaaaaa;
+    border-radius: 0 0 3px 3px;
+    z-index: 10;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.adsRightConMatter .adsRightConItem .adsRightConCodeBox {
+    overflow: hidden;
+}
+
+.adsRightConMatter .adsRightConItem .adsRightConCode {
+    float: left;
+    width: 35%;
+}
+
+.adsRightConMatter .adsRightConItem .adsRightConCode:nth-of-type(2) .title {
+    padding-left: 20px;
+    padding-top: 66px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .adsRightConCode .title {
+    color: #333;
+    font-size: 14px;
+    display: block;
+    height: 40px;
+    line-height: 34px;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem {
+    height: 34px;
+    line-height: 34px;
+    color: #333;
+    padding-bottom: 10px;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .week {
+    float: left;
+    width: 50px;
+    padding-right: 20px;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .until {
+    float: left;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .weekStart, .adsRightConMatter .adsRightConItem .con .onTheSetItem .weekEnd {
+    float: left;
+    width: 100px;
+    position: relative;
+}
+
+.adsRightConMatter .adsRightConItem .con .dropCon {
+    display: block;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .weekStart .dropCon, .adsRightConMatter .adsRightConItem .con .onTheSetItem .weekEnd .dropCon {
+    width: 100px;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .weekVal {
+    width: 91px;
+    padding-left: 9px;
+    height: 33px;
+    border-bottom: 1px solid #666666;
+    cursor: pointer;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .check {
+    float: left;
+    overflow: hidden;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .check a {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 10px;
+    background: url(../../img/checkbox_default.png) no-repeat;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .checked a {
+    background: url(../../img/checkbox_click.png) no-repeat;
+}
+
+.adsRightConMatter .adsRightConItem .con .onTheSetItem .check em {
+    padding-left: 12px;
+    font-style: normal;
+}
+
+.adsRightCon .adsRightConList .adsRightConListSort .adsRightConMatter {
+    display: none;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .multiselect {
+    overflow: hidden;
+    padding-bottom: 7px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .triangle {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    display: block;
+    border-top: 4px solid #888;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .dropCon dd {
+    height: 25px;
+    line-height: 25px;
+    padding-left: 8px;
+    color: #444;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .dropCon dt {
+    margin: 4px;
+    padding-left: 6px;
+    border: 1px solid #aaa;
+    line-height: 27px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .dropCon dt input {
+    width: 100%;
+    height: 25px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .dropCon .active {
+    background: #5897fb;
+    color: #fff;
+}
+
+.adsRightCon .adsRightConList .adsRightConTab .active {
+    color: #0078d7;
+    border-bottom: 2px solid #0078d7;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.adsRightCon .adsRightConList .adsRightCost {
+    background: #fff;
+    margin-bottom: 30px;
+}
+
+.adsRightCost .adsRightConMatter .adsCostAddr {
+    border-bottom: 1px dashed #bbb;
+    padding: 0 20px 20px;
+}
+
+.adsRightCost .adsCostAddr .adsCostAddrSide {
+    margin-right: 35px;
+    display: inline-block;
+}
+
+.adsRightCost .adsCostAddr .adsCostAddrSide p {
+    display: inline-block;
+    width: 45px;
+    font-size: 14px;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+.adsRightCost .adsCostAddr .adsCostAddrSide input {
+    display: inline-block;
+    width: 175px;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
+}
+
+.adsRightCost .adsCostAddr .adsCostAddrCen {
+    display: inline-block;
+    margin-right: 35px;
+    width: 60px;
+    height: 60px;
+    background: url(../../img/carriage_arrow.png) center center no-repeat;
+    background-size: 60px 6px;
+    vertical-align: middle;
+}
+
+.adsCostInfo {
+    width: 100%;
+    padding: 47px 20px 20px;
+    box-sizing: border-box;
+    display: table;
+}
+
+.adsCostState {
+    float: left;
+    width: 26%;
+    height: 290px;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 15px 30px;
+    box-shadow: 3px 3px 8px #cecece;
+}
+
+.adsCostState1 {
+    margin-right: 6%;
+    width: 48%;
+}
+
+.adsCostState h5 {
+    font-size: 16px;
+}
+
+.adsContent .adsRight .adsRightCon .adsCostState .adsRightConInp {
+    border: none;
+}
+
+.adsContent .adsRight .adsRightCon .adsCostState .adsRightConInp li {
+    width: 100%;
+    margin-bottom: 12px;
+    margin-left: 0;
+}
+
+.adsContent .adsRight .adsRightCon .adsCostState1 .adsRightConInp li {
+    width: 50%;
+}
+
+/*.adsContent .adsRight .adsRightCon .adsCostState .adsRightConInp li select,*/
+/*.adsContent .adsRight .adsRightCon .adsCostState .adsRightConInp li input{*/
+/*	border: 0;*/
+/*	float: left;*/
+/*	border-bottom: 1px solid #ddd;*/
+/*	padding-left: 20px;*/
+/*	background: #f7f7f7;*/
+/*}*/
+.adsContent .adsRight .adsRightCon .adsCostState .adsRightConInp li .txt {
+    width: 90px;
+    margin-right: 15px;
+    text-align: right;
+    float: left;
+    display: inline-block;
+}
+
+.adsContent .adsRight .adsRightCon .adsCostState .adsRightConInp li .inp {
+    display: inline-block;
+    position: relative;
+}
+
+.adsContent .adsRight .adsRightCon .adsCostState .adsRightConInp li .inp span {
+    position: absolute;
+    right: 28px;
+    line-height: 34px;
+    color: #333;
+}
+
+.costContentFillBott {
+    display: table;
+    padding: 12px 0;
+    float: right;
+}
+
+.costContentList {
+    margin-top: 25px;
+}
+
+.costContentList .reportMessagesH5 {
+    font-size: 16px;
+    line-height: 40px;
+}
+
+.costContentList .reportMessages td .deleBtns {
+    line-height: 24px;
+    display: inline-block;
+    padding: 0 7px;
+    background: green;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.costContentList .reportMessages td .deleBtns1 {
+    background: #3c8dbc;
+}
+
+.shareContentFill {
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+}
+
+.adsContent .adsRight .adsRightCon .shareContentFill .adsRightConInp {
+    border: 0;
+    float: left;
+}
+
+.shareContentFill .adsRightConInp {
+    width: 75%;
+    display: inline-flex;
+}
+
+.shareContentFillBott {
+    display: table;
+    padding: 12px 0;
+    float: right;
+}
+
+.saveShareInfo {
+    display: inline-block;
+    width: 48px;
+    height: 22px;
+    margin-right: 10px;
+    border: 1px solid #3c8dbc;
+    border-radius: 3px;
+    color: #3c8dbc;
+    line-height: 22px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.adsRightConItemTabConRi {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    width: 100%;
+    float: left;
+}
+
+.adsRightConItemTabConRi td .deleBtns {
+    color: #22bcee;
+    text-decoration: underline;
+    padding-right: 3px;
+    cursor: pointer;
+}
+
+.shareCarInfosDiv {
+    padding-bottom: 10px;
+    max-height: 680px;
+    overflow-y: auto;
+}
+
+.shareCarInfosDiv .carInfosCont {
+    padding: 10px 15px;
+}
+
+.shareCarInfosDiv .carInfosCont.carInfosContBtn {
+    text-align: center;
+}
+
+.shareCarInfosDiv .carInfosCont > h5 {
+    color: #333;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.shareCarInfosDiv .carInfosCont > h5 span {
+    color: #22bcee;
+    font-weight: 500;
+    text-decoration: underline;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.shareCarInfosDiv .carInfosCont .carouselPar {
+    height: 380px;
+    overflow-y: auto;
+}
+
+.shareCarInfosDiv .carInfosCont .carouselItem {
+    padding: 10px;
+    padding-left: 35px;
+    padding-bottom: 0;
+    margin-bottom: 5px;
+    background: #F4f6f8;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.shareCarInfosDiv .carInfosCont .carouselItem.active {
+    background: #d6effb url(../../img/windowicon/yzRight.png) no-repeat left 10px top 12px;
+    background-size: 20px 20px;
+}
+
+.shareCarInfosDiv .carInfosCont .carouselItem .singleSwitch span:last-child {
+    display: none;
+}
+
+.shareCarInfosDiv .carInfosCont .carouselItem .adsRightConInp:last-child {
+    display: none;
+}
+
+.shareCarInfosDiv .carInfosCont .carouselItem .adsRightConInp.active:last-child {
+    display: flex;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp li {
+    position: relative;
+    cursor: pointer;
+    float: left;
+    margin-right: 32px;
+    margin-bottom: 12px;
+    display: flex;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp li .txt {
+    line-height: 32px;
+    padding-right: 5px;
+    color: #666;
+    white-space: nowrap;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp.adsRightConInp66 li .txt {
+    width: 66px;
+    text-align: right;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp li.coupletSelect{
+    display: inline-block;
+}
+.shareCarInfosDiv .carInfosCont .adsRightConInp li.coupletSelect .txt,
+.shareCarInfosDiv .carInfosCont .adsRightConInp li.coupletSelect label{
+    float: left;
+}
+.shareCarInfosDiv .carInfosCont .adsRightConInp li.coupletSelect input[type="text"]{
+    float: left;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp li.coupletSelect .fateCon {
+    width: 164px;
+    background: #fff;
+    top: 30px;
+    margin-left: 32px;
+    display: block;
+    border: 1px solid #bfbfbf;
+    border-radius: 0 0 3px 3px;
+    z-index: 9999999;
+    max-height: 216px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    clear: both;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp.adsRightConInp66 li.coupletSelect .fateCon {
+    left: 71px;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp li.coupletSelect .fateCon dd {
+    padding-left: 12px;
+    cursor: pointer;
+    line-height: 30px;
+    color: #666;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp li.coupletSelect .fateCon dd:hover {
+    background: rgba(34, 188, 238, 0.22);
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp li input[type="text"],
+.shareCarInfosDiv .carInfosCont .adsRightConInp li select {
+    height: 32px;
+    line-height: 32px;
+    display: block;
+    border: 1px solid #bfbfbf;
+    width: 164px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.shareCarInfosDiv .carInfosCont .adsRightConInp li input[type="checkbox"] {
+    margin: 7px 0;
+}
+
+
+.shareCarInfosDiv .carInfosCont .contactInfo .fateCon {
+    width: 180px;
+    background: #fff;
+    position: absolute;
+    display: block;
+    border: 1px solid #aaaaaa;
+    border-radius: 0 0 3px 3px;
+    z-index: 99;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.shareCarInfosDiv .carInfosCont .contactInfo .fateCon dd {
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+.shareCarInfosDiv .carInfosCont .contactInfo .fateCon dd:hover {
+    background: #f3f5f7;
+}
+
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem {
+    padding: 20px 24px;
+    margin-top: 24px;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem:first-child {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem.noBackground {
+    background: transparent;
+}
+
+.adsRightConItem.noBackground .searchBtn {
+    text-align: center;
+}
+
+.adsRightConItem.noBackground .searchBtn span {
+    display: inline-block;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .addNewOrderBot,
+.popup .popupCon .popupDpList .addNewOrderBot {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .addNewOrderBot span,
+.popup .popupCon .popupDpList .addNewOrderBot span {
+    display: inline-block;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem.mapInfoMatter {
+    height: 700px;
+    display: none;
+    transition: all .3s;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .mapInfoMatter .reportMessagesMapBtn {
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .title {
+    font-weight: normal;
+    height: 30px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .title span {
+    font-weight: bold;
+    font-size: 14px;
+    float: left;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .title a {
+    font-size: 12px;
+    line-height: 19px;
+    color: #1798e7;
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .title i {
+    float: left;
+    font-style: normal;
+    padding-left: 6px;
+    margin-top: -2px;
+    color: #ff4d4d;
+    font-size: 16px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .title img {
+    float: left;
+    padding-left: 6px;
+    margin-top: -2px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con {
+    width: 100%;
+    line-height: 34px;
+    position: relative;
+    display: table;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .dropDown {
+    width: 300px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList {
+    width: 360px;
+    height: 35px;
+    line-height: 34px;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding-bottom: 66px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList input {
+    font-size: 14px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountItem {
+    border: 1px solid #aaa;
+    width: 300px;
+    padding-bottom: 0;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList span {
+    float: left;
+    padding-left: 6px;
+    padding-right: 6px;
+    color: #666;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList .subtitle {
+    width: 115px;
+    float: left;
+    border: none;
+    padding-right: 3px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList .num {
+    width: 85px;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList a {
+    float: left;
+    color: #0078D7;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .addAmountbtn {
+    color: #0078D7;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList span, .adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList p {
+    color: #333;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountItem span, .adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountItem p {
+    color: #666;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList input {
+    color: #333;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList .dataIcon {
+    background-position: 90px 11px;
+    padding-left: 3px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .amountList .dataIcon input {
+    color: #666;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .subtitle {
+    width: 300px;
+    height: 34px;
+    line-height: 34px;
+    color: #aaa;
+    border: 1px solid #aaa;
+    padding-left: 7px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .editCon .subtitle {
+    border: none;
+    color: #666;
+    padding-left: 0;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .editCon .subtitle a {
+    font-size: 12px;
+    color: #428bca;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .editCon .subtitle a:hover {
+    text-decoration: underline;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .editCon .subtitle input {
+    font-size: 14px;
+    color: #666;
+    padding-left: 0;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .dataIcon {
+    position: relative;
+    background: url(../../img/data_icon.png) no-repeat 270px center;
+    background-size: 14px 14px;
+}
+
+.daterangepicker.single {
+    width: 290px;
+}
+
+.daterangepicker.single .calendar {
+    width: 288px;
+    max-width: 288px;
+    margin: 0;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .dataIcon input {
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .searchIcon {
+    background: url(../../img/search.png) no-repeat 280px center;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .subtitle input {
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    color: #333;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con ul {
+    width: 300px;
+    box-sizing: border-box;
+    position: absolute;
+    left: -1px;
+    top: 34px;
+    border: 1px solid #aaa;
+    border-radius: 0 0 2px 2px;
+    background: #fff;
+    display: none;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con ul li {
+    line-height: 25px;
+    color: #333333;
+    padding-left: 6px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con ul li:first-child {
+    margin: 4px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 6px;
+    border: 1px solid #aaa;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con ul li:nth-child(2) {
+    background: #5897fb;
+    color: #fff;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con textarea {
+    width: 300px;
+    height: 126px;
+    box-sizing: border-box;
+    padding: 6px;
+    line-height: 20px;
+    border: 1px solid #aaa;
+    background: none;
+    color: #333;
+    display: block;
+    font-size: 14px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .submit {
+    width: 110px;
+    height: 36px;
+    line-height: 34px;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    background: #0078d7;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .item {
+    float: left;
+    padding-left: 26px;
+    padding-right: 22px;
+    background: url(../../img/radiobutton_default.png) no-repeat left center;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .item a {
+    color: #666666;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .selected {
+    background: url(../../img/radiobutton_click.png) no-repeat left center;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .sheetCon {
+    display: table;
+    border-top: 1px solid #eeeeee;
+    border-left: 1px solid #eeeeee;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .sheetCon dl {
+    overflow: hidden;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .sheetCon dl dd {
+    float: left;
+    padding-left: 14px;
+    border-right: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+    height: 28px;
+    line-height: 28px;
+    background: #fff;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .sheetCon dl:nth-child(2n - 1) dd {
+    background: #f6f6f6;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .sheetCon dl .li1 {
+    width: 86px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .sheetCon dl .li2 {
+    width: 106px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .sheetCon dl .li3 {
+    width: 146px;
+}
+
+/************************/
+.adsRightCon .adsRightConDownload {
+    margin: 20px;
+    background: #fff;
+}
+
+.adsRightCon .adsRightConDownload .downloadTitle {
+    line-height: 30px;
+    border-bottom: 1px solid #888;
+    font-size: 16px;
+    margin: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.adsRightCon .adsRightConDownload .downloadCon {
+    padding: 20px;
+    padding-bottom: 0;
+}
+
+.adsRightCon .adsRightConDownload .downloadCon ul {
+    padding-top: 26px;
+    padding-bottom: 0;
+}
+
+.adsRightCon .adsRightConDownload .downloadCon ul li {
+    height: 22px;
+    line-height: 22px;
+    padding-bottom: 52px;
+
+}
+
+.adsRightCon .adsRightConDownload .downloadCon ul li a {
+    font-size: 18px;
+    display: block;
+    height: 22px;
+    color: #333;
+}
+
+.adsRightCon .adsRightConDownload .downloadCon ul li a:hover {
+    color: #0078d7;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom {
+    border-top: 1px dashed grey;
+    padding-bottom: 10px;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom .title {
+    overflow: hidden;
+    padding-top: 26px;
+    padding-bottom: 20px;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom .putDown {
+    width: auto;
+    height: 32px;
+    float: left;
+    border: 1px solid #aaa;
+    margin-left: 20px;
+    position: relative;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom .fate .fateTitle {
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding-left: 8px;
+    color: #808080;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom .fate .fateTitleIcon {
+    background: url(../../img/search.png) no-repeat 160px center;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom .fateCon {
+    width: 180px;
+    background: #fff;
+    top: 34px;
+    position: absolute;
+    left: 1px;
+    display: none;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom .fateCon li {
+    height: 25px;
+    line-height: 25px;
+    padding-left: 8px;
+    color: #444;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom .con {
+    padding-left: 20px;
+    padding-top: 8px;
+}
+
+.adsRightCon .adsRightConDownload .downloadBottom .con li {
+    font-size: 16px;
+    padding-bottom: 20px;
+    color: #333;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .nape {
+    padding-left: 26px;
+    padding-right: 22px;
+    background: url(../../img/radiobutton_default.png) no-repeat left center;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .nape a {
+    color: #666666;
+}
+
+.adsRightCon .adsRightConList .userInfoCon .userInfoConTitle {
+    padding: 20px;
+    padding-bottom: 3px;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.adsRightCon .adsRightConList .userInfoCon .userInfoConTitle h3 {
+    font-weight: normal;
+    float: left;
+    font-size: 24px;
+}
+
+.adsRightCon .adsRightConList .userInfoCon .userInfoConTitle a {
+    float: left;
+    color: #428bca;
+    padding-left: 26px;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures {
+    overflow: hidden;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .topPic {
+    width: 100px;
+    height: 100px;
+    background: #f2f2f2;
+    position: relative;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .topPic span {
+    position: absolute;
+    width: 100px;
+    display: block;
+    text-align: center;
+    height: 100px;
+    line-height: 100px;
+    font-size: 12px;
+    color: #333;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .topPic input {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConTitle .downloadFile {
+    color: blue;
+    font-size: 13px;
+    font-weight: 400;
+    text-decoration: underline;
+    margin-left: 13px;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups .imageList .imageItem {
+    float: left;
+    padding-right: 20px;
+    padding-bottom: 12px;
+    position: relative;
+    cursor: pointer;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups .imageList .imageItem .txt {
+    display: block;
+    text-align: center;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups .imageList .imageItem .txt img {
+    width: 50px;
+    height: auto;
+    padding-top: 20px;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups .imageList .imageItem .inp {
+    width: 126px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 32px;
+    text-align: center;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups .imageList .imageItem .pic img {
+    width: 120px;
+    height: 120px;
+    padding: 2px;
+    display: inline-block;
+    border: 1px dashed #bfbfbf;
+    transition: all .3s;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups .imageList .imageItem .picBtn img:hover {
+    border-color: #22bcee;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups .imageList .imageItem .delete {
+    width: 120px;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    background: rgba(0, 0, 0, 0.5);
+    height: 26px;
+    overflow: hidden;
+    transition: all 0.4s;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups .imageList .imageItem .delete em {
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: url(../../img/windowicon/bar_icon_close.png) no-repeat;
+    background-size: 100% 100%;
+    float: right;
+    margin-top: 7px;
+    margin-right: 8px;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageGroups input {
+    width: 140px;
+    height: 140px;
+    display: block;
+    float: right;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .address .subtitle {
+    float: left;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .address span {
+    float: left;
+    font-weight: bold;
+    font-size: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 16px;
+}
+
+.adsRightCon .adsRightConList .userInfoCon .adsRightConMatter {
+    padding-bottom: 0;
+}
+
+.adsRightCon .adsRightConList .userClassify {
+    padding-top: 0;
+    padding-left: 0;
+}
+
+.adsRightCon .adsRightConList .userClassify .userClassifyTitle {
+    height: 53px;
+    line-height: 45px;
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+    padding-left: 15px;
+}
+
+.adsRightCon .adsRightConList .userClassify .userClassifyTitle li {
+    padding-left: 9px;
+    padding-right: 9px;
+    margin-right: 9px;
+    float: left;
+    height: 40px;
+    font-size: 16px;
+    color: #666;
+    cursor: pointer;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .con .stateBtn {
+    height: 30px;
+    line-height: 30px;
+    border: 2px solid #e74856;
+    color: #e74856;
+    text-align: center;
+    display: block;
+    font-size: 13px;
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 86px;
+}
+
+.adsRightCon .adsRightConList .userClassify .classifyInfo {
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.adsRightCon .adsRightConList .userClassify .classifyInfo ul {
+    display: none;
+}
+
+.adsRightCon .adsRightConList .userClassify .userClassifyTitle .active {
+    color: #0078d7;
+    border-bottom: 2px solid #0078d7;
+}
+
+.adsRightConMatter .classifyInfo .adsRightConItem .uploadPictures .imageDesc .prompt {
+    line-height: 26px;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageDesc {
+    float: left;
+    padding-left: 20px;
+    color: #999;
+    font-size: 14px;
+}
+
+.adsRightConMatter .adsRightConItem .uploadPictures .imageDesc .prompt {
+    font-size: 12px;
+    color: #888;
+}
+
+.adsRight .adsRightConMain .reportMessages table tr td .edit {
+    width: auto;
+}
+
+.adsRight .adsRightConMain .reportMessages table tr td .see {
+    width: auto;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .figureCon {
+    overflow: hidden;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .figureCon .dollarSign {
+    float: left;
+    color: #333;
+    padding-right: 12px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .figureCon .subtitle {
+    float: left;
+}
+
+/*路线排单*/
+.popupCon .pathOrderListCon .textBoxTitle {
+    padding-top: 12px;
+    padding-right: 20px;
+    overflow: hidden;
+}
+
+.popupCon .pathOrderListCon .textBoxTitle .searchBtn {
+    float: right;
+}
+
+.popupCon .TheExistingRoute .textBoxTitle {
+    padding-top: 16px;
+    display: table;
+    padding-bottom: 3px;
+}
+
+.popupCon .TheExistingRoute .textBoxTitle li {
+    width: 182px;
+    height: 34px;
+    line-height: 34px;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding-left: 8px;
+    color: #808080;
+    float: left;
+    border: 1px solid #aaa;
+    margin-left: 20px;
+    margin-bottom: 12px;
+}
+
+.popupCon .TheExistingRoute .textBoxTitle .searchBtn {
+    border: none;
+    padding-left: 0;
+}
+
+.popupCon .TheExistingRoute .textBoxTitle li span {
+    width: 80px;
+    height: 34px;
+    background: #00528b;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+    display: block;
+}
+
+.popupCon .TheExistingRoute .pathOrderListCon .reportMessages table tbody tr td .checedBox {
+    width: 13px;
+    height: 13px;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+}
+
+.popupCon .TheExistingRoute .pathOrderListCon .reportMessages table tbody .active .checedBox:after {
+    width: 7px;
+    height: 7px;
+    display: block;
+    background: #ccc;
+    border-radius: 1px;
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 3px;
+}
+
+.popupCon .TheExistingRoute .pathOrderListCon .reportMessages table tbody tr:hover td {
+    color: #333;
+}
+
+.popupCon .TheExistingRoute .pathOrderListCon .reportMessages table tbody .active {
+    background: #0071c0;
+    color: #fff;
+}
+
+.popupCon .TheExistingRoute .pathOrderListCon .reportMessages table tbody .active:hover {
+    background: #0071c0;
+}
+
+.popupCon .TheExistingRoute .pathOrderListCon .reportMessages table tbody .active:hover td {
+    color: #fff;
+}
+
+.popupCon .TheExistingRoute .pathOrderListCon .reportMessages table tbody .active td {
+    color: #fff;
+}
+
+
+/*maskLayer5*/
+.popupCon .amendOrderTimeDiv {
+    padding: 20px 40px;
+    font-size: 15px;
+    line-height: 34px;
+}
+
+.popupCon .amendOrderTimeDiv .amendP {
+    display: flex;
+}
+
+.popupCon .amendOrderTimeDiv .amendP > span:last-child {
+    color: #3c8dbc;
+}
+
+.popupCon .amendOrderTimeDiv .amendP > span:first-child {
+    display: inline-block;
+    width: 170px;
+}
+
+.popupCon .amendOrderTimeDiv .amendP input {
+    border: 1px solid #ccc;
+    width: 240px;
+    height: 28px;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.popupCon .changeTimeBtn {
+    padding: 20px 40px;
+}
+
+.popupCon .changeTimeBtn button {
+    width: 82px;
+    height: 34px;
+    line-height: 34px;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 15px;
+    background: #0b507b;
+    outline: none;
+    cursor: pointer;
+}
+
+
+/*订单排单*/
+.scheduleSection {
+    height: calc(100% - 15px);
+    overflow: hidden;
+    position: relative;
+    margin-top: 15px;
+}
+
+.adsRightConMainBetween .waitScheduleList {
+    width: calc(60% - 20px);
+    height: 100%;
+    float: left;
+    margin-right: 20px;
+    background: #fff;
+    overflow: auto;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.adsRightConMainBetween .finishScheduleList,
+.adsRightConMainBetween .newClassesCon {
+    width: 40%;
+    height: 100%;
+    float: left;
+    background: #fff;
+    overflow: auto;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.scheduleSection.scheduleSectionMap .waitScheduleList {
+    padding: 0 0 0 0;
+}
+
+.scheduleSection .scheduleSectionRight {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 998;
+    display: none;
+    background-color: #fff;
+    box-shadow: 0 0 20px #00365b;
+    overflow-y: scroll;
+}
+
+.scheduleSection.scheduleSectionMap .waitScheduleList {
+    width: 100%;
+}
+
+.scheduleSection .scheduleSectionRight .newClassesCon {
+    width: 100%;
+}
+
+.scheduleSection .scheduleSectionRight .finishScheduleList {
+    width: 100%;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .searchBtn span.scheduleSectionRightBtn {
+    width: 110px;
+    display: inline-block;
+    background-color: #ee9200;
+    cursor: pointer;
+}
+
+.scheduleSection .scheduleTitle {
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    box-sizing: border-box;
+    color: #000;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.scheduleSection .scheduleTitle span {
+    font-size: 13px;
+    color: #666;
+}
+
+.scheduleSection .scheduleTitle b {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+}
+
+.scheduleSection.scheduleSectionMap .reportMessages {
+    height: calc(100vh - 330px);
+    overflow-y: auto;
+}
+
+.scheduleSection .finishScheduleCon {
+    min-height: calc(100% - 42px);
+    overflow: hidden;
+}
+
+.scheduleSection .finishScheduleCon .reportMessages:nth-of-type(1) {
+    height: 348px;
+}
+
+.scheduleSection .finishScheduleCon .allocatedMessages {
+    height: auto;
+    max-height: calc(100vh - 380px);
+}
+
+.finishScheduleList .reportMessages table tbody tr {
+    cursor: pointer;
+}
+
+.finishScheduleList .reportMessages table tbody tr.see.active > td {
+    background: #e6f7ff;
+}
+
+.finishScheduleList .reportMessages table tbody tr:hover {
+    background: #f3f5f7;
+}
+
+.waitScheduleList .reportMessages table tbody .specialOrder:hover td {
+    color: #01CBEE;
+}
+
+.waitScheduleList .reportMessages table tbody .specialOrder td {
+    color: #01CBEE;
+}
+
+.waitScheduleList .reportMessages table tbody .seeRed:hover td {
+    color: #FF0000;
+}
+
+.waitScheduleList .reportMessages table tbody .seeRed td {
+    color: #FF0000;
+}
+
+.finishScheduleList .reportMessages table tbody .bearInf:hover td {
+    color: #FF0000;
+}
+
+.finishScheduleList .reportMessages table tbody .bearInf td {
+    color: #FF0000;
+}
+
+.finishScheduleList .orderScheduleItem {
+    width: 50%;
+    margin-left: 15px;
+    height: calc(100vh - 239px);
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: fixed;
+    top: 204px;
+    left: 215px;
+    background: #f5f7f9;
+    z-index: 200;
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 13px #aaa;
+}
+
+.orderScheduleDiv {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.newClassesCon .newClassesInf {
+    display: table;
+}
+
+.newClassesCon .newClassesInf.marginT5 {
+    border-top: 1px dashed #ddd;
+    margin-top: 5px;
+}
+
+.finishScheduleList .currentClassesInfo {
+    padding: 12px 15px;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.finishScheduleList .currentClassesInfo > span {
+    cursor: pointer;
+}
+
+.finishScheduleList .currentClassesInfo li, .newClassesCon .newClassesInf li {
+    width: auto;
+    margin-left: 0;
+    margin-bottom: 12px;
+    float: left;
+    height: 34px;
+    line-height: 34px;
+}
+
+.finishScheduleList .currentClassesInfo li span, .newClassesCon .newClassesInf li span {
+    width: 72px;
+    display: block;
+    line-height: 34px;
+    text-align: right;
+    color: #333;
+    float: left;
+    padding-right: 3px;
+}
+
+.finishScheduleList .currentClassesInfo .changeDriverInf {
+    height: 34px;
+    line-height: 34px;
+    background: #00528b;
+    color: #fff;
+    border-radius: 3px;
+    margin-right: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
+    cursor: pointer;
+
+}
+
+.waitScheduleList .reportMessages table tr td {
+    text-align: left;
+}
+
+.waitScheduleList .reportMessages table tr td .p {
+    padding-bottom: 5px;
+}
+
+.finishScheduleCon .allocatedMessages table tr td {
+    text-align: left;
+}
+
+.finishScheduleCon .allocatedMessages table tr td .p {
+    padding-bottom: 5px;
+}
+
+.newClassesCon .newClassesInf li span {
+    width: 120px;
+}
+
+.newClassesCon .newClassesInf li {
+    margin-bottom: 6px;
+    position: relative;
+}
+
+.newClassesCon .newClassesInf li .inp.inpDisabled {
+    min-width: 180px;
+    width: auto;
+}
+
+.newClassesCon .newClassesInf li .inp.inpDisabled input {
+    width: auto;
+    min-width: 180px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.newClassesCon .newClassesInf li .inp input {
+    height: 34px;
+    line-height: 34px;
+    color: #333;
+}
+
+.newClassesCon .newClassesInf li .inp select {
+    width: 180px;
+}
+
+.orderScheduleItem .distributeBtn, .newClassesCon .distributeBtn {
+    border: none;
+    padding-left: 0;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.orderScheduleItem .distributeBtn span {
+    width: 80px;
+    height: 34px;
+    background: #00528b;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+    display: block;
+    float: right;
+    border-radius: 3px;
+}
+
+.newClassesCon .distributeBtn span {
+    width: 80px;
+    height: 34px;
+    background: #00528b;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+    float: right;
+}
+
+.scheduleSection .newClassesCon .distributeBtn span {
+    float: right;
+    margin-left: 0;
+    margin-top: 0;
+}
+
+.orderScheduleItem .distributeBtn span {
+    float: left;
+    margin-right: 12px;
+}
+
+.newClassesCon .distributeBtn span {
+    margin-left: 542px;
+    margin-top: 12px;
+}
+
+/**/
+.newClassesCon .newClassesInf .fateCon {
+    width: 186px;
+    background: #fff;
+    top: 34px;
+    position: absolute;
+    left: 123px;
+    display: block;
+    border: 1px solid #aaaaaa;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    z-index: 99;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.newClassesCon .newClassesInf .fateCon dd {
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+.newClassesCon .newClassesInf .fateCon dd:first-child {
+    border-top: 1px solid #aaa;
+}
+
+.newClassesCon .newClassesInf .fateCon dd:hover {
+    background: #f3f5f7;
+}
+
+
+.textBoxTitle li .fateCon {
+    width: 186px;
+    background: #fff;
+    top: 34px;
+    position: absolute;
+    left: 0;
+    display: block;
+    border: 1px solid #aaaaaa;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    z-index: 99;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.textBoxTitle li .fateCon dd {
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+.textBoxTitle li .fateCon dd:first-child {
+    border-top: 1px solid #aaa;
+}
+
+.textBoxTitle li .fateCon dd:hover {
+    background: #f3f5f7;
+}
+
+
+.fate {
+    position: relative !important;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .fateCon {
+    width: 186px;
+    background: #fff;
+    position: absolute;
+    display: block;
+    border: 1px solid #aaaaaa;
+    border-radius: 0 0 3px 3px;
+    z-index: 99;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .fateCon dd {
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .adsRightCon .adsRightConInp .fateCon dd:hover {
+    background: #f3f5f7;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .fileUploadLi {
+    position: relative;
+    cursor: pointer;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .fileUploadLi {
+    position: relative;
+    cursor: pointer;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .inputBox {
+    width: 80px;
+    height: 34px;
+    z-index: 2;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle .fileUploadLi #excelFile {
+    width: 80px;
+    height: 34px;
+    display: block;
+    z-index: 2;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.paging {
+    overflow: hidden;
+    padding: 12px 15px;
+}
+
+.paging .totalPages {
+    float: left;
+    letter-spacing: 2px;
+    font-size: 14px;
+    color: #333;
+    line-height: 30px;
+}
+
+.paging .totalPages select {
+    padding: 3px 19px 3px 5px;
+    border: 1px solid #e2e2e2;
+    background-color: #fff;
+}
+
+.paging .pagingBox {
+    float: right;
+}
+
+.paging .pagingBox span {
+    height: 30px;
+    line-height: 26px;
+    padding-left: 5px;
+    float: left;
+    position: relative;
+    z-index: 2;
+}
+
+.paging .pagingBox span a {
+    font-size: 18px;
+    color: #333;
+}
+
+.paging .pagination {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.paging .pagination li {
+    display: inline;
+}
+
+.paging .pagingCon {
+    float: left;
+    position: relative;
+    width: 240px;
+    margin-left: 7px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.paging .pagingCon .pagination {
+    width: 30000px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.paging .pagination li a {
+    color: black;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+    border-radius: 2px;
+}
+
+.paging .pagination li a.active {
+    background-color: #22bcee;
+    color: white;
+}
+
+
+@-webkit-keyframes ani-ring {
+    0% {
+        -webkit-transform: rotate(-15deg);
+        transform: rotate(-15deg)
+    }
+    2% {
+        -webkit-transform: rotate(15deg);
+        transform: rotate(15deg)
+    }
+    12%, 4% {
+        -webkit-transform: rotate(-18deg);
+        transform: rotate(-18deg)
+    }
+    14%, 6% {
+        -webkit-transform: rotate(18deg);
+        transform: rotate(18deg)
+    }
+    8% {
+        -webkit-transform: rotate(-22deg);
+        transform: rotate(-22deg)
+    }
+    10% {
+        -webkit-transform: rotate(22deg);
+        transform: rotate(22deg)
+    }
+    16% {
+        -webkit-transform: rotate(-12deg);
+        transform: rotate(-12deg)
+    }
+    18% {
+        -webkit-transform: rotate(12deg);
+        transform: rotate(12deg)
+    }
+    20% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+}
+
+@keyframes ani-ring {
+    0% {
+        -webkit-transform: rotate(-15deg);
+        transform: rotate(-15deg)
+    }
+    2% {
+        -webkit-transform: rotate(15deg);
+        transform: rotate(15deg)
+    }
+    12%, 4% {
+        -webkit-transform: rotate(-18deg);
+        transform: rotate(-18deg)
+    }
+    14%, 6% {
+        -webkit-transform: rotate(18deg);
+        transform: rotate(18deg)
+    }
+    8% {
+        -webkit-transform: rotate(-22deg);
+        transform: rotate(-22deg)
+    }
+    10% {
+        -webkit-transform: rotate(22deg);
+        transform: rotate(22deg)
+    }
+    16% {
+        -webkit-transform: rotate(-12deg);
+        transform: rotate(-12deg)
+    }
+    18% {
+        -webkit-transform: rotate(12deg);
+        transform: rotate(12deg)
+    }
+    20% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+}
+
+.color_r {
+    color: red;
+    font-size: 16px;
+}
+
+/*修改密码*/
+.userModifyUl {
+    margin-top: 15px;
+    height: 40px;
+}
+
+/*.userModifyUl li{*/
+/*	width: 179px;*/
+/*	height: 34px;*/
+/*	line-height: 34px;*/
+/*	cursor: pointer;*/
+/*	box-sizing: border-box;*/
+/*	padding-left: 8px;*/
+/*	color: #808080;*/
+/*	float: left;*/
+/*	border: 1px solid #aaa;*/
+/*	margin-left: 19px;*/
+/*	margin-bottom: 12px;*/
+/*}*/
+.userModifyUl.userModifyUlPassword li:nth-child(2), .userModifyUl.userModifyUlPassword li:nth-child(3) {
+    display: none;
+}
+
+.passwordMethods p {
+    color: #22bcee;
+    cursor: pointer;
+    float: right;
+    font-size: 14px;
+    line-height: 40px;
+}
+
+.userModifyUl .amendYzmParent {
+    position: relative;
+}
+
+.userModifyUl .amendYzm, .userModifyUl .obtainYzm {
+    width: 70px;
+    text-align: center;
+    height: 34px;
+    line-height: 34px;
+    color: #22bcee;
+    border-left: 1px solid #e5e5e5;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.userModifyUl input[type = "text"] {
+    height: 32px;
+    line-height: 32px;
+    display: block;
+}
+
+.userModifyUl li.userModifyBtn {
+    border: none;
+    box-sizing: border-box;
+    padding-left: 8px;
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 12px;
+}
+
+.userModifyUl li.userModifyBtn span {
+    width: 80px;
+    height: 34px;
+    background: #00528b;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+    display: block;
+    cursor: pointer;
+}
+
+.userModifyUl li.userModifyBtn .modifySpan2 {
+    display: none;
+}
+
+.popupCon .popupDpList .userModifyUl textarea {
+    width: 30%;
+    line-height: 30px;
+    font-size: 13px;
+    padding: 0 5px;
+    border: 1px solid rgb(229, 229, 229);
+    margin-left: 15px;
+}
+
+
+.scheduleLoadPopup {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: none;
+}
+
+.scheduleLoadPopup .schedulePopupCon {
+    width: 35%;
+    min-width: 420px;
+    position: absolute;
+    left: 34%;
+    top: 50%;
+    transform: translateY(-160px);
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #ccc;
+    padding: 12px 20px;
+    padding-bottom: 42px;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleTitle {
+    height: 30px;
+    padding-top: 6px;
+    font-size: 16px;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleInf {
+    padding-top: 12px;
+    padding-left: 20px;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleInfCon {
+    overflow: hidden;
+    font-size: 15px;
+    padding-bottom: 12px;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleInfCon .scheduleInfLeft {
+    float: left;
+    padding-left: 6px;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleInfCon .scheduleInfRight {
+    float: left;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleInfCon .scheduleInfRight li {
+    height: 32px;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleProgress {
+    height: 26px;
+    padding-top: 30px;
+    font-size: 15px;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleProgress .scheduleHint {
+    padding-bottom: 9px;
+    padding-left: 3px;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleProgress .lineCon {
+    width: 100%;
+    height: 10px;
+    border-radius: 10px;
+    border: 1px solid #434343;
+    background: linear-gradient(#111111, #1d1d1d, #2d2d2d);
+    position: relative;
+}
+
+.scheduleLoadPopup .schedulePopupCon .scheduleProgress .progressCon {
+    width: 5%;
+    height: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #2679c0;
+    border-radius: 10px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .setDefaultBtns {
+    line-height: 30px;
+    background: #3e7fcf;
+    color: #fff;
+    font-size: 12px;
+    display: inline-block;
+    padding-left: 6px;
+    padding-right: 6px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .setDefaultBtns.setDefaultBtns1 {
+    background: #00C2B1;
+}
+
+#shortShowBtns0, #shortShowBtns1, #shortShowBtns2, #shortShowBtns3 {
+    display: inline-block;
+    width: 45px;
+    height: 28px;
+    background-color: #00528b;
+    line-height: 28px;
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.tableRemarkSpan {
+    color: #868181;
+    font-size: 13px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDtailList .adsRightConInp {
+    overflow: hidden;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDtailList li.childOrderAddress {
+    margin-left: 0;
+    margin-top: 15px;
+    background: #e1e1e6;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDtailList li.childOrderAddress li {
+    width: 180px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .detailList .sunOrderId {
+    float: left;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .detailList .sunOrderId .inp {
+    color: #333;
+    line-height: 40px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .detailList .sunOrderId .txt {
+    width: 80px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .detailList .sunOrderId .txt.txta {
+    width: 90px;
+    font-size: 13px;
+    color: blue;
+}
+
+.adsRightConList .adsRightConMatter .adsRightConItem .detailList .adsRightConInp {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .detailList .sunOrderList {
+    float: left;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDtailList li input[type="text"] {
+    width: 60px;
+    height: 28px;
+    line-height: 28px;
+}
+
+.adsRightCon .adsRightConList .adsRightConMatter .adsRightConItem .orderDtailList li.childOrderAddress li input[type="text"] {
+    width: 100%;
+    height: 34px;
+    background: #fff;
+}
+
+.adsRightConItem .orderDtailList .reportMessages table {
+    border-bottom: none;
+}
+
+.adsRightConItem .orderDtailList .reportMessages table thead tr {
+    border-top: none;
+    border-bottom: none;
+}
+
+.adsRightConItem .orderDtailList .reportMessages table tbody tr {
+    border-bottom: none;
+}
+
+
+/*树状表格*/
+#tableMain {
+    width: 100%;
+    padding: 0 20px 20px 20px;
+    box-sizing: border-box;
+}
+
+#tableMain .ztree {
+    font-family: "微软雅黑";
+    padding: 0;
+    margin: 0;
+}
+
+#tableMain .ztree * {
+    font-family: "微软雅黑";
+    font-size: 13px;
+    color: #333;
+    line-height: 1;
+}
+
+#tableMain.adsRightContractList {
+    padding: 0;
+}
+
+#tableMain.adsRightContractList .adsRightConPart {
+    width: 100%;
+    padding: 20px 5px 35px 5px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .12);
+    background: #f9fafa;
+}
+
+#tableMain.adsRightContractList .adsRightConPart .adsRightConRadiosP {
+    border: 1px solid #bfbfbf;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 0 25px;
+    height: 34px;
+    display: flex;
+    border-radius: 3px;
+    align-items: center;
+}
+
+#tableMain .ztree li a {
+    width: 100%;
+    height: auto;
+    display: inline-flex;
+    background: #f9fafa;
+    border-bottom: 3px solid #fff;
+}
+
+#tableMain .ztree .head {
+    border: none;
+    overflow: hidden;
+}
+
+#tableMain .ztree .head a {
+    background: #686c74;
+    border-bottom: none;
+}
+
+#tableMain .ztree li a:hover {
+    text-decoration: none;
+}
+
+#tableMain .ztree li:nth-child(2) a:hover {
+    background: #e6f7ff;
+}
+
+#tableMain .ztree .head a .diy {
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    min-height: 20px;
+    line-height: 20px;
+    text-align: left;
+    white-space: nowrap;
+    border: none;
+    height: auto;
+}
+
+#tableMain .ztree li {
+    width: 100%;
+    overflow: hidden;
+}
+
+#tableMain .ztree li .btn {
+    margin-right: 6px;
+    cursor: pointer;
+    color: #22bcee;
+    line-height: 21px;
+    text-decoration: underline;
+}
+
+#tableMain .ztree li a .diy {
+    width: 20%;
+    color: #666;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    min-height: 20px;
+    line-height: 20px;
+    text-align: left;
+    white-space: nowrap;
+    border: none;
+    height: auto;
+}
+
+#tableMain .ztree li a .swich {
+    text-align: left;
+}
+
+#tableMain .ztree li ul {
+    padding-left: 0;
+}
+
+.popup .popupCon .finishScheduleList .reportMessages table tbody .active {
+    background: rgb(0, 86, 143);
+    color: #fff;
+}
+
+.popup .popupCon .finishScheduleList .reportMessages table tbody .active td {
+    color: #fff;
+}
+
+
+/*订单商品 - 图片、附件 上传*/
+.popupType6 .adsRightCon .adsRightConInp {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    display: table;
+    border-bottom: 1px dashed #ddd;
+}
+
+.popupType6 .adsRightCon .adsRightConInp li {
+    width: 180px;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #808080;
+    float: left;
+    margin-left: 20px;
+    display: table;
+}
+
+.popupType6 .adsRightCon .adsRightConInp li .txt {
+    width: 175px;
+    color: #333;
+    font-size: 14px;
+    display: block;
+    line-height: 34px;
+}
+
+.font_14 {
+    font-size: 14px;
+}
+
+.done2 {
+    color: #237df3;
+}
+
+.no_done {
+    color: #ff0000;
+}
+
+
+/* 测试页面 test0   左右区 选择 -----------------------  start -----------------*/
+.adsContent .adsRight .template .adsRightCon .adsRightConSelectList {
+    display: inline-block;
+    width: 40%;
+    max-height: calc(100vh - 385px);
+    overflow-y: auto;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightResSelectList {
+    display: inline-block;
+    width: 50%;
+    height: calc(100vh - 385px);
+    overflow-y: auto;
+    border: 1px solid #c1c1c1;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .selItemLi {
+    width: 90%;
+    height: 36px;
+    line-height: 36px;
+    color: #333;
+    padding-left: 12px;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 3px;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .selItemLi:hover {
+    background: #f3f5f7;
+    cursor: pointer;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .conSelectItemActive {
+    color: #fff;
+    background: #5c9fba url('../../img/select.png') no-repeat right 10px center;
+    background-size: 20px 20px;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .conSelectItemActive:hover {
+    color: #fff;
+    background: #5c9fba url('../../img/select.png') no-repeat right 10px center;
+    background-size: 20px 20px;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .resItemLi {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: 36px;
+    line-height: 36px;
+    color: #333;
+    border: 1px solid #5c9fba;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 15px;
+}
+
+.adsContent .adsRight .template .adsRightCon .adsRightConList .resItemLi .resItemLiImg {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    z-index: 100;
+    cursor: pointer;
+}
+
+/* 测试页面 test0   左右区 选择 -----------------------  end -----------------*/
+
+
+/* 地图排单 -----------------------  start -----------------*/
+.reportMessagesMapBtn {
+    position: relative;
+}
+
+.reportMessagesMapBtn #container1.reportMessagesMap {
+    width: 85%;
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+.reportMessagesMapBtn .reportMessagesOrderBtn {
+    position: absolute; /*top: 30%;*/
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #00528b;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.reportMessagesMapBtn .reportMessagesOrderBtn.reportMessagesOrderBtnRight {
+    background-image: url(../../img/windowicon/jtRight.png);
+}
+
+.reportMessagesMapBtn .reportMessagesOrderBtn.reportMessagesOrderBtnLeft {
+    background-image: url(../../img/windowicon/jtLeft.png);
+}
+
+.reportMessagesMapBtn .reportMessagesOrder {
+    width: 28%;
+    height: 99%;
+    display: inline-block;
+    float: right;
+    overflow-y: auto;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderEndAddress {
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderNum {
+    height: 45px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderNum.noBorderBot {
+    border-bottom: none;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderNum li {
+    float: left;
+    width: 33%;
+    text-align: left;
+    margin-bottom: 12px;
+    color: #999;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderNum .numColor {
+    color: #00C2B1;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUls {
+    margin-top: 10px;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUls .reportMessagesOrderLi {
+    z-index: 998;
+    position: absolute;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 13px;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl {
+    list-style: none;
+    display: block; /*width: 400px;*/
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl:hover {
+    background: #f0f0f0;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl li {
+    display: inline-block;
+    float: left;
+    color: #666;
+    font-size: 14px;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl li.reportMessagesOrderLi1 {
+    position: relative;
+    width: 8%;
+    height: 30px;
+    padding: 5px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl li.reportMessagesOrderLi1:before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #22bcee;
+    border-radius: 50%;
+    top: 35%;
+    right: -6px;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl li.reportMessagesOrderLi2 {
+    position: relative;
+    padding: 5px;
+    padding-left: 10px;
+    border-left: 2px solid #22bcee;
+    /*width:73%;*/
+    width: 70%;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    display: -moz-box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    -moz-line-clamp: 1;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl li.reportMessagesOrderLi2:before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #00C2B1;
+    border-radius: 50%;
+    top: 35%;
+    left: -6px;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl li.reportMessagesOrderLi3 {
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+    margin-top: 3px;
+    text-align: center;
+    color: #22bcee;
+    border: 1px solid #22bcee;
+    border-radius: 3px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl li.reportMessagesOrderLi4 {
+    height: 30px;
+    line-height: 40px;
+    padding-left: 8px;
+}
+
+.reportMessagesMapBtn .reportMessagesBtn {
+    position: absolute;
+    top: 0;
+    left: 5px;
+}
+
+.reportMessagesMapBtn .reportMessagesBtn .reportMessagesBtns {
+    display: inline-block;
+    float: left;
+    margin-left: 15px;
+    width: 80px;
+    height: 34px;
+    line-height: 34px;
+    background: #5a5959;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.reportMessagesMapBtn .reportMessagesSearch {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.reportMessagesMapBtn .reportMessagesSearch input {
+    width: 50px;
+    height: 34px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.reportMessagesMapBtn .reportMessagesSearch select {
+    width: 53px;
+    height: 25px;
+    font-size: 13px;
+}
+
+.reportMessagesMapBtn .reportMessagesSearch span {
+    font-size: 14px;
+}
+
+.orderDistributionMapBtn {
+    width: 100%;
+    height: 42px;
+    background: #fff;
+    line-height: 42px;
+    font-size: 14px;
+    color: #00C2B1;
+    padding-right: 24px;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+.orderDistributionMapBtn .orderDistributionMapBtn0, .orderDistributionMapBtn .orderDistributionMapBtn1, .orderDistributionMapBtn .orderDistributionMapBtn2 {
+    float: right;
+}
+
+.orderDistributionMapBtn .orderDistributionMapBtn1, .orderDistributionMapBtn .orderDistributionMapBtn2 {
+    margin-right: 15px;
+    border: 1px solid #00C2B1;
+    color: #00C2B1;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.orderDistributionMapBtn .orderDistributionMapBtn1 {
+    background-color: #00C2B1;
+    color: #fff;
+}
+
+.orderDistributionMapBtn .orderDistributionMapBtn0 {
+    margin-top: 12px;
+}
+
+/*——————正常点——————*/
+.orderMapPoint {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: #00C2B1;
+}
+
+.orderMapPoint1 {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: #FF5722;
+}
+
+.orderMapPoint1.orderMapPoint11 {
+    background-color: #2fc240;
+}
+
+.orderMapPoint1.orderMapPoint12 {
+    background-color: #00365b;
+}
+
+.orderMapPoint1.orderMapPoint13 {
+    background-color: blue;
+    width: 15px;
+    height: 15px;
+}
+
+.orderMapPoint1.orderMapPoint11.active {
+    width: 13px;
+    height: 13px;
+    background: yellow;
+    z-index: 100;
+}
+
+/*——————无经纬度，默认点——————*/
+.orderMapPointDef {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: yellow;
+}
+
+/*——————大件点——————*/
+.orderMapPointSpe {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background-color: red;
+}
+
+.pointInfoDiv1 {
+    padding-bottom: 10px;
+}
+
+.pointInfoDiv1:last-child {
+    padding: 0;
+}
+
+.pointInfoColor1 {
+    color: #666;
+    line-height: 20px;
+    font-size: 13px;
+}
+
+.pointInfoColor2 {
+    color: #22bcee;
+    line-height: 20px;
+    font-size: 13px;
+}
+
+.pointInfoColor4 {
+    color: #00C2B1;
+    line-height: 20px;
+}
+
+.pointInfoColor3 {
+    padding: 0 6px;
+    display: inline-block;
+    height: 18px;
+    line-height: 20px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, .4);
+    color: #fff;
+}
+
+.amap-info-content {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* 地图排单 -----------------------  start ------- #00C2B1   #0D9BF2 ----------*/
+
+/*班次管理线路调整*/
+.myOverallDiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    font-size: 14px;
+    background: #f5f7f9;
+    overflow: hidden;
+}
+
+.myOverallDiv button {
+    outline: none;
+    cursor: pointer;
+}
+
+.allLeft {
+    height: 100%;
+    width: 73%;
+}
+
+.allRight, .allRight1 {
+    height: 100%;
+    width: 27%;
+    border-left: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.searchDiv {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    background: #dceff9;
+}
+
+.searchDiv > ul {
+    display: flex;
+    align-items: center;
+}
+
+.searchDiv > ul:nth-child(1) {
+    margin-bottom: 10px
+}
+
+.searchDivUl > li {
+    width: 33.3%;
+    position: relative;
+}
+
+.searchDivUl > li .boxshaw {
+    position: absolute;
+}
+
+.searchDivUl > li input[type="text"], .searchDivUl li select {
+    height: 26px;
+    width: 93%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 0 5px;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.searchDivUl:last-child > li:nth-child(1) {
+    width: 21.5%;
+}
+
+.searchDivUl:last-child > li:last-child {
+    width: 10%;
+}
+
+.searchDivUl > li button {
+    width: 100%;
+    height: 24px;
+    background: #007EC8;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.listboxDiv {
+    background: #fff;
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.listboxDiv > div:first-child {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.listboxDiv > div > ul > li {
+    border-bottom: 1px solid #ccc;
+}
+
+.seeItembox .seeItemBasics {
+    display: flex;
+}
+
+.seeItemCheck {
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+}
+
+.seeItemDetail {
+    padding: 3px 8px;
+    flex: 1;
+}
+
+.seeItemDetail ul {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.seeItemDetail ul li:first-child {
+    width: 40%;
+}
+
+.seeItemDetail ul li:nth-child(2) {
+    width: 45%;
+}
+
+.seeItemDetail ul:nth-child(2) li:nth-child(2) {
+    width: 55%;
+}
+
+.seeItemDetail ul li span {
+    color: #666;
+    font-size: 13px;
+}
+
+.seeItemDetail ul li img {
+    width: 18px;
+}
+
+.switchOrd {
+    cursor: pointer;
+}
+
+.switchOrd2 {
+    display: none;
+}
+
+.itemAddress {
+    width: 100%;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    background: #f5f7f9;
+    display: none;
+}
+
+.itemAddress ul li {
+    display: flex;
+    line-height: 30px;
+    font-size: 13px;
+    color: #666;
+}
+
+.itemAddress ul li span {
+    padding: 0 8px;
+    width: 18px;
+}
+
+.itemAddress ul li p {
+    padding-left: 10px;
+    border-left: 2px solid #00C2B1;
+    position: relative;
+}
+
+.itemAddress ul li p:before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #00C2B1;
+    border-radius: 50%;
+    top: 33%;
+    left: -5px;
+}
+
+.listboxDiv .paging {
+    padding: 12px 15px;
+}
+
+.adjustLine {
+    padding: 15px 25px;
+    background: #eee;
+}
+
+.adjustLine button, .allDragFooter button {
+    width: 90px;
+    height: 35px;
+    border-radius: 5px;
+    background: #00528b;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.allRight1 {
+    justify-content: space-between;
+}
+
+.allDragContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.allDragTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+    background: #dceff9;
+}
+
+.allDragTitle a {
+    cursor: pointer;
+    color: rgb(62, 127, 207);
+}
+
+.allDragDiv {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.dragItemDiv {
+    width: 50%;
+    background: #fff;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.dragItemDiv:nth-child(2n + 1) {
+    margin-right: 1px;
+}
+
+.dragItemDiv:nth-child(2n) {
+    margin-left: 2px;
+}
+
+.dragItemDiv .dragItemHead {
+    background: #f2f2f2;
+    padding: 8px;
+}
+
+.dragItemDiv .dragItemHead > p {
+    font-weight: 700;
+    color: rgb(62, 127, 207);
+    line-height: 26px;
+}
+
+.dragTotalInfos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dragTotalInfos li {
+    width: 50%;
+    display: flex;
+    font-size: 12px;
+    color: #444;
+    line-height: 22px;
+}
+
+.dragTotalInfos li p span {
+    color: #0d92ef;
+}
+
+.dragUl {
+    padding: 0 8px 5px 14px;
+}
+
+.dragUl li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+    line-height: 30px;
+    position: relative;
+}
+
+.dragUl li > p {
+    width: 78%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.addressIcon {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    left: 0;
+    top: 50%;
+    margin-top: -2px;
+    margin-left: -11px;
+    background: #f30b53;
+}
+
+.dragUl li > div {
+    width: 22%;
+    text-align: right;
+    cursor: pointer;
+}
+
+.allDragFooter {
+    background: #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    align-items: center;
+}
+
+.allDragFooter p {
+    display: flex;
+    align-items: center;
+}
+
+.allDragFooter select {
+    width: 66px;
+    height: 30px;
+    border-radius: 3px;
+}
+
+.allLeft #container {
+    width: 100%;
+    height: 100%;
+}
+
+.allLeft .amap-info {
+    width: 400px;
+}
+
+.markerSet {
+    width: 15px;
+    height: 24px;
+    background-image: url("../../img/mark_b.png");
+    background-size: 100% 100%;
+}
+
+.markerSet1 {
+    width: 15px;
+    height: 24px;
+    background-image: url("../../img/mark_g.png");
+    background-size: 100% 100%;
+}
+
+.mapPoints {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    position: relative;
+}
+
+.mapPointStart {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-image: url("../../img/ck.png");
+    background-size: 100% 100%;
+    background-color: #fff;
+}
+
+.mapPointStart1, .mapPointEnd1, .mapPoints1 {
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #999;
+    padding: 2px;
+}
+
+.mapPointStart1 p, .mapPointEnd1 p, .mapPoints1 p {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1ea13f;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+}
+
+.mapPointEnd1 .yellow, .mapPoints1 .yellow {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    background: yellow;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.mapPointEnd1 p {
+    background: #d60319;
+}
+
+.mapPoints1, .mapPointEnd1 {
+    position: relative;
+}
+
+.mapPoints1 p {
+    background: #b52cfc;
+}
+
+.mapEqDiv {
+    position: absolute;
+    background: #b52cfc;
+    height: 14px;
+    width: 14px;
+    top: -8px;
+    left: 20px;
+    font-size: 10px;
+    color: #fff;
+    text-align: center;
+    line-height: 14px;
+    border-radius: 50%;
+}
+
+.mapPointEnd1 .mapEqDiv {
+    background: #d60319;
+}
+
+.mapPointEnd {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-image: url("../../img/map1.png");
+    background-size: 100% 100%;
+    background-color: #fff;
+}
+
+.mapNumDiv {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+    color: #fff;
+    position: absolute;
+    top: -26px;
+    left: -6px
+}
+
+.chooseDragActive {
+    background: #ffffce;
+}
+
+.markerActive {
+    width: 20px;
+    height: 20px;
+    background-image: url("../../img/map2.png");
+    background-size: 100% 100%;
+    background-color: #fff;
+}
+
+.selectYearAndMonthDiv {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    background: #fff;
+    border-radius: 3px;
+    top: 57px;
+    left: -20px;
+    width: 200px;
+    box-shadow: 5px 5px 10px #666;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+.selectYearAndMonthDiv p {
+    font-size: 14px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+}
+
+.selectYearAndMonthDiv p span {
+    color: #0d92ef;
+}
+
+.selectYearAndMonthDiv:before {
+    content: '';
+    border-bottom: 6px solid #fff;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    position: absolute;
+    top: -6px;
+    left: 55px;
+    z-index: 1002;
+}
+
+.yearAndMonthly {
+    width: 130px;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+.years {
+    width: 130px;
+    height: 20px;
+    border: 1px solid #999;
+    margin-bottom: .8em;
+    text-align: center;
+}
+
+.months {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.monthItem {
+    width: 30px;
+    height: 30px;
+    background: #CAE3FB;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    border-radius: .2em;
+    transition: background .2s;
+    margin-bottom: 3px;
+}
+
+.monthItem:hover {
+    background: #b0c8e0;
+}
+
+.sureMonths button {
+    outline: none;
+    width: 50px;
+    height: 26px;
+    line-height: 26px;
+    background: #00528b;
+    border-radius: 3px;
+    color: #fff;
+    margin-top: 8px;
+}
+
+/*detailOrderDiv*/
+.detailConDiv {
+    width: 30%;
+    background: #fff;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: #333;
+    transition: all 0.3s;
+    z-index: 2000;
+    box-shadow: 5px 5px 10px #5e5075;
+}
+
+.detailConhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    font-size: 18px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.detailConhead span {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.detailConBody {
+    padding: 15px;
+}
+
+.detailConBody .reportMessagesCon {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 14px;
+}
+
+.detailConBody .reportMessagesCon:last-child {
+    border: 0;
+}
+
+.detailConBody .reportMessagesCon > p {
+    color: #000;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.detailConBody .reportMessagesCon ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.detailConBody .reportMessagesCon ul li {
+    width: 33%;
+    box-sizing: border-box;
+    padding-right: 16px;
+    text-align: left;
+    margin-bottom: 8px;
+    color: #666;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.detailConBody .reportMessagesCon ul li span {
+    color: #4298f1;
+}
+
+.detailConBody .reportMessagesCon .reportMesBut {
+    background: #4298f1;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 3px;
+    margin: 10px 8px 0;
+}
+
+.detailConBody .reportMessagesCon .reportMesUl {
+    padding: 0 25px;
+    color: #000;
+}
+
+.detailConBody .reportMessagesCon .reportMesUl li {
+    width: 35%;
+}
+
+.detailConBody .reportMessagesCon .reportMesUl li:nth-child(1) {
+    width: 15%;
+}
+
+
+/*运单地图*/
+.reportMessagesMap {
+    width: 100%;
+    height: calc(100% - 74px);
+    position: relative;
+}
+
+.reportMessagesMapWhole {
+    height: 100%;
+}
+
+.reportMessagesMap.reportMessagesMapWhole .textBoxTitle {
+    background: transparent;
+}
+
+.reportMessagesMap.reportMessagesMapWhole .textBoxTitle .whiteBtn {
+    background: #fff;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle.textBoxTitleSecond {
+    margin: 0 10px 10px;
+    background-color: rgba(219, 244, 255, 0.65);
+    border: 1px solid #22bcee;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle.textBoxTitleSecond li {
+    border: none;
+    color: #333;
+    margin-bottom: 0;
+}
+
+.adsRight .adsRightCon .adsRightConMain .textBoxTitle.textBoxTitleSecond li span {
+    color: #22bcee;
+    padding-right: 3px;
+}
+
+/*hint*/
+.reportMessagesMap .hint {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.reportMessagesMap .hint .textBoxTitle li {
+    position: relative;
+}
+
+.reportMessagesMap .hint .textBoxTitle li label, .reportMessagesMap .hint .textBoxTitle li input {
+    color: #000;
+}
+
+.reportMessagesMap .hint .textBoxTitle li input {
+    background: #fff;
+    box-shadow: 0 3px 14px rgba(0, 0, 77, 0.33);
+}
+
+.reportMessagesMap .hint .textBoxTitle li img {
+    position: absolute;
+    right: 0;
+    padding: 7px;
+    width: 18px;
+    height: 18px;
+    background: #686c74;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-sizing: content-box;
+}
+
+.reportMessagesMap ul li.searchBtn span {
+    box-shadow: 0 3px 14px rgba(0, 0, 77, 0.33);
+}
+
+/*btnBox*/
+.reportMessagesMap .btnBox {
+    position: absolute;
+    top: 0;
+    left: 310px;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo {
+    position: absolute;
+    top: 40px;
+    left: -30px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo:after {
+    content: '';
+    border-bottom: 8px solid #fff;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    position: absolute;
+    top: -8px;
+    left: 50px;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo h5 {
+    height: 20px;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo h5 img {
+    width: 14px;
+    height: 14px;
+    float: right;
+    padding: 8px 8px 0 8px;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo .taskCont {
+    padding: 5px 10px;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo .taskCont .taskContTemp{
+    display: inline-block;
+    width: 260px;
+    margin: 5px 0;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo .taskCont .taskContTemp h6{
+    font-weight: 400;
+    float: left;
+    color: #666;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo .taskCont .taskContTemp select{
+    float: left;
+    margin-left: 4px;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo .taskCont .taskContTemp img{
+    background: #22bcee;
+    padding: 2px;
+    width: 16px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup .taskInfo p {
+    margin: 8px 0;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup > li > span {
+    color: #fff;
+    background: #686c74;
+    border-color: #686c74;
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup > li.searchBtn > span.halfAndHalf:first-child {
+    border-color: #9beca4;
+    background: -webkit-linear-gradient(top, #9beca4 0%, #06b51a 100%);
+}
+
+.reportMessagesMap .btnBox .btnBoxGroup > li > span.whiteBtn {
+    border-color: #fff;
+    background: #fff;
+    color: #000;
+}
+
+/*mapRightBox*/
+.reportMessagesMap .mapRightBox {
+    position: absolute;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 10px;
+    height: 100%;
+    z-index: 100;
+}
+
+.reportMessagesMap .mapRightBox .mapRightBoxIn {
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 3px 14px rgba(0, 0, 77, 0.6);
+}
+
+.reportMessagesMap .mapRightBoxIn .boxInTitle,
+.reportMessagesMap .scheduleBox .boxInTitle,
+.reportMessagesMap .orderSingle .boxInTitle,
+.reportMessagesMap .manualDragBox .boxInTitle {
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    font-size: 14px;
+    padding: 0 10px;
+    background: #686c74;
+    border-radius: 3px 3px 0 0;
+}
+
+.reportMessagesMap .scheduleBox .boxInTitle {
+    background: transparent;
+    color: #000;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    box-sizing: content-box;
+}
+
+.reportMessagesMap .boxInTitle img {
+    width: 13px;
+    height: 13px;
+    float: right;
+    padding: 7px 0 0 7px;
+    cursor: pointer;
+}
+
+.reportMessagesMap .mapRightBoxIn .boxInConcent {
+    height: calc(100% - 30px);
+    overflow-y: auto;
+}
+
+.reportMessagesMap .mapRightBoxIn .boxInConcent.boxInConcent2 {
+    height: calc(100% - 121px);
+}
+
+.reportMessagesMap .boxInConcent li {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.reportMessagesMap .boxInConcent li.long {
+    display: block;
+}
+
+.reportMessagesMap .boxInConcent li.long.active {
+    background: #22bcee36;
+}
+
+.reportMessagesMap .boxInConcent li.long .name {
+    padding-bottom: 3px;
+}
+
+.reportMessagesMap .boxInConcent li.long .name span:last-child {
+    width: auto;
+    float: right;
+    color: #22bcee;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 0 8px;
+    border-radius: 10px;
+    border: 1px solid #22bcee;
+    box-sizing: border-box;
+}
+
+.reportMessagesMap .boxInConcent li .boxCLeft {
+    width: 8%;
+}
+
+.reportMessagesMap .boxInConcent li .boxCLeft input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+}
+
+.reportMessagesMap .boxInConcent li .boxCRight {
+    width: 92%;
+}
+
+.reportMessagesMap .boxInConcent li .boxCRight.active {
+    width: 100%;
+}
+
+.reportMessagesMap .boxInConcent li .boxCRight div {
+    display: flex;
+    width: 100%;
+}
+
+.reportMessagesMap .boxInConcent li:hover {
+    background: #f0f0f0;
+}
+
+.reportMessagesMap .mapRightBoxIn .boxInConcent li.active {
+    background: #e6f7ff;
+}
+
+.reportMessagesMap .boxInConcent li.boxInConcentLi .boxCRight > div {
+    padding: 2px 0;
+}
+
+.reportMessagesMap .boxInConcent li span {
+    font-size: 13px;
+    line-height: 18px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.reportMessagesMap .boxInConcent li .name span {
+    width: calc(100% - 17px);
+    font-size: 14px;
+    color: #000;
+}
+
+.reportMessagesMap .boxInConcent li .name img {
+    width: 17px;
+    height: 17px;
+}
+
+.reportMessagesMap .boxInConcent li .driverInfo span {
+    display: inline-block;
+}
+
+.reportMessagesMap .boxInConcent li .driverInfo span:first-child {
+    width: 50px;
+}
+
+.reportMessagesMap .boxInConcent li .driverInfo span:nth-child(2) {
+    width: 90px;
+}
+
+.reportMessagesMap .boxInConcent li .driverInfo span:nth-child(3) {
+    width: 72px;
+}
+
+.reportMessagesMap .boxInConcent li .driverInfo1 span:first-child {
+    width: 63px;
+}
+
+.reportMessagesMap .boxInConcent li .driverInfo1 span:nth-child(2) {
+    width: 80px;
+}
+
+.reportMessagesMap .boxInConcent li .driverInfo1 span:nth-child(3) {
+    width: 70px;
+}
+
+.reportMessagesMap .boxInConcent li .driverInfo2 span {
+    width: 100%;
+}
+
+.reportMessagesMap .boxInConcent li .message span {
+    color: red;
+}
+
+.reportMessagesMap .mapRightBox .mapRightBoxIn > .textBoxTitle {
+    padding-top: 8px;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.reportMessagesMap .mapRightBox .mapRightBoxIn > .textBoxTitle:last-child {
+    box-shadow: 0 -1px 4px rgba(0, 21, 41, .08);
+    border-bottom: 0;
+}
+
+.reportMessagesMap .mapRightBox .mapRightBoxIn > .textBoxTitle.lastUl {
+    display: flex;
+    justify-content: center;
+}
+
+.reportMessagesMap .mapRightBox .mapRightBoxIn > .textBoxTitle li {
+    position: relative;
+}
+
+.reportMessagesMap .mapRightBox .mapRightBoxIn > .textBoxTitle li .searchClassIcon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    background: #22bcee;
+    border-radius: 0 3px 3px 0;
+    padding: 6px 8px;
+    box-sizing: content-box;
+}
+
+.reportMessagesMap .mapRightBox .mapRightBoxIn > .textBoxTitle li span {
+    box-shadow: none;
+}
+
+
+/*scheduleBox*/
+.reportMessagesMap .scheduleBox {
+    position: absolute;
+    top: 10px;
+    right: 266px;
+    width: 316px;
+    height: 60%;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 3px 14px rgba(0, 0, 77, 0.6);
+    z-index: 100;
+}
+
+.reportMessagesMap .scheduleBox .boxInConcent2 {
+    height: calc(100% - 155px);
+    overflow-y: auto;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox > .adsRightConInpOnlyText {
+    background: #e6f7ff;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox .adsRightConInp.adsRightConInpOnlyText {
+    padding: 0 6px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox .adsRightConInp.adsRightConInpOnlyText li {
+    width: 50%;
+    padding-right: 5px;
+    margin-bottom: 0;
+    line-height: 24px;
+    font-size: 13px;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox .boxInConcent2 .adsRightConInp.adsRightConInpOnlyText {
+    padding: 6px;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox .boxInConcent2 .adsRightConInp.adsRightConInpOnlyText li {
+    width: 100%;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox .adsRightConInp.adsRightConInpOnlyText li .txt {
+    padding-right: 0;
+    line-height: 24px;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox .boxInConcent2 .adsRightConInp.adsRightConInpOnlyText li .txt {
+    line-height: 22px;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox .boxInConcent2 .adsRightConInp.adsRightConInpOnlyText li .inp {
+    line-height: 22px;
+    white-space: pre-wrap;
+}
+
+.adsRightCon .reportMessagesMap .scheduleBox .boxInConcent2 .adsRightConInp.adsRightConInpOnlyText li .inp.color3 {
+    padding: 0 6px;
+    font-size: 12px;
+    line-height: 18px;
+    height: 18px;
+    margin-top: 2px;
+    display: inline-block;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, .4);
+    color: #fff;
+}
+
+.scheduleBox .boxInConcent2 li img.colorCut {
+    width: 16px;
+    height: 15px;
+    cursor: pointer;
+    position: absolute;
+    right: 1px;
+    top: 2px;
+}
+
+.reportMessagesMap .scheduleBox .textBoxTitle.textBoxTitle26:last-child {
+    width: 100%;
+    box-shadow: 0 -1px 4px rgba(0, 21, 41, .08);
+    display: flex;
+    justify-content: center;
+}
+
+.reportMessagesMap .scheduleBox .textBoxTitle li span {
+    box-shadow: none;
+}
+
+/*orderSingle*/
+.reportMessagesMap .orderSingle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 250px;
+    height: calc(100% - 20px);
+    overflow: hidden;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 3px 14px rgba(0, 0, 77, 0.6);
+    z-index: 100;
+}
+
+.reportMessagesMap .boxInConcent li.seeVisible {
+    background: #e6f7ff;
+    border: 0;
+}
+
+.reportMessagesMap .boxInConcent li .boxCCenter {
+    width: 100%;
+}
+
+.reportMessagesMap .orderSingle .name.nameTwo {
+    display: flex;
+    align-items: center;
+}
+
+.reportMessagesMap .orderSingle .boxInConcent li .name span {
+    width: 215px;
+    font-size: 13px;
+    line-height: 20px;
+    color: #333;
+    display: inherit;
+}
+
+.reportMessagesMap .orderSingle .boxInConcent li .name .cutBtn {
+    color: #22bcee;
+    width: auto;
+    float: right;
+    border: 1px solid #22bcee;
+    padding: 0 5px;
+    border-radius: 16px;
+    font-size: 12px;
+    margin: 3px 0;
+}
+
+.reportMessagesMap .orderSingle .boxReportMessagesOrder {
+    padding: 4px 0;
+    height: calc(100% - 212px);
+    box-sizing: border-box;
+}
+
+.reportMessagesMap .orderSingle .boxReportMessagesOrder > h5 {
+    font-size: 14px;
+    line-height: 18px;
+    padding-bottom: 4px;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    color: black;
+}
+
+.reportMessagesMap .orderSingle .boxReportMessagesOrder .boxInConcent {
+    height: calc(100% - 23px);
+    overflow-y: auto;
+}
+
+.reportMessagesMap .orderSingle .boxReportMessagesOrder .boxInConcent li {
+    justify-content: flex-start;
+    padding: 6px 8px;
+}
+
+.reportMessagesMap .boxReportMessagesOrder .boxInConcent3 li span:first-child {
+    width: 20px;
+}
+
+.reportMessagesMap .boxReportMessagesOrder .boxInConcent3 li span:nth-child(2) {
+    width: 190px;
+    display: inline-block;
+    padding: 0 5px 0 2px;
+}
+
+.reportMessagesMap .boxReportMessagesOrder .boxInConcent3 li img:last-child {
+    width: 16px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.reportMessagesMap .orderSingle .textBoxTitle26:last-child,
+.reportMessagesMap .manualDragBox .textBoxTitle26:last-child {
+    padding-top: 8px;
+    box-shadow: 0 -1px 4px rgba(0, 21, 41, .08);
+    display: flex;
+    justify-content: center;
+    background: #fff;
+}
+
+.reportMessagesMap .orderSingle .textBoxTitle26:last-child span,
+.reportMessagesMap .manualDragBox .textBoxTitle26:last-child span {
+    box-shadow: none;
+}
+
+
+/*manualDragBox*/
+.reportMessagesMap .manualDragBox {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    min-width: 250px;
+    max-width: 520px;
+    height: calc(100% - 20px);
+    overflow: hidden;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 3px 14px rgba(0, 0, 77, 0.6);
+    z-index: 100;
+}
+
+.reportMessagesMap .manualDragBox .allDragContent {
+    height: calc(100% - 76px);
+    background: #f5f7f9;
+}
+
+.manualDragBox .dragItemDiv {
+    width: 250px;
+    display: inline-table;
+}
+
+.manualDragBox .dragItemDiv .dragItemHead {
+    background: #e6f7ff;
+}
+
+.manualDragBox .boxInConcent.boxInConcent4 {
+    min-height: 31px;
+}
+
+.manualDragBox .boxInConcent.boxInConcent4 li {
+    padding: 6px;
+    justify-content: flex-start;
+}
+
+.manualDragBox .boxInConcent.boxInConcent4 li span:last-child {
+    width: 225px;
+}
+
+.manualDragBox .boxInConcent.boxInConcent4 li:last-child {
+    border-bottom: 0;
+}
+
+.manualDragBox .boxInConcent.boxInConcent4 li .addressMark {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 4px;
+    margin-left: -3px;
+    background: #f30b53;
+}
+
+.manualDragBox .dragItemDiv .adsRightConInpOnlyText {
+    background: #e6f7ff;
+}
+
+.adsContent .adsRight .adsRightCon .manualDragBox .adsRightConInp.adsRightConInpOnlyText {
+    padding: 5px 0;
+}
+
+.adsRightCon .reportMessagesMap .manualDragBox .adsRightConInp.adsRightConInpOnlyText li {
+    width: 50%;
+    padding: 0 5px;
+    margin-bottom: 0;
+    line-height: 22px;
+    font-size: 12px;
+}
+
+.adsRightCon .reportMessagesMap .manualDragBox .adsRightConInp.adsRightConInpOnlyText li .txt {
+    padding-right: 0;
+    line-height: 22px;
+    font-size: 12px;
+}
+
+/*mapRightBox*/
+.reportMessagesMap .mapRightBoxIn .boxInConcent.boxInConcent5 {
+    height: calc(100% - 120px);
+}
+
+.areaRightBox .textBoxTitle.textBoxTitle26 li input[type="text"] {
+    width: 155px;
+}
+
+/*cutMapCard*/
+.reportMessagesMap .cutMapCard {
+    position: absolute;
+    bottom: 5px;
+    left: -420px;
+    background: #fff;
+    border-radius: 3px;
+    height: auto;
+    width: auto;
+    z-index: 200;
+    box-shadow: 0 -1px 8px rgba(0, 0, 77, 0.33);
+    padding-top: 10px;
+    transition: all 0.3s;
+}
+
+.reportMessagesMap .cutMapCard.active {
+    left: 5px;
+}
+
+.reportMessagesMap .cutMapCard > img {
+    width: 40px;
+    height: 40px;
+    background: #22bcee;
+    position: absolute;
+    border-radius: 0 23px 23px 0;
+    top: 48px;
+    left: calc(100% + 7px);
+    cursor: pointer;
+}
+
+.reportMessagesMap .cutMapCard > img.left {
+    left: 100%;
+}
+
+.adsContent .adsRight .adsRightCon .cutMapCard .adsRightConInp {
+    padding-bottom: 0;
+}
+
+.adsContent .adsRight .adsRightCon .cutMapCard .adsRightConInp li {
+    margin-right: 10px;
+}
+
+.adsContent .adsRight .adsRightCon .cutMapCard .adsRightConInp li .txt {
+    font-size: 13px;
+    line-height: 28px;
+    padding: 0 8px 0 10px;
+}
+
+.adsContent .adsRight .adsRightCon .cutMapCard .adsRightConInp .addressLi .inp select {
+    line-height: 28px;
+    height: 28px;
+    background: url(../../img/select_1.png) no-repeat right center transparent;
+    width: 80px;
+}
+
+.adsContent .adsRight .adsRightCon .cutMapCard .adsRightConInp .searchBtn span {
+    box-shadow: none;
+    line-height: 26px;
+    height: 26px;
+    padding: 0 5px;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 54px;
+}
+
+/*collectInfo*/
+.reportMessagesMap .collectInfo {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 190px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.reportMessagesMap .collectInfo .collectInfoList {
+    padding-bottom: 5px;
+}
+
+.reportMessagesMap .collectInfo p {
+    font-size: 14px;
+    line-height: 26px;
+    color: #666;
+}
+
+.reportMessagesMap .collectInfo .collectCont {
+    font-size: 15px;
+    color: #00C2B1;
+    text-align: center;
+    font-weight: 600;
+}
+
+/*路线列表*/
+.reportMessagesMap .mapRightBoxIn .boxInConcent.boxInConcentLine1 {
+    height: calc(100% - 75px);
+}
+
+.reportMessagesMap .boxInConcent.boxInConcentLine1 .long {
+    padding: 6px 8px;
+}
+
+.reportMessagesMap .boxInConcent.boxInConcentLine1 .long > div {
+    display: flex;
+}
+
+.reportMessagesMap .boxInConcent.boxInConcentLine1 .long > div:first-child {
+    padding-bottom: 6px;
+}
+
+.reportMessagesMap .boxInConcent li.lineSee.active {
+    background: #eee;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine {
+    height: calc(100% - 20px);
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInParentDiv {
+    height: calc(100% - 155px);
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInParentDiv > div {
+    height: 50%;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInParentDiv > div .contentBack {
+    background: #f8f8f8;
+    height: calc(100% - 23px);
+    overflow-y: auto;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInParentDiv > div > h5 {
+    color: #22bcee;
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 500;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 5px;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    cursor: pointer;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInParentDiv > div > h5 p {
+    display: inline-block;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInParentDiv > div > h5 > span:first-child {
+    color: black;
+    cursor: default;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInConcent3 li {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e5e5;
+    color: #666;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInConcent3 li > p {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInConcent3 li > p:nth-child(2) {
+    color: #ee9200;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInConcent3 li span:first-child {
+    width: 20px;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInConcent3 li span:nth-child(2) {
+    flex: 1;
+}
+
+.reportMessagesMap .scheduleBox.scheduleBoxLine .boxInConcent3 li img:last-child {
+    width: 16px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.maskLayer .reportMessagesMapBtn .reportMessagesOrder {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.maskLayer .reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUls {
+    margin: 10px 0;
+}
+
+.maskLayer .reportMessagesMapBtn .reportMessagesOrder .reportMessagesOrderUl li.reportMessagesOrderLi1 {
+    width: 32px;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.popupCon .popupDpList .userModifyUl.urGoTo {
+    background: #F4f6f8;
+    margin: 5px 1% 0 1%;
+    padding-top: 10px;
+    width: 98%;
+    border-radius: 3px;
+}
+
+.popup .popupBody {
+    padding-top: 15px;
+}
+
+.popup .popupBody .formItem {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.popup .popupBody .formItem label {
+    width: 80px;
+    padding: 9px 15px;
+    line-height: 20px;
+    text-align: right;
+}
+
+.popup .popupBody .formItem .inputBlock {
+    width: 290px;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    box-sizing: border-box;
+    height: 34px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.popup .popupBody .formItem .inputBlock input {
+    width: 100%;
+    height: 100%;
+    padding: 0 12px;
+}
+
+.popup .popupBody .formItem .inputBlock select {
+    width: 50%;
+    height: 100%;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.popup .popupBody .formItem .inputBlock .selectGroup {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.popup .popupBody .formItem .inputBlock .selectGroup p {
+    font-size: 14px;
+    padding: 0 6px;
+    line-height: 30px;
+    color: #999;
+    border: 1px solid #bbb;
+    margin: 3px 10px 3px 0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.popup .popupBody .formItem .inputBlock .selectGroup img {
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+    border: 1px solid #95defb;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.popup .popupBody .formItem .inputBlock .selectTool {
+    position: relative;
+}
+
+.popup .popupBody .formItem .inputBlock .selectTool > span {
+    line-height: 34px;
+    color: #00528b;
+    cursor: pointer;
+}
+
+.popup .popupBody .formItem .inputBlock .selectTool .toolBodyDiv {
+    position: absolute;
+    width: 230px;
+    height: 70px;
+    background: #eee;
+    border-radius: 4px;
+    box-shadow: 3px 2px 10px #777;
+    display: none;
+}
+
+.popup .popupBody .formItem .inputBlock .selectTool .toolBodyDiv img {
+    float: right;
+    margin: 5px;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    border: 1px solid #95defb;
+    border-radius: 3px;
+}
+
+.popup .popupBody .formItem .inputBlock .selectTool .toolBodyDiv select {
+    height: 30px;
+    width: 90%;
+    margin: 0 5%;
+}
+
+.popup .popupBody .formItem label .required {
+    color: #f00;
+}
+
+.popup .popupFooter {
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.popup .popupFooter button {
+    margin: 0 12px;
+    width: 78px;
+    line-height: 32px;
+    border: 1px solid #00528b;
+    background: #00528b;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.popup .popupFooter button:last-child {
+    color: #00528b;
+    background: none;
+}
+
+.popup .popupBody .orderInfos {
+    width: 100%;
+    display: flex;
+    line-height: 36px;
+    color: #333;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.popup .popupBody .orderInfos li {
+    box-sizing: border-box;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.popup .popupBody .orderContent {
+    height: 565px;
+    overflow-y: auto;
+}
+
+.popup .popupBody .orderContent .orderInfos {
+    padding: 5px 0;
+}
+
+.popup .popupBody .orderInfos li:nth-child(1) {
+    width: 5%;
+}
+
+.popup .popupBody .orderInfos li:nth-child(2) {
+    width: 18%;
+}
+
+.popup .popupBody .orderInfos li:nth-child(3), .popup .popupBody .orderInfos li:nth-child(4) {
+    width: 17%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.popup .popupBody .orderInfos li:nth-child(5), .popup .popupBody .orderInfos li:nth-child(6), .popup .popupBody .orderInfos li:nth-child(7),
+.popup .popupBody .orderInfos li:nth-child(8), .popup .popupBody .orderInfos li:nth-child(9) {
+    width: 11%;
+}
+
+
+.adsRight .adsRightCon .adsRightConMain.scheduleModule {
+    background: transparent;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 20px;
+}
+
+.scheduleModule > div {
+    height: 100%;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.scheduleModule .waitScheduleList {
+    width: 58%;
+}
+
+.scheduleModule .finishScheduleList {
+    width: calc(42% - 16px);
+    margin-left: 16px;
+}
+
+.scheduleModule .scheduleTitle {
+    height: 42px;
+    padding: 15px 20px;
+}
+
+.scheduleModule .scheduleTitle .titleTxt {
+    line-height: 42px;
+    font-size: 14px;
+    color: #fff;
+    background: #00365b;
+    padding-left: 15px;
+}
+
+.scheduleModule .scheduleTitle .titleTxt .toggleKey {
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+    margin-top: 7px;
+    border-radius: 15px;
+    background: #f8fafc;
+}
+
+.scheduleModule .scheduleTitle .titleTxt .toggleKey span {
+    color: #333;
+    padding: 0 12px;
+    line-height: 26px;
+    margin: 1px;
+    border-radius: 15px;
+    cursor: pointer;
+    float: left;
+}
+
+.scheduleModule .scheduleTitle .titleTxt .toggleKey span.active {
+    background: #1890ff;
+    color: #fff;
+}
+
+.scheduleModule .reportMessages {
+    height: calc(100% - 160px);
+    overflow-y: auto;
+}
+
+.scheduleModule .waitScheduleList .reportMessages table tr td {
+    text-align: center;
+}
+
+.scheduleModule .waitScheduleList .reportMessages table .active {
+    background: #0071c0;
+    color: #fff;
+}
+
+
+.table-condensed > tbody > tr > td,
+.table-condensed > thead > tr > th {
+    padding: 5px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+}
+
+.dropdown-menu.pull-right {
+    right: 0;
+    left: auto;
+}
+
+.dropdown-menu .divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    color: #262626;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #428bca;
+    outline: 0;
+}
+
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+    color: #999999;
+}
+
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+    text-decoration: none;
+    cursor: not-allowed;
+    background-color: transparent;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.open > .dropdown-menu {
+    display: block;
+}
+
+.open > a {
+    outline: 0;
+}
+
+.dropdown-header {
+    display: block;
+    padding: 3px 20px;
+    font-size: 12px;
+    line-height: 1.428571429;
+    color: #999999;
+}
+
+.dropdown-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 990;
+}
+
+.pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.dropup .caret,
+.navbar-fixed-bottom .dropdown .caret {
+    border-top: 0;
+    border-bottom: 4px solid;
+    content: "";
+}
+
+.dropup .dropdown-menu,
+.navbar-fixed-bottom .dropdown .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 1px;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>产品属性模板-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <!-- header start-->
+        <div class="adsLeft">
+
+        </div>
+        <!-- header end-->
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header">
+
+            </div>
+            <div class="adsRight">
+                <!-- 顶部操作、搜索条件、列表   start -->
+                <div class="activityDshBoard template" id="activityDshBoard">
+                    <div class="adsRightCon">
+                        <div class="adsRightConMain">
+                            <ul class="textBoxTitle">
+                                <li>
+                                    <input type="text" v-model="queryParam.specLabel" placeholder="产品属性" />
+                                </li>
+                                <li>
+                                    <input type="text" v-model="queryParam.specValue" placeholder="产品属性值" />
+                                </li>
+
+                                <li class="searchBtn">
+                                    <span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+                                </li>
+                            </ul>
+                            <div class="reportMessages">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <!--<th>
+                                            <div class="selectAll select yes">
+                                                <input type="hidden" />
+                                            </div>
+                                        </th>-->
+                                        <th>序号</th>
+                                        <th>模板（属性&nbsp;-&nbsp;属性值）</th>
+                                        <th>属性代码</th>
+                                        <th>属性描述</th>
+                                        <th>属性值描述</th>
+                                        <th>操作</th>
+                                        <th>创建时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(tableOrderItem,index) in tableOrderList" orderid="'+orderListData[i].omOrderId+'" class="see">
+                                        <!--<td>
+                                            <div class="select yes">
+                                                <input type="hidden" />
+                                            </div>
+                                        </td>-->
+                                        <td v-if="currentPage == 1">
+                                            <p>{{index+1}}</p>
+                                        </td>
+                                        <td v-if="currentPage != 1">
+                                            <p>{{(index+1)+((currentPage-1)*12)}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{tableOrderItem.specLabel}}&nbsp;-&nbsp;{{tableOrderItem.specValue}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{tableOrderItem.specCode}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{tableOrderItem.specDesc}}</p>
+                                        </td>
+                                        <td>
+                                            <p>{{tableOrderItem.specValueDesc}}</p>
+                                        </td>
+                                        <td>
+                                            <span class="btn btn-details visible butOperatePermission" buttonCode="DETAIL" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('产品属性模板详情',tableOrderItem)">详情</span>
+                                            <span class="btn btn-edit visible butOperatePermission" buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeOrderDetails('产品属性模板修改',tableOrderItem)">修改</span>
+                                            <span class="btn btn-logistics visible butOperatePermission" buttonCode="DELETE" btn="logisticsInfoBtn" v-on:click="deleteOrderDetails(tableOrderItem)">删除</span>
+                                        </td>
+                                        <td>{{tableOrderItem.createTime | timestampToTime}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageList.length}}页/{{totalList.length}}条</p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="pageList.length != 0 && currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 顶部操作、搜索条件、列表   end -->
+
+                <!--  新增、详情、修改   start -->
+                <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                    <div class="adsRightCon">
+                        <div class="adsRightConList">
+                            <div class="adsRightConMatter">
+
+                                <div class="deliveryPointInf contactInf">
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle">产品属性模板基本信息</p>
+                                        <ul class="adsRightConInp" v-for="(itemSingle,index) in itemSingleList">
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>属性</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="itemSingle.pdSpecId" v-on:change="chooseOneProAttr(itemAttrLists,itemSingle.pdSpecId)" name="">
+                                                        <option value="">请选择</option>
+                                                        <option v-for="itemAttr in itemAttrLists" v-bind:value="itemAttr.pdSpecId">{{itemAttr.specLabel}}</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt"><span class="color_r" v-if="!isDisable">*&nbsp;</span>属性值</span>
+                                                <p class="inp">
+                                                    <select v-bind:disabled="isDisable" v-model="itemSingle.pdSpecValueId" v-on:change="chooseOneProAttrVal(itemAttrValLists,itemSingle.pdSpecValueId)" name="">
+                                                        <option value="">请选择</option>
+                                                        <option v-for="itemAttrVal in itemAttrValLists" v-bind:value="itemAttrVal.pdSpecValueId">{{itemAttrVal.specValue}}</option>
+                                                    </select>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="addNewOrderBot addNewContactBot">
+                                    <div class="searchBtn" v-if="clickBtnType == 'add'">
+                                        <span v-on:click="saveNewOrderInfo()">保存</span>
+                                    </div>
+                                    <div class="searchBtn" v-if="clickBtnType == 'edit'">
+                                        <span v-on:click="editOrderInfo()">保存</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  新增、详情、修改  end-->
+            </div>
+        </div>
+        <!-- adsContent end-->
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/pid/proAttrLnkVal.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>角色管理-OMS订单管理系统</title>
+    <link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../../js/common/env_config.js"></script>
+    <script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../css/plugIn/zTreeStyle.css" />
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+    <div class="myOverall">
+        <!-- header start-->
+        <div class="adsLeft">
+
+        </div>
+        <!-- header end-->
+
+        <!-- adsContent start-->
+        <div class="adsContent">
+            <div class="header">
+
+            </div>
+            <div class="adsRight">
+                <div class="pageHeader">
+                    <ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">角色管理</a></span></li>
+                    </ul>
+                    <ul class="pageHeaderR">
+                        <li class="searchBtn">
+                            <span class="butOperatePermission visible" buttonCode="ADD"  btn="newActivityDshBoardBtn"   v-on:click="addOrderDetails('新增角色')">新增</span>
+                        </li>
+                    </ul>
+                    <ul class="pageHeaderBack">
+                        <li class="visible">
+                            <img src="../../img/back_2.png" alt="返回上一步">
+                            <span>返回上一步</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="adsRightPackage">
+                    <!-- 列表   -->
+                    <div class="activityDshBoard template" id="activityDshBoard">
+                        <div class="adsRightCon">
+                            <div class="adsRightConMain">
+                                <ul class="textBoxTitle">
+                                    <li>
+                                        <label>角色id</label>
+                                        <input type="text" v-model="queryParam.umRoleId" placeholder="角色id" />
+                                    </li>
+                                    <li>
+                                        <label>代码</label>
+                                        <input type="text" v-model="queryParam.roleCode" placeholder="角色代码" />
+                                    </li>
+                                    <li>
+                                        <label>名称</label>
+                                        <input type="text" v-model="queryParam.roleName" placeholder="角色名称" />
+                                    </li>
+
+                                    <li class="searchBtn">
+                                        <span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+                                    </li>
+                                </ul>
+                                <div class="reportMessages">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>角色代码</th>
+                                            <th>操作</th>
+                                            <th>角色名称</th>
+                                            <th>租户编号</th>
+                                            <th>租户编码</th>
+                                            <th>租户名称</th>
+                                            <th>创建时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(tableOrderItem,index) in tableOrderList" class="see">
+                                            <td v-if="currentPage == 1">
+                                                <p>{{index+1}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.roleCode}}</p>
+                                            </td>
+                                            <td>
+                                                <div class="foldBotton">
+                                                    <span class="handleIcon"></span>
+                                                    <p>
+                                                        <span class="btn btn-details visible butOperatePermission" buttonCode="DETAIL" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('角色详情',tableOrderItem)">详情</span>
+                                                        <span class="btn btn-code visible butOperatePermission" buttonCode="IMPOWER" id="getAuthorMeauId" v-bind:orgId="tableOrderItem.umRoleId" v-bind:orgId1="tableOrderItem.umTenantId" v-bind:orgId2="tableOrderItem.umUserId" btn="currentOrderCodeBtn" v-on:click="roleAuthor(tableOrderItem)">角色授权</span>
+                                                        <span class="btn btn-code visible butOperatePermission" buttonCode="ALLOT_ORGANIZE" id="getAllotOrgId" v-bind:orgId="tableOrderItem.umRoleId" btn="allotOrganizationBtn" v-on:click="allotOrganization(tableOrderItem)">分配组织</span>
+                                                        <span class="btn btn-edit visible butOperatePermission" buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeOrderDetails('修改角色',tableOrderItem)">修改</span>
+                                                        <span class="btn btn-logistics visible butOperatePermission" buttonCode="DELETE" btn="logisticsInfoBtn" v-on:click="deleteOrderDetails(tableOrderItem)">删除</span>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.roleName}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantNo}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantCode}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{tableOrderItem.tenantName}}</p>
+                                            </td>
+                                            <td><p>{{tableOrderItem.createTime | timestampToTime}}</p></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--<div class="adsRightFooter">
+                                <div class="paging">
+                                    <p class="totalPages">共{{pageList.length}}页 /{{totalPagesNum}}条
+                                        <select v-model="queryPageSize">
+                                            <option value="20">20条/页</option>
+                                            <option value="30">30条/页</option>
+                                            <option value="40">40条/页</option>
+                                            <option value="50">50条/页</option>
+                                            <option value="80">80条/页</option>
+                                            <option value="100">100条/页</option>
+                                        </select>
+                                    </p>
+                                    <div class="pagingBox">
+                                        <span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+                                        <div class="pagingCon">
+                                            <ul class="pagination">
+                                                <li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <span v-if="currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                    <!-- 列表   、-->
+
+                    <!-- 新增 修改   -->
+                    <div class="newActivityDshBoard template" id="newAdsActivityManage">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="deliveryPointInf">
+                                        <div class="adsRightConItem">
+                                            <p class="adsRightConTitle">角色信息</p>
+                                            <ul class="adsRightConInp">
+                                                <li>
+                                                    <span class="txt">角色代码</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="roleInf.roleCode" placeholder="角色代码" />
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <span class="txt">角色名称</span>
+                                                    <p class="inp">
+                                                        <input v-bind:disabled="isDisable" type="text" v-model="roleInf.roleName" placeholder="角色名称" />
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                            <div class="addNewOrderBot">
+                                                <div class="searchBtn" v-if="clickBtnType == 'add'">
+                                                    <span v-on:click="saveNewRoleInfo()">保存</span>
+                                                </div>
+                                                <div class="searchBtn" v-if="clickBtnType == 'edit'">
+                                                    <span v-on:click="editRoleInfo()">保存</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 新增 修改   、-->
+
+                    <!-- 角色授权  -->
+                    <div class="currentOrderCode template" id="currentOrderCode">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="adsRightConItem roleInfList">
+                                        <p class="adsRightConTitle">基本信息</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">角色名称</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="roleInf.roleName" placeholder="角色名称" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">角色编码 </span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="roleInf.roleCode" placeholder="角色编码" />
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle">授权功能菜单</p>
+                                        <div class="zTreeDemoBackground left">
+                                            <ul id="treeDemo1" class="ztree"></ul>
+                                        </div>
+                                        <div class="addNewOrderBot">
+                                            <div class="searchBtn">
+                                                <span class="saveFunMeauBtn">保存</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 角色授权    、-->
+
+                    <!-- 分配组织  -->
+                    <div class="allotOrganization template" id="allotOrganization">
+                        <div class="adsRightCon">
+                            <div class="adsRightConList">
+                                <div class="adsRightConMatter">
+                                    <div class="adsRightConItem roleInfList">
+                                        <p class="adsRightConTitle">基本信息</p>
+                                        <ul class="adsRightConInp">
+                                            <li>
+                                                <span class="txt">角色名称</span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="roleInf.roleName" placeholder="角色名称" />
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <span class="txt">角色编码 </span>
+                                                <p class="inp">
+                                                    <input v-bind:disabled="isDisable" type="text" v-model="roleInf.roleCode" placeholder="角色编码" />
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="adsRightConItem">
+                                        <p class="adsRightConTitle">分配组织</p>
+                                        <div class="zTreeDemoBackground left">
+                                            <ul id="treeDemo" class="ztree"></ul>
+                                        </div>
+                                        <div class="addNewOrderBot">
+                                            <div class="searchBtn">
+                                                <span class="saveNewOrderBtn saveNewOrgBtn">保存</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 分配组织    、-->
+                </div>
+            </div>
+        </div>
+        <!-- adsContent end-->
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../js/lib/jquery.ztree.excheck.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/ums/roleManage.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

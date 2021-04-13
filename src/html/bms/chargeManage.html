@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>费用管理-BMS费用管理系统</title>
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="../../js/common/env_config.js"></script>
+	<link href="../../dateRangePicker/font-awesome.4.6.0.css" rel="stylesheet">
+	<link href="../../dateRangePicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" media="all">
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+	</script>
+	<link rel="stylesheet" href="https://at.alicdn.com/t/font_234130_nem7eskcrkpdgqfr.css">
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/plugIn/schedule.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+	</script>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+	<div class="myOverall">
+		<!-- header start-->
+		<div class="adsLeft">
+
+		</div>
+		<!-- header end-->
+
+		<!-- adsContent start-->
+		<div class="adsContent">
+			<div class="header">
+
+			</div>
+			<div class="adsRight">
+				<div class="pageHeader">
+					<ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">费用管理</a></span></li>
+                        <li><span><a :href="linkHrefs[1]">账单管理</a></span></li>
+					</ul>
+					<ul class="pageHeaderR">
+                        <li class="searchBtn">
+                            <span class="butOperateShow"v-on:click="orderToActivate('1')">批量激活</span>
+                        </li>
+                        <li class="searchBtn">
+                            <span class="butOperateShow" v-on:click="orderToActivate('0')">批量取消</span>
+                        </li>
+						<li class="searchBtn">
+							<span class="butOperatePermission" buttonCode="BILL_CREATE" v-on:click="createBill()" >账单生成</span>
+						</li>
+						<li class="searchBtn">
+							<span class="butOperatePermission" buttonCode="EXPORT_BC" v-on:click="exportCharge()">费用导出</span>
+						</li>
+						<li class="searchBtn">
+							<span class="butOperatePermission" buttonCode="EXPORT_BC" v-on:click="exportTjoCharge()">应付导出</span>
+						</li>
+					</ul>
+					<ul class="pageHeaderBack">
+						<li class="visible">
+							<img src="../../img/back_2.png" alt="返回上一步">
+							<span>返回上一步</span>
+						</li>
+					</ul>
+				</div>
+				<div class="adsRightPackage">
+					<!-- 费用管理   -->
+					<div class="activityDshBoard template" id="activityDshBoard">
+						<div class="adsRightCon">
+							<div class="adsRightConMain">
+								<ul class="textBoxTitle">
+									<li>
+										<label>创建时间</label>
+										<input type="text" readonly  class="timePlugIn" id="timeRange"  v-model="timeHorizon"  placeholder="创建时间范围"/>
+									</li>
+									<li>
+										<label>订单号</label>
+										<input type="text" v-model="queryParam.refHash" placeholder="请输入订单号" />
+									</li>
+									<li class="searchBtn">
+										<span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()" >查询</span>
+									</li>
+									<li class="searchBtn">
+										<span class="whiteBtn collSwitch"><i></i>筛选</span>
+										<div class="collUnfold">
+											<div>
+												<p><img class="closeCollUnfold" src="../../img/closeBtn2.png" alt=""></p>
+												<ul>
+													<li>
+														<label>付款人</label>
+														<input type="text" v-model="queryParam.chargeFromName" placeholder="付款人" />
+													</li>
+													<li>
+														<label>收款人</label>
+														<input type="text" v-model="queryParam.chargeToName" placeholder="收款人" />
+													</li>
+                                                    <li>
+                                                        <label>收付类型</label>
+                                                        <select v-model="queryParam.rpType">
+                                                            <option value="">请选择收付类型</option>
+                                                            <option v-for="item in selectListData.rpTypeList " v-bind:value="item.code">{{item.text}}</option>
+                                                        </select>
+                                                    </li>
+													<li>
+                                                        <label>费用类型</label>
+                                                        <select v-model="queryParam.chargeType" name="">
+                                                            <option value="">请选择费用类型</option>
+                                                            <option v-for="chargeTypeItem in selectListData.chargeTypeList" v-bind:value="chargeTypeItem.code">{{chargeTypeItem.text}}</option>
+                                                        </select>
+                                                    </li>
+													<li>
+														<label>发起方编码</label>
+														<input type="text" v-model="queryParam.chargeFrom" placeholder="发起方编码" />
+													</li>
+													<li>
+														<label>接收方编码</label>
+														<input type="text" v-model="queryParam.chargeTo" placeholder="接收方编码" />
+													</li>
+													<li>
+														<label>账单状态</label>
+														<select v-model="queryParam.isBilled" name="">
+															<option value="">全部</option>
+                                                            <option value="0">未生成账单</option>
+                                                            <option value="1">已生成账单</option>
+														</select>
+													</li>
+                                                    <li>
+                                                        <label>费用状态</label>
+                                                        <select v-model="queryParam.activeStatus" name="">
+                                                            <option value="">全部</option>
+                                                            <option value="0">失效</option>
+                                                            <option value="1">生效</option>
+                                                        </select>
+                                                    </li>
+													<li>
+                                                        <label>分组类型</label>
+                                                        <select v-model="queryParam.chargeGroup" name="">
+                                                            <option value="">请选择分组类型</option>
+                                                            <option v-for="chargeGroupItem in selectListData.chargeGroupList" v-bind:value="chargeGroupItem.code">{{chargeGroupItem.text}}</option>
+                                                        </select>
+                                                    </li>
+												</ul>
+												<div class="searchBtn collSearch">
+													<span class="whiteBtn" v-on:click="clearSearchInfo()">重置</span>
+													<span v-on:click="getSearchVal()">确认</span>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+								<div id="schedule-box" class="boxshaw" style="display: none;"></div>
+								<div class="reportMessages">
+									<table>
+										<thead>
+										<tr>
+											<th>
+												<input class="checkInp" type="checkbox" v-bind:value="allChecked" v-on:change="textboxAllSelectionFun(allChecked)"/>
+											</th>
+											<th>费用ID</th>
+                                            <th>操作</th>
+											<th>订单号</th>
+											<th>发起方编码</th>
+											<th>接收方编码</th>
+											<th>收付类型</th>
+											<th>费用类型</th>
+											<th>分组类型</th>
+											<th>数量</th>
+											<th>单位</th>
+											<th>百分比折扣</th>
+											<th>金额折扣</th>
+											<th>税率</th>
+											<th>税值</th>
+											<th>费用金额</th>
+											<th>币种</th>
+											<th>汇率</th>
+											<th>备注</th>
+											<th>是否已生成账单</th>
+											<th>激活状态</th>
+											<th>创建时间</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr v-for="tableCharge in tableChargeList" class="see">
+											<td>
+												<input class="checkInp" type="checkbox" v-bind:value="tableCharge.bmChargeId" v-on:change="textboxSelectionFun($event,tableCharge)"/>
+											</td>
+											<td>
+												<p>{{tableCharge.bmChargeId}}</p>
+											</td>
+                                            <td>
+                                                <div class="foldBotton">
+                                                    <span class="handleIcon"></span>
+                                                    <p>
+                                                        <span class="btn btn-details visible butOperatePermission orderDetailBtn"
+                                                              buttonCode="DETAIL" btn="newActivityDshBoardBtn"
+                                                              v-on:click="getCostItemInfo(tableCharge.bmChargeId)">明细</span>
+                                                        <span class="btn btn-details visible butOperatePermission orderDetailBtn"
+                                                              buttonCode="DETAIL" btn="newActivityDshBoardBtn"
+                                                              v-if="0 == tableCharge.activeStatus"
+                                                              v-on:click="orderItemToActivate(tableCharge.bmChargeId,'1')">激活</span>
+                                                        <span class="btn btn-details visible butOperatePermission orderDetailBtn"
+                                                              buttonCode="DETAIL" btn="newActivityDshBoardBtn"
+                                                              v-if="1 == tableCharge.activeStatus"
+                                                              v-on:click="orderItemToActivate(tableCharge.bmChargeId,'0')">取消</span>
+                                                    </p>
+                                                </div>
+                                            </td>
+											<td>
+												<p>{{tableCharge.refHash}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.chargeFrom}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.chargeTo}}</p>
+											</td>
+											<td>
+												<p v-for="rpTypeItem in selectListData.rpTypeList" v-if="rpTypeItem.code == tableCharge.rpType">{{rpTypeItem.text}}</p>
+											</td>
+
+											<td>
+												<p v-for="chargeTypeItem in selectListData.chargeTypeList" v-if="chargeTypeItem.code == tableCharge.chargeType">{{chargeTypeItem.text}}</p>
+											</td>
+
+											<td>
+												<p v-for="chargeGroupItem in selectListData.chargeGroupList" v-if="chargeGroupItem.code == tableCharge.chargeGroup">{{chargeGroupItem.text}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.qty}}</p>
+											</td>
+											<td>
+												<p v-for="qtyUnitItem in selectListData.qtyUnitList" v-if="qtyUnitItem.code == tableCharge.qtyUnit">{{qtyUnitItem.text}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.discountRate}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.discount}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.taxRate}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.tax}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.amount}}</p>
+											</td>
+											<td>
+												<p v-for="rpTypeItem in selectListData.currencyList" v-if="rpTypeItem.code == tableCharge.currency">{{rpTypeItem.text}}</p>
+											</td>
+
+											<td>
+												<p>{{tableCharge.exchangeRate}}</p>
+											</td>
+											<td>
+												<p>{{tableCharge.remark}}</p>
+											</td>
+
+											<td>
+												<p v-if="0 == tableCharge.isBilled">否</p>
+												<p v-if="1 == tableCharge.isBilled">是</p>
+											</td>
+
+											<td>
+												<p v-if="0 == tableCharge.activeStatus">否</p>
+												<p v-if="1 == tableCharge.activeStatus">是</p>
+											</td>
+
+											<td><p>{{tableCharge.createTime | timestampToTime}}</p></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="adsRightFooter">
+								<div class="paging">
+									<p class="totalPages">共{{pageList.length}}页 /{{totalPagesNum}}条
+										<select v-model="queryPageSize">
+											<option value="20">20条/页</option>
+											<option value="30">30条/页</option>
+											<option value="40">40条/页</option>
+											<option value="50">50条/页</option>
+											<option value="80">80条/页</option>
+											<option value="100">100条/页</option>
+										</select>
+									</p>
+									<div class="pagingBox">
+										<span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+										<div class="pagingCon">
+											<ul class="pagination">
+												<li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+											</ul>
+										</div>
+										<span v-if="currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 费用管理   、-->
+				</div>
+			</div>
+		</div>
+		<!-- adsContent end-->
+	</div>
+
+    <div class="maskLayer maskLayer1">
+        <div class="popup">
+            <div class="popupCon">
+                <h3 class="popupTitle" style="border: 0;">
+                    <span>全部合作商</span>
+                    <a href="javascript:;" v-on:click="closeMaskLayer()"><img src="../../img/windowicon/bar_icon_close.png" alt="" /></a>
+                </h3>
+                <div class="popupDpList">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>批次号</th>
+                            <th>费用金额</th>
+                            <th>费用描述</th>
+                            <th>费用编码</th>
+                            <th>费用组编码</th>
+                            <th>计费值</th>
+                            <th>计费值单位</th>
+                            <th>备注</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(costItem,index) in costDetailList" class="seeCost">
+                            <td class="switchTd" v-if="costItem.isUnderl">
+                                <p class="open" v-bind:style="{marginLeft: costItem.leftDis}" @click="getCostChildItemInfo(costItem.bmChargeItemId,costItem.leftDis,index,true)">+</p>
+                                <p class="open" v-bind:style="{marginLeft: costItem.leftDis}" style="display: none;" @click="getCostChildItemInfo(costItem.bmChargeItemId,costItem.leftDis,index,false)">-</p>
+                            </td>
+                            <td class="switchTd" v-if="!costItem.isUnderl"></td>
+                            <td>
+                                <p>{{costItem.lot}}</p>
+                            </td>
+                            <td>
+                                <p>{{costItem.amount}}</p>
+                            </td>
+                            <td>
+                                <p>{{costItem.chargeDect}}</p>
+                            </td>
+                            <td>
+                                <p v-for="chargeTypeItem in selectListData.chargeTypeList" v-if="chargeTypeItem.code == costItem.chargeType">{{chargeTypeItem.text}}</p>
+                            </td>
+                            <td>
+                                <p v-for="chargeGroupItem in selectListData.chargeGroupList" v-if="chargeGroupItem.code == costItem.chargeGroup">{{chargeGroupItem.text}}</p>
+                            </td>
+                            <td>
+                                <p>{{costItem.value}}</p>
+                            </td>
+                            <td>
+                                <p>{{costItem.valueUnit}}</p>
+                            </td>
+                            <td>
+                                <p>{{costItem.remark}}</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/barcode.js"></script>
+<script type="text/javascript" src="../../js/lib/qrcode.js" ></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/schedule.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/moment.js"></script>
+<script type="text/javascript" src="../../dateRangePicker/daterangepicker.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='https://webapi.amap.com/maps?v=1.4.6&key=" + AmapQdKey + "&plugin=AMap.Driving'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/bms/chargeManage.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>

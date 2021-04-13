@@ -1,0 +1,25 @@
+{
+    "requirejs": {
+        "requirejs": {
+            "options": {
+                "appDir":"src/",
+                "baseUrl": "js/",
+                "optimizeCss": "standard",
+                "mainConfigFile": "",
+                "dir": "dist-oms",
+                "removeCombined": "true"
+            }
+        }
+    },
+    "clean": {
+        "build": {
+            "src": [ "dist-oms", "dist-oms.zip"]
+        }
+    },
+    "zip": {
+        "long-format": {
+            "src": ["dist-oms/**"],
+            "dest": "dist-oms.zip"
+        }
+    }
+}

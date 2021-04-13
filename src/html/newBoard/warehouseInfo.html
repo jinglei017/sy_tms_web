@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title class="myfont">数据中心</title>
+	<link rel="stylesheet" type="text/css" href="../../css/newBoard/style/common.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/newBoard/style/warehouseInfo.css" />
+	<link rel="stylesheet" type="text/css" href="https://webapi.amap.com/ui/1.0/ui/geo/DistrictExplorer/examples/area.css">
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+
+	<script type="text/javascript" src="../../js/newBoard/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="../../js/lib/vue.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/public.js"></script>
+	<script type="text/javascript" src="../../js/newBoard/echarts.js"></script>
+    <script type="text/javascript" src="../../js/newBoard/scroll.js"></script>
+</head>
+
+<body>
+
+<div class="overall" id="overall">
+	<div class="header">
+		<a href="javascript:;" onclick="javascript:history.back(-1);">
+			<span class="img"></span>
+			<span class="txt">返回</span>
+		</a>
+		<div class="hTxt myfont"></div>
+	</div>
+	<div class="main">
+		<div class="mHeader">
+			<div class="mLeft">
+				<div class="orderDisposeItem mlItem">
+					<div class="mliTitle">
+						<h3 class="txt">本年累计订单处理量</h3>
+					</div>
+					<div class="orderDisposeCon">432550单</div>
+				</div>
+				<div class="todayOrderItem mlItem">
+					<div class="mliTitle">
+						<h3 class="txt">当日订单数</h3>
+						<p class="num"><b>3084</b> 辆</p>
+					</div>
+					<div class="todayOrderCon">
+						<ul>
+							<li>
+								<span>仓库</span>
+								<span>常温</span>
+								<span>冷冻</span>
+							</li>
+							<li>
+								<span>宝山库</span>
+								<span>378</span>
+								<span>240</span>
+							</li>
+							<li>
+								<span>闵行库</span>
+								<span>625</span>
+								<span>95</span>
+							</li>
+							<li>
+								<span>奉贤库</span>
+								<span>524</span>
+								<span>1450</span>
+							</li>
+							<li>
+								<span>浦东库</span>
+								<span>389</span>
+								<span>0</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="mCon">
+				<div class="resourceStatCon">
+					<ul class="resourceStatNum">
+						<li>
+							<p class="txt">总面积</p>
+							<p class="num" v-if="totalAreas.length">
+								<span v-for="totalAreaItem in totalAreas">{{totalAreaItem}}</span>平米
+							</p>
+                            <p class="num" v-if="!totalAreas.length">
+                                <span>-</span><span>-</span><span>-</span>平米
+                            </p>
+						</li>
+						<li>
+							<p class="txt">可用面积</p>
+							<p class="num" v-if="usableAreas.length">
+								<span v-for="usableAreaItem in usableAreas">{{usableAreaItem}}</span>平米
+							</p>
+                            <p class="num" v-if="!usableAreas.length">
+                                <span>-</span><span>-</span><span>-</span>平米
+                            </p>
+						</li>
+					</ul>
+				</div>
+				<div class="resourceDetail">
+                    <div class="resourceDeList">
+                        <ul style="margin-bottom: 10px;">
+                            <li>仓库名称</li>
+                            <li>总面积</li>
+                            <li>可用面积</li>
+                            <li>类型</li>
+                            <li>特性</li>
+                        </ul>
+                        <div class="warehouseDeList">
+                            <div class="list">
+                                <ul v-for="warehouseVoItem in warehouseVoList">
+                                    <li>{{warehouseVoItem.name}}</li>
+                                    <li>{{warehouseVoItem.totalArea}}</li>
+                                    <li>{{warehouseVoItem.usableArea}}</li>
+                                    <li>{{warehouseVoItem.depotType | changeDepotType}}</li>
+                                    <li>{{warehouseVoItem.depotLable | changeDepotLable}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+
+			<div class="mRight">
+				<div class="outPutItem mlItem">
+					<div class="mriTitle">
+						<h3 class="txt">当日处理件数</h3>
+						<p class="num"><b>58046</b> 件</p>
+					</div>
+					<div class="outPutCon">
+						<ul>
+							<li>
+								<span>仓库</span>
+								<span>常温</span>
+								<span>冷冻</span>
+							</li>
+							<li>
+								<span>宝山库</span>
+								<span>3780</span>
+								<span>1240</span>
+							</li>
+							<li>
+								<span>闵行库</span>
+								<span>3625</span>
+								<span>795</span>
+							</li>
+							<li>
+								<span>奉贤库</span>
+								<span>12524</span>
+								<span>8450</span>
+							</li>
+							<li>
+								<span>浦东库</span>
+								<span>3389</span>
+								<span>0</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="putawayItem mlItem">
+					<div class="mriTitle">
+						<h3 class="txt">当日出库件数</h3>
+						<p class="num"><b>58046</b> 件</p>
+					</div>
+					<div class="putawayCon">
+						<ul>
+							<li>
+								<span>仓库</span>
+								<span>常温</span>
+								<span>冷冻</span>
+							</li>
+							<li>
+								<span>宝山库</span>
+								<span>3780</span>
+								<span>1240</span>
+							</li>
+							<li>
+								<span>闵行库</span>
+								<span>3625</span>
+								<span>795</span>
+							</li>
+							<li>
+								<span>奉贤库</span>
+								<span>12524</span>
+								<span>8450</span>
+							</li>
+							<li>
+								<span>浦东库</span>
+								<span>3389</span>
+								<span>0</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mBottom">
+			<div class="mbLeft">
+				<div class="mcbTitle">月仓库面积及处理单量</div>
+				<div class="classNumberCon">
+					<div class="areaDisposeCharts" id="areaDisposeCharts">
+
+					</div>
+				</div>
+			</div>
+			<div class="mbRight">
+				<div class="mcbTitle">单库月处理单量对照图</div>
+				<div class="classNumberCon">
+					<div class="orderDisposeCharts" id="orderDisposeCharts">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="../../js/common/env_config.js"></script>
+<script type="text/javascript" src="../../js/newBoard/warehouseInfo.js"></script>
+
+</body>
+</html>

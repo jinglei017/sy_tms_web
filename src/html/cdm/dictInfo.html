@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>数据字典-OMS订单管理系统</title>
+	<link rel="icon" href="../../img/fontIcon/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="../../js/common/env_config.js"></script>
+	<script type="text/javascript">
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/common.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/style.css?v=" + pageVerson + "'/>");
+        document.write("<link rel='stylesheet' type='text/css' href='../../css/common/popup.css?v=" + pageVerson + "'/>");
+	</script>
+	<style type="text/css">
+		.adsContent .adsRight .contactInf .adsRightConItem .adsRightConInp li .txt{
+			width: 96px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="overall" id="overall" v-cloak>
+	<div class="myOverall">
+		<!-- header start-->
+		<div class="adsLeft">
+
+		</div>
+		<!-- header end-->
+
+		<!-- adsContent start-->
+		<div class="adsContent">
+			<div class="header">
+
+			</div>
+			<div class="adsRight">
+				<div class="pageHeader">
+					<ul class="pageHeaderL">
+                        <li><span class="active"><a href="javascript:;">数据字典</a></span></li>
+					</ul>
+					<ul class="pageHeaderR">
+						<li class="searchBtn">
+							<span class="butOperatePermission visible" buttonCode="ADD"  btn="newActivityDshBoardBtn"   v-on:click="addOrderDetails('新增数据字典')">新增</span>
+						</li>
+						<li class="searchBtn">
+							<span class="butOperatePermission add" buttonCode="ADD"  v-on:click="resetBasicData()">刷新基础数据</span>
+						</li>
+						<li class="searchBtn">
+							<span class="txtBox butOperatePermission" buttonCode="UPLOAD" v-on:click="chooseTheFileType()">上传文件</span>
+							<input type="file" name="excelFile" style="display: none;" v-on:change="chooseTheFile()" id="excelFile" />
+							<div class="suspend">
+								<b>*请先下载<a href="../../download/cdm-ImportDictData v1.1.xlsx">excel模板</a>，按照模板填写。</b>
+							</div>
+							<div class="triangle"></div>
+						</li>
+					</ul>
+					<ul class="pageHeaderBack">
+						<li class="visible">
+							<img src="../../img/back_2.png" alt="返回上一步">
+							<span>返回上一步</span>
+						</li>
+					</ul>
+				</div>
+				<div class="adsRightPackage">
+					<!-- 订单管理   -->
+					<div class="activityDshBoard template" id="activityDshBoard">
+						<div class="adsRightCon">
+							<div class="adsRightConMain">
+								<ul class="textBoxTitle">
+									<li>
+										<label>表名/代码类型：</label>
+										<input type="text" v-model="queryParam.tableName" placeholder="表名/代码类型" />
+									</li>
+									<li>
+										<label>字段值/代码键：</label>
+										<input type="text" v-model="queryParam.columnName" placeholder="字段值/代码键" />
+									</li>
+									<li>
+										<label>代码文本：</label>
+										<input type="text" v-model="queryParam.text" placeholder="代码文本" />
+									</li>
+									<li>
+										<label>代码值：</label>
+										<input type="text" v-model="queryParam.code" placeholder="代码值" />
+									</li>
+									<li class="searchBtn" style="width: 80px;">
+										<span class="butOperatePermission" buttonCode="QUERY" v-on:click="getSearchVal()">查询</span>
+									</li>
+								</ul>
+								<div class="reportMessages">
+									<table>
+										<thead>
+										<tr>
+											<!--<th>
+												<div class="selectAll select yes">
+													<input type="hidden" />
+												</div>
+											</th>-->
+											<th>序号</th>
+											<th>操作</th>
+											<th>表名/代码类型</th>
+											<th>字段值/代码键</th>
+											<th>代码文本</th>
+											<th>代码值</th>
+											<th>顺序</th>
+											<th>状态</th>
+											<th>创建时间</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr v-for="(tableOrderItem,index) in tableOrderList" orderid="'+orderListData[i].omOrderId+'" class="see">
+											<!--<td>
+												<div class="select yes">
+													<input type="hidden" />
+												</div>
+											</td>-->
+											<td v-if="currentPage == 1">
+												<p>{{index+1}}</p>
+											</td>
+											<td v-if="currentPage == 2">
+												<!-- 转换成数字  否则是字符串相加序号这一列顺序就不对 -->
+												<p>{{Number(queryPageSize)+index+1}}</p>
+											</td>
+											<td v-if="currentPage > 2">
+												<!-- 每页显示的个数+当前点击的分页-每页显示的个数+index+1 -->
+												<p>{{queryPageSize*currentPage-queryPageSize+index+1}}</p>
+											</td>
+											<td>
+												<div class="foldBotton">
+													<span class="handleIcon"></span>
+													<p>
+														<span class="btn btn-details visible butOperatePermission orderDetailBtn"  buttonCode="DETAIL" btn="newActivityDshBoardBtn" v-on:click="getOrderDetails('数据字典信息',tableOrderItem)">详情</span>
+														<span class="btn btn-edit visible butOperatePermission orderEditBtn"  buttonCode="UPDATE" btn="newActivityDshBoardBtn" v-on:click="changeOrderDetails('修改数据字典信息',tableOrderItem)">修改</span>
+														<span class="btn btn-logistics visible butOperatePermission orderDeteleBtn"  buttonCode="DELETE" btn="logisticsInfoBtn" v-on:click="deleteOrderDetails(tableOrderItem)">删除</span>
+													</p>
+												</div>
+											</td>
+											<td>
+												<p>{{tableOrderItem.tableName}}</p>
+											</td>
+											<td>
+												<p>{{tableOrderItem.columnName}}</p>
+											</td>
+											<td>
+												<p>{{tableOrderItem.text}}</p>
+											</td>
+											<td>
+												<p>{{tableOrderItem.code}}</p>
+											</td>
+											<td>
+												<p>{{tableOrderItem.seq}}</p>
+											</td>
+											<td>
+												<p v-if="tableOrderItem.isActive == 1">激活</p>
+												<p v-if="tableOrderItem.isActive == 0">未激活</p>
+											</td>
+											<td><p>{{tableOrderItem.createTime | timestampToTime}}</p></td>
+											<!--<td>{{tableOrderItem.completeTime | timestampToTime}}</td>-->
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="adsRightFooter">
+								<div class="paging">
+									<p class="totalPages">共{{pageList.length}}页 /{{totalList.length}}条
+										<select v-model="queryPageSize">
+											<option value="20">20条/页</option>
+											<option value="30">30条/页</option>
+											<option value="40">40条/页</option>
+											<option value="50">50条/页</option>
+											<option value="80">80条/页</option>
+											<option value="100">100条/页</option>
+										</select>
+									</p>
+									<div class="pagingBox">
+										<span v-if="currentPage != 1" v-on:click="changePage(currentPage-1,'up')"><a href="javascript:;">«</a></span>
+										<div class="pagingCon">
+											<ul class="pagination">
+												<li v-for="pageItem in pageList" v-on:click="changePage(pageItem,'current')"><a v-bind:class="{'active': pageItem == currentPage }" href="javascript:;">{{pageItem}}</a></li>
+											</ul>
+										</div>
+										<span v-if="currentPage != pageList.length" v-on:click="changePage(currentPage+1,'down')"><a href="javascript:;">»</a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 订单管理   、-->
+
+					<!-- 订单管理-新增   -->
+					<div class="newActivityDshBoard template" id="newAdsActivityManage">
+						<div class="adsRightCon">
+							<div class="adsRightConList">
+								<div class="adsRightConMatter">
+									<!--货点基本信息-->
+									<div class="deliveryPointInf contactInf">
+										<div class="adsRightConItem">
+											<p class="adsRightConTitle">数据字典信息</p>
+											<ul class="adsRightConInp">
+												<li>
+													<span class="txt">表名/代码类型</span>
+													<p class="inp">
+														<input v-bind:disabled="isDisable" type="text" v-model="dictLocation.tableName" v-on:keyup="getTableInfo(dictLocation.tableName)" placeholder="表名/代码类型" />
+													</p>
+													<dl class="fateCon" style="left: 80%" v-if="showTableList">
+														<dd v-for="tableInfo in tableList" v-on:click="chooseTable(tableInfo)">{{tableInfo.columnName}}</dd>
+													</dl>
+												</li>
+												<li>
+													<span class="txt">字段值/代码键</span>
+													<p class="inp">
+														<input v-bind:disabled="isDisable" type="text" v-model="dictLocation.columnName" v-on:keyup="getTableFieldInfo(dictLocation.columnName)" placeholder="字段值/代码键" />
+													</p>
+													<dl class="fateCon" style="left: 80%;width: 90%" v-if="showTableFieldList">
+														<dd v-for="tableFieldInfo in tableFieldList" v-on:click="chooseTableField(tableFieldInfo)">
+															{{tableFieldInfo.columnName}}-{{tableFieldInfo.code}}-{{tableFieldInfo.codeDesc}}
+														</dd>
+													</dl>
+												</li>
+												<li>
+													<span class="txt">顺序</span>
+													<p class="inp">
+														<input v-bind:disabled="isDisable" type="text" v-model="dictLocation.seq" placeholder="顺序" />
+													</p>
+												</li>
+												<li>
+													<span class="txt">代码值</span>
+													<p class="inp">
+														<input v-bind:disabled="isDisable" type="text" v-model="dictLocation.code" placeholder="代码值" />
+													</p>
+												</li>
+												<li>
+													<span class="txt">代码文本</span>
+													<p class="inp">
+														<input v-bind:disabled="isDisable" type="text" v-model="dictLocation.text"  placeholder="代码文本" />
+													</p>
+												</li>
+												<li>
+													<span class="txt">代码描述</span>
+													<p class="inp">
+														<input v-bind:disabled="isDisable" type="text" v-model="dictLocation.description"  placeholder="代码描述" />
+													</p>
+												</li>
+												<li>
+													<span class="txt">是否激活</span>
+													<p class="inp">
+														<select v-bind:disabled="isDisable" v-model="dictLocation.isActive" name="">
+															<option value="">请选择</option>
+															<option value="1">激活</option>
+															<option value="0">未激活</option>
+														</select>
+													</p>
+												</li>
+											</ul>
+											<div class="addNewOrderBot">
+												<div class="searchBtn">
+													<span v-on:click="saveNewOrderInfo()" v-if="clickBtnType == 'add'">保存</span>
+													<span v-on:click="editOrderInfo()" v-if="clickBtnType == 'edit'">修改</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 订单管理 -新增   、-->
+				</div>
+			</div>
+		</div>
+		<!-- adsContent end-->
+	</div>
+</div>
+
+<script type="text/javascript" src="../../js/lib/jquery-1.11.0.js"></script>
+<script type="text/javascript" src="../../js/lib/vue.js"></script>
+<script type="text/javascript" src="../../js/lib/ajaxFileUpload.js"></script>
+<script type="text/javascript">
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/publicHtml.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/public.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/common/htmlSelect.js?v=" + pageVerson + "'></s" + "cript>");
+    document.write("<s" + "cript type='text/javascript' src='../../js/cdm/dictInfo.js?v=" + pageVerson + "'></s" + "cript>");
+</script>
+
+</body>
+</html>
+
+
+
+
